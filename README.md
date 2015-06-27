@@ -1,5 +1,5 @@
 # RetroAdapterMod
-Mod of Paul Qureshi's Mojo RetroAdapter
+Mod of Paul Qureshi's Mojo RetroAdapter Firmware
 
 Paul Qureshi RetroAdapter Firmware v2.1a Mod v0.3
 -------------------------------------------------
