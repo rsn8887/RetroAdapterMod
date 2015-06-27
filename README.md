@@ -11,11 +11,11 @@ License GPL (see License.txt)
 
 - Original source for "USB Retropad Adapter" from Bruno Freitas acquired via
 http://www.brunofreitas.com/node/41
-(included for reference in folder src_orig)
+(included for reference in folder original_Files)
 
 - Original source for "Retro Adapter v2.1a" from Paul Qureshi acquired via
 http://denki.world3.net/retro_v2.html
-(incuded for reference in folder src_orig)
+(incuded for reference in folder original_Files)
 
 - This mod by rsn8887
 
