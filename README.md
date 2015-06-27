@@ -38,26 +38,7 @@ I modified and recompiled the Retroadapter firmware, replacing the original PC s
 - Arcade mode: 
 This version is suited for use in an Arcade cabinet. It works on PCs just like the original RetroAdapter, but I replaced Neogeo stick support on the DB15 with an arcade mode that has just 8 firebuttons on the DB15, to give you a total of 10 buttons and 4 directions when you hook up to DB9 and DB15 both.
 
-The pinout for the Arcade mode:
-db15
-pin 3 - button 7
-pin 4 - button 4
-pin 5 - button 6
-pin 6 - button 9
-pin 7 - button 10
-pin 11 - button 8
-pin 12 - button 3
-pin 13 - button 5
-
-db9 (unchanged)
-pin 1 - up
-pin 2 - down
-pin 3 - left
-pin 4 - right
-pin 6 - button 1
-pin 9 - button 2
-
 - Normal mode: 
 This is for regular use and functions identical to the original RetroAdapter. However, it is improved for operation under Android OS. Under Android, the original RetroAdapter was not reporting directions up and left for NES and some other controller types. Note: The Android fixes are also incorporated into the Arcade mode version.
 
-For more information, see readme.txt
+For more information, please see readme.txt
