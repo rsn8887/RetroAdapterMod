@@ -1,0 +1,15 @@
+NOTE: If you are just updating the firmware, you don't need to worry about any of this.
+
+Fuse settings for the ATmega168
+===============================
+
+low:		0xef
+high:		0xdf
+extended:	0xf8
+
+
+To program with avrdude use the following command line:
+
+> avrdude -c <your programmer> -p atmega168 -U lfuse:w:0xef:m -U hfuse:w:0xdf:m -U efuse:w:0xf8:m
+
+Ignore warnings about the efuse not being set properly, it is a limitation of avrdude.

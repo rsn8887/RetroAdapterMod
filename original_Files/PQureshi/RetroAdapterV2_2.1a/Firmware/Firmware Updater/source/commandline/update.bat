@@ -1,0 +1,1 @@
+bootloadHID.exe -r RetroAdapterV2.hex

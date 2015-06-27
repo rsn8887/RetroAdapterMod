@@ -1,0 +1,1 @@
+updatefw.exe -r RetroAdapter_2.1a.hex

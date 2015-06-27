@@ -1,0 +1,19 @@
+Retro Adapter changelog
+
+Firmware 2.1a
+=============
+
+- Fixed 2P mode NES/SNES/N64/GC support. Any of the above controllers would not work
+  when connected to the on-board DB9 due to only direct-connect joysticks being read.
+- Included combined.hex.
+
+
+Firmware 2.1
+============
+
+- Changed Mouse Mode to support a joystick simultaniously for computer emulators
+- Reduced polling interval from 10ms to 8ms (120Hz or 2x 60Hz)
+- Nintendo Virtual Boy support
+- SNES mouse support
+- BBC Micro Voltmace button mapping changed so main red button is 1 and others start from 2.
+- Fixed N64 and Gamecube controllers (forgot to account for report ID in reportBuffer)
