@@ -14,8 +14,6 @@ http://www.brunofreitas.com/node/41
 http://denki.world3.net/retro_v2.html
 (incuded for reference in folder src_orig)
 
-
-
 - This mod by rsn8887
 
 What is it?
