@@ -120,6 +120,8 @@ static	report_t		reportBuffer;
 
 static	reportMouse_t	reportBufferMouse;
 
+static reportAnalogButtons_t	reportBufferAnalogButtons;
+
 void*	reportBufferAddress;
 
 uchar	reportBufferLength;
@@ -216,6 +218,10 @@ void ReadController(uchar id)
 	reportBufferMouse.b1 = 0;
 
 	reportBufferMouse.reportid = id;
+	
+	
+	reportBufferAnalogButtons.a = reportBufferAnalogButtons.x = reportBufferAnalogButtons.l = 0x00;
+	
 
 
 
@@ -249,7 +255,7 @@ void ReadController(uchar id)
 
 				case (1<<1):				// LLLH
 
-				ReadPSX(&reportBuffer);
+				ReadPSX(&reportBuffer, &reportBufferAnalogButtons);
 
 				skipdb9flag = 1;
 
@@ -404,7 +410,7 @@ void ReadController(uchar id)
 }
 // This function below translates the report structure used by the Mojo RetroAdapterV2 sources into the gamepad_state structure 
 // used by the XBox code from Bruno Freitas' RetroPad Adapter that is used here to implement Xbox Support
-void UpdateGamePadState(report_t *reportBuffer) {
+void UpdateGamePadState(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogButtons) {
 		((reportBuffer->hat & HAT_UP) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_DPAD_UP)    : bitClear(gamepad_state.digital_buttons, XBOX_DPAD_UP);
 		((reportBuffer->hat & HAT_DOWN) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_DPAD_DOWN)  : bitClear(gamepad_state.digital_buttons, XBOX_DPAD_DOWN);
 		((reportBuffer->hat & HAT_LEFT) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_DPAD_LEFT)  : bitClear(gamepad_state.digital_buttons, XBOX_DPAD_LEFT);
@@ -420,6 +426,11 @@ void UpdateGamePadState(report_t *reportBuffer) {
 		gamepad_state.black = ((reportBuffer->b1 & (1<<6)) > 0) * 0xFF; //black (aka L2)
 		gamepad_state.white = ((reportBuffer->b1 & (1<<7)) > 0) * 0xFF; //white (aka R2)
 
+		//NegCon analog button support
+		if (reportBufferAnalogButtons->a != 0) gamepad_state.a = reportBufferAnalogButtons->a;
+		if (reportBufferAnalogButtons->x != 0) gamepad_state.x = reportBufferAnalogButtons->x;
+		if (reportBufferAnalogButtons->l != 0) gamepad_state.l = reportBufferAnalogButtons->l;
+		
 		((reportBuffer->b2 & (1<<3)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_START) : bitClear(gamepad_state.digital_buttons, XBOX_START); // start
 		((reportBuffer->b2 & (1<<2)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_BACK) : bitClear(gamepad_state.digital_buttons, XBOX_BACK); // back
 		((reportBuffer->b2 & (1<<0)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_LEFT_STICK) : bitClear(gamepad_state.digital_buttons, XBOX_LEFT_STICK); // left stick press (aka L3)
@@ -453,7 +464,7 @@ int main(void)
     for(;;){                /* main event loop */
         xbox_reset_watchdog(); //From Bruno Freitas
 		ReadController(1);
-        UpdateGamePadState(&reportBuffer); //Translate from Mojo PC USB Controller button structure to Xbox structure 
+        UpdateGamePadState(&reportBuffer, &reportBufferAnalogButtons); //Translate from Mojo PC USB Controller button structure to Xbox structure 
 		xbox_send_pad_state(); //From Bruno Freitas
 		//usbPoll();
         //if(usbInterruptIsReady()){

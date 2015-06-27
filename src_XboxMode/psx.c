@@ -32,7 +32,7 @@ PB2		CLK		Out
 PB1		ACK		In
 */
 
-void ReadPSX(report_t *reportBuffer)
+void ReadPSX(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogButtons)
 {
 	uchar	data, id;
 
@@ -95,6 +95,33 @@ void ReadPSX(report_t *reportBuffer)
 				reportBuffer->x = -128+(char)data;
 				data = PSXCommand(0xff);
 				reportBuffer->y = -128+(char)data;
+			}
+		}
+		if (id == PSX_ID_NEGCON)
+		{
+			data = PSXCommand(0xff);	// expect 0x5a from controller
+			if (data == 0x5a)
+			{
+				data = PSXCommand(0xff);
+				if (!(data & (1<<3))) reportBuffer->b2 |= (1<<3);	// Start
+				reportBuffer->hat = ~(data>>4)&0x0f;
+
+				data = PSXCommand(0xff);
+				if (!(data & (1<<3))) reportBuffer->b1 |= (1<<5);	// R1
+				if (!(data & (1<<4))) reportBuffer->b1 |= (1<<2);	// /\ Triangle (A on Negcon)
+				if (!(data & (1<<5))) reportBuffer->b1 |= (1<<3);	// O  Circle (B on Negcon)
+			
+				data = PSXCommand(0xff); //Steering axis 0x00 = right
+				reportBuffer->x = 127-(char)data;
+			
+				data = PSXCommand(0xff); //I button (bottom button analog)
+				reportBufferAnalogButtons->a = data;
+				
+				data = PSXCommand(0xff); //II button (left button analog)
+				reportBufferAnalogButtons->x = data;
+
+				data = PSXCommand(0xff); //L1 Button analog
+				reportBufferAnalogButtons->l = data;
 			}
 		}
 	}

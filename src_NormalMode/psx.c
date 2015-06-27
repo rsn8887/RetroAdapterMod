@@ -106,6 +106,38 @@ void ReadPSX(report_t *reportBuffer)
 				
 			}
 		}
+		if (id==PSX_ID_NEGCON) 
+		{
+			data = PSXCommand(0xff);	// expect 0x5a from controller
+			if (data == 0x5a)
+			{
+				data = PSXCommand(0xff);
+				if (!(data & (1<<3))) reportBuffer->b2 |= (1<<0);	// Start
+				reportBuffer->hat = pgm_read_byte(&psx_hat_lut[(~(data>>4)&0x0f)]);
+			}
+
+			data = PSXCommand(0xff);
+			if (!(data & (1<<3))) reportBuffer->b1 |= (1<<7);	// R1
+			if (!(data & (1<<4))) reportBuffer->b1 |= (1<<0);	// /\ Triangle (A on Negcon)
+			if (!(data & (1<<5))) reportBuffer->b1 |= (1<<1);	// O  Circle (B on Negcon)
+
+			data = PSXCommand(0xff); //Steering axis 0x00 = right
+			reportBuffer->x = 127-(char)data;
+				
+			data = PSXCommand(0xff); //I button
+			reportBuffer->rx = -128+(char)data;
+				
+			data = PSXCommand(0xff); //II button
+			reportBuffer->ry = -128+(char)data;
+
+			data = PSXCommand(0xff); //L1 Button converted to upper half of y axis
+			reportBuffer->y = 0+(char) ((char)data/2);
+
+			if (reportBuffer->rx==-128) reportBuffer->rx=-127;
+			if (reportBuffer->ry==-128) reportBuffer->ry=-127;
+			if (reportBuffer->x==-128) reportBuffer->x=-127;
+			if (reportBuffer->y==-128) reportBuffer->y=-127;		
+		}
 	}
 
 	PORTB |= ATT;				// ATT high again

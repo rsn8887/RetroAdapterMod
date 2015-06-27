@@ -5,6 +5,7 @@ uchar PSXCommand(uchar cmd);
 #define	PSX_ID_DIGITAL	0x41
 #define PSX_ID_A_RED	0x73
 #define	PSX_ID_A_GREEN	0x53
+#define PSX_ID_NEGCON	0x23
 
 #define DAT	(1<<5)
 #define	CMD	(1<<4)

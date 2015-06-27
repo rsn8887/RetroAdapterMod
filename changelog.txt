@@ -1,3 +1,6 @@
+v0.4
+added NegCon support. L is mapped to upper-half vertical axis on Windows for lack of another analog axis.
+
 V0.3
 
 fixed some more problems with Android and N64/GC pads and PSX analog sticks. The Retroadapter was still sending -128 values for some axes for some controllers, which Android does not like.
