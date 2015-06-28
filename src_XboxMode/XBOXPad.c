@@ -127,14 +127,25 @@ void xbox_init(bool watchdog) {
 	 */
 
 	usbInit();
-	usbDeviceDisconnect(); /* enforce re-enumeration, do this while interrupts are disabled! */
-	i = 0;
-	while (--i) { /* fake USB disconnect for > 250 ms */
-		wdt_reset();
-		_delay_ms(1);
-	}
-	usbDeviceConnect();
-	sei();
+	
+	cli();						// disable interrupts
+    usbDeviceDisconnect();
+	DDRD |= (1<<1) | (1<<2);	// USB reset
+
+	_delay_ms(255);				// disconnect for >250ms
+
+    usbDeviceConnect();
+	DDRD &= ~((1<<1) | (1<<2));	// clear reset
+	sei();						// restart interrupts
+	
+	//usbDeviceDisconnect(); /* enforce re-enumeration, do this while interrupts are disabled! */
+	//i = 0;
+	//while (--i) { /* fake USB disconnect for > 250 ms */
+	//	wdt_reset();
+	//	_delay_ms(1);
+	//}
+	//usbDeviceConnect();
+	//sei();
 }
 
 void xbox_reset_watchdog() {
