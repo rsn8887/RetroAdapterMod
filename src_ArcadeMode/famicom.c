@@ -70,9 +70,9 @@ void ReadFamicom(report_t *reportBuffer, reportMouse_t *reportBufferMouse)
 
 	// Common to all controllers
 	if (byte0 & (1<<7)) reportBuffer->x = 127;			// Right
-	if (byte0 & (1<<6)) reportBuffer->x = -127;			// Left
+	if (byte0 & (1<<6)) reportBuffer->x = -128;			// Left
 	if (byte0 & (1<<5)) reportBuffer->y = 127;			// Down
-	if (byte0 & (1<<4)) reportBuffer->y = -127;			// Up
+	if (byte0 & (1<<4)) reportBuffer->y = -128;			// Up
 	if (byte0 & (1<<3)) reportBuffer->b2 |= (1<<0);		// Start
 	if (byte0 & (1<<2)) reportBuffer->b2 |= (1<<1);		// Select
 
@@ -108,9 +108,9 @@ void ReadFamicom(report_t *reportBuffer, reportMouse_t *reportBufferMouse)
 		{
 			temp = 0;
 			if (byte0 & (1<<0)) reportBuffer->ry = 127;		// R-Down
-			if (byte0 & (1<<1)) reportBuffer->rx = -127;	// R-Left
+			if (byte0 & (1<<1)) reportBuffer->rx = -128;	// R-Left
 			if (byte1 & (1<<0)) reportBuffer->rx = 127;		// R-Right
-			if (byte1 & (1<<1)) reportBuffer->ry = -127;	// R-Up
+			if (byte1 & (1<<1)) reportBuffer->ry = -128;	// R-Up
 
 			if (byte1 & (1<<2)) reportBuffer->b1 |= (1<<6);	// L
 			if (byte1 & (1<<3)) reportBuffer->b1 |= (1<<7);	// R

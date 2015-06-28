@@ -3,6 +3,7 @@
 #include <util/delay.h>
 #include "report.h"
 #include "psx.h"
+#include "hid_modes.h"
 
 #define PSXDELAY	10	// 16 for 12MHz
 
@@ -23,6 +24,7 @@
 */
 
 const uchar psx_hat_lut[] PROGMEM  = { -1, 0, 2, 1, 4, -1, 3, -1, 6, 7, -1, -1, 5 };
+extern	uchar	hidMode;
 
 /*
 PB5		DAT		In
@@ -32,7 +34,7 @@ PB2		CLK		Out
 PB1		ACK		In
 */
 
-void ReadPSX(report_t *reportBuffer)
+void ReadPSX(report_t *reportBuffer, reportWheel_t *reportBufferWheel)
 {
 	uchar	data, id;
 
@@ -63,9 +65,9 @@ void ReadPSX(report_t *reportBuffer)
 
 			if (id == PSX_ID_DIGITAL)
 			{
-				if (!(data & (1<<4))) reportBuffer->y = -127;		// Up
+				if (!(data & (1<<4))) reportBuffer->y = -128;		// Up
 				if (!(data & (1<<6))) reportBuffer->y = 127;		// Down
-				if (!(data & (1<<7))) reportBuffer->x = -127;		// Left
+				if (!(data & (1<<7))) reportBuffer->x = -128;		// Left
 				if (!(data & (1<<5))) reportBuffer->x = 127;		// Right
 			}
 			else if(id == PSX_ID_A_RED)
@@ -97,17 +99,13 @@ void ReadPSX(report_t *reportBuffer)
 				reportBuffer->x = -128+(char)data;
 				
 				data = PSXCommand(0xff);
-				reportBuffer->y = -128+(char)data;
-				
-				if (reportBuffer->rx==-128) reportBuffer->rx=-127;
-				if (reportBuffer->ry==-128) reportBuffer->ry=-127;
-				if (reportBuffer->x==-128) reportBuffer->x=-127;
-				if (reportBuffer->y==-128) reportBuffer->y=-127;
-				
+				reportBuffer->y = -128+(char)data;				
 			}
 		}
 		if (id==PSX_ID_NEGCON) 
 		{
+			hidMode = HIDM_WHEEL;
+			
 			data = PSXCommand(0xff);	// expect 0x5a from controller
 			if (data == 0x5a)
 			{
@@ -117,26 +115,21 @@ void ReadPSX(report_t *reportBuffer)
 			}
 
 			data = PSXCommand(0xff);
-			if (!(data & (1<<3))) reportBuffer->b1 |= (1<<7);	// R1
-			if (!(data & (1<<4))) reportBuffer->b1 |= (1<<0);	// /\ Triangle (A on Negcon)
-			if (!(data & (1<<5))) reportBuffer->b1 |= (1<<1);	// O  Circle (B on Negcon)
+			if (!(data & (1<<3))) reportBufferWheel->b1 |= (1<<7);	// R1
+			if (!(data & (1<<4))) reportBufferWheel->b1 |= (1<<0);	// /\ Triangle (A on Negcon)
+			if (!(data & (1<<5))) reportBufferWheel->b1 |= (1<<1);	// O  Circle (B on Negcon)
 
 			data = PSXCommand(0xff); //Steering axis 0x00 = right
-			reportBuffer->x = 127-(char)data;
+			reportBufferWheel->x = 127-(char)data;
 				
 			data = PSXCommand(0xff); //I button
-			reportBuffer->rx = -128+(char)data;
+			reportBufferWheel->slider1 = (char)data;
 				
 			data = PSXCommand(0xff); //II button
-			reportBuffer->ry = -128+(char)data;
+			reportBufferWheel->slider2 = (char)data;
 
-			data = PSXCommand(0xff); //L1 Button converted to upper half of y axis
-			reportBuffer->y = 0+(char) ((char)data/2);
-
-			if (reportBuffer->rx==-128) reportBuffer->rx=-127;
-			if (reportBuffer->ry==-128) reportBuffer->ry=-127;
-			if (reportBuffer->x==-128) reportBuffer->x=-127;
-			if (reportBuffer->y==-128) reportBuffer->y=-127;			
+			data = PSXCommand(0xff); //L1 Button
+			reportBufferWheel->slider3 = (char)data;	
 		}
 	}
 

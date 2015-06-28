@@ -66,14 +66,10 @@ void ReadAnalogue(report_t *reportBuffer, uchar id)
 		while (ADCSRA & (1<<ADSC));			// wait for conversion to finish
 		reportBuffer->y = 127 - ADCH;
 
-		if (reportBuffer->y==-128) reportBuffer->y=-127;
-
 		ADMUX	= (1<<REFS0)|(1<<ADLAR)|2;	// PC2/ADC2 - X
 		ADCSRA	|= (1<<ADSC);				// start conversion
 		while (ADCSRA & (1<<ADSC));			// wait for conversion to finish
 		reportBuffer->x = 127 - ADCH;
-		
-		if (reportBuffer->x==-128) reportBuffer->x=-127;
 	}
 
 
@@ -87,17 +83,11 @@ void ReadAnalogue(report_t *reportBuffer, uchar id)
 			ADCSRA	|= (1<<ADSC);				// start conversion
 			while (ADCSRA & (1<<ADSC));			// wait for conversion to finish
 			reportBuffer->x = 127 - ADCH;
-
-			if (reportBuffer->x==-128) reportBuffer->x=-127;
-
 			
 			ADMUX	= (1<<REFS0)|(1<<ADLAR)|0;	// PC0/ADC0 - Ry
 			ADCSRA	|= (1<<ADSC);				// start conversion
 			while (ADCSRA & (1<<ADSC));			// wait for conversion to finish
 			reportBuffer->y = 127 - ADCH;
-			
-			if (reportBuffer->y==-128) reportBuffer->y=-127;
-
 		}
 	}
 

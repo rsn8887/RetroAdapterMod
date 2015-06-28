@@ -44,9 +44,5 @@ void ReadN64GC(report_t *reportBuffer)
 	DDRD	|= (1<<7);
 
 	dpad = readnintendo(reportBuffer);
-	if (reportBuffer->rx==-128) reportBuffer->rx=-127;
-	if (reportBuffer->ry==-128) reportBuffer->ry=-127;
-	if (reportBuffer->x==-128) reportBuffer->x=-127;
-	if (reportBuffer->y==-128) reportBuffer->y=-127;
 	reportBuffer->hat = pgm_read_byte(&n64gc_hat_lut[dpad]);
 }

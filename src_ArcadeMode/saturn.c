@@ -42,9 +42,9 @@ void ReadSaturn(report_t *reportBuffer)
 
 		_delay_us(2);
 
-		if (!(PINB & SAT_UP)) reportBuffer->y = -127;			// Up
+		if (!(PINB & SAT_UP)) reportBuffer->y = -128;			// Up
 		if (!(PINB & SAT_DN)) reportBuffer->y = 127;			// Down
-		if (!(PIND & SAT_LF)) reportBuffer->x = -127;			// Left
+		if (!(PIND & SAT_LF)) reportBuffer->x = -128;			// Left
 		if (!(PIND & SAT_RT)) reportBuffer->x = 127;			// Right
 
 		// TH = 1, TR = 0
@@ -87,9 +87,9 @@ void ReadSaturn(report_t *reportBuffer)
 
 		if (satmode == 0)	// digital mode
 		{
-			if (!(PINB & SAT_UP)) reportBuffer->y = -127;		// Up
+			if (!(PINB & SAT_UP)) reportBuffer->y = -128;		// Up
 			if (!(PINB & SAT_DN)) reportBuffer->y = 127;		// Down
-			if (!(PIND & SAT_LF)) reportBuffer->x = -127;		// Left
+			if (!(PIND & SAT_LF)) reportBuffer->x = -128;		// Left
 			if (!(PIND & SAT_RT)) reportBuffer->x = 127;		// Right
 		}
 		else
@@ -220,11 +220,6 @@ void ReadSaturn(report_t *reportBuffer)
 		/* --- End of data transfer ---------------------------------------------------------*/
 
 		PORTB |= (SAT_TR|SAT_TH);
-		
-		if (reportBuffer->rx==-128) reportBuffer->rx=-127;
-		if (reportBuffer->ry==-128) reportBuffer->ry=-127;
-		if (reportBuffer->x==-128) reportBuffer->x=-127;
-		if (reportBuffer->y==-128) reportBuffer->y=-127;
 	}
 }
 

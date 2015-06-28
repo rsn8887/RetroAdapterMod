@@ -36,9 +36,9 @@ void ReadDB9(report_t *reportBuffer)
 
 	_delay_us(14);
 
-	//if (!(PIND & (1<<0))) reportBuffer->y = -127;			// up
+	//if (!(PIND & (1<<0))) reportBuffer->y = -128;			// up
 	//if (!(PIND & (1<<3))) reportBuffer->y = 127;			// down
-	//if (!(PIND & (1<<4))) reportBuffer->x = -127;			// left
+	//if (!(PIND & (1<<4))) reportBuffer->x = -128;			// left
 	//if (!(PIND & (1<<5))) reportBuffer->x = 127;			// right
 
 	if (!(PIND & (1<<0))) reportBuffer->hat |= HAT_UP;		// up

@@ -48,19 +48,19 @@ void ReadAtariDriving(report_t *reportBuffer)
 		{
 			case 0b00:
 				if (last == 0b01) reportBuffer->x = 127;
-				if (last == 0b10) reportBuffer->x = -127;
+				if (last == 0b10) reportBuffer->x = -128;
 				break;
 			case 0b01:
 				if (last == 0b11) reportBuffer->x = 127;
-				if (last == 0b00) reportBuffer->x = -127;
+				if (last == 0b00) reportBuffer->x = -128;
 				break;
 			case 0b11:
 				if (last == 0b10) reportBuffer->x = 127;
-				if (last == 0b01) reportBuffer->x = -127;
+				if (last == 0b01) reportBuffer->x = -128;
 				break;
 			case 0b10:
 				if (last == 0b00) reportBuffer->x = 127;
-				if (last == 0b11) reportBuffer->x = -127;
+				if (last == 0b11) reportBuffer->x = -128;
 				break;
 		}
 		last = cur;

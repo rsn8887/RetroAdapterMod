@@ -1,4 +1,4 @@
-void ReadPSX(report_t *reportBuffer);
+void ReadPSX(report_t *reportBuffer, reportWheel_t *reportBufferWheel);
 char PSXWaitACK();
 uchar PSXCommand(uchar cmd);
 

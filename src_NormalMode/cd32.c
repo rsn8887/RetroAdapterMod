@@ -32,9 +32,9 @@ void ReadCD32(report_t *reportBuffer)
 
 	PORTB &= ~(1<<LAT);										// load data into latch
 
-	if (!(PINB & (1<<5))) reportBuffer->y = -127;			// up
+	if (!(PINB & (1<<5))) reportBuffer->y = -128;			// up
 	if (!(PINB & (1<<4))) reportBuffer->y = 127;			// down
-	if (!(PINB & (1<<3))) reportBuffer->x = -127;			// left
+	if (!(PINB & (1<<3))) reportBuffer->x = -128;			// left
 	if (!(PINB & (1<<2))) reportBuffer->x = 127;			// right
 
 	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<1);			// Blue

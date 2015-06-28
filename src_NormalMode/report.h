@@ -18,6 +18,19 @@ typedef struct {
 	uchar	b2;			// 7
 } report_t;
 
+typedef struct {
+	char	reportid;	// 0
+	char	x;			// 1
+	char	y;			// 2
+	uchar	hat;		// 3
+	uchar	b1;			// 4
+	uchar	b2;			// 5
+	uchar	slider1;	// 6
+	uchar	slider2;	// 7
+	uchar	slider3;	// 8
+} reportWheel_t;
+
+
 typedef struct{
 	char	reportid;
     uchar   b1;

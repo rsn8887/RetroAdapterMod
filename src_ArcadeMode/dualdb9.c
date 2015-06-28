@@ -48,9 +48,9 @@ void Read2ndDirect(report_t *reportBuffer)
 
 	_delay_us(14);
 
-	if (!(PINB & (1<<5))) reportBuffer->y = -127;		// up
+	if (!(PINB & (1<<5))) reportBuffer->y = -128;		// up
 	if (!(PINB & (1<<4))) reportBuffer->y = 127;		// down
-	if (!(PINB & (1<<3))) reportBuffer->x = -127;		// left
+	if (!(PINB & (1<<3))) reportBuffer->x = -128;		// left
 	if (!(PINB & (1<<2))) reportBuffer->x = 127;		// right
 
 	if (megadrive == 0)
@@ -109,9 +109,9 @@ void Read2ndFamicom(report_t *reportBuffer)
 	if (Famicom2Read()) reportBuffer->b1 |= (1<<1);	// B (Y)
 	if (Famicom2Read()) reportBuffer->b2 |= (1<<1);	// Select 
 	if (Famicom2Read()) reportBuffer->b2 |= (1<<0);	// Start
-	if (Famicom2Read()) reportBuffer->y = -127;		// Up
+	if (Famicom2Read()) reportBuffer->y = -128;		// Up
 	if (Famicom2Read()) reportBuffer->y = 127;		// Down
-	if (Famicom2Read()) reportBuffer->x = -127;		// Left
+	if (Famicom2Read()) reportBuffer->x = -128;		// Left
 	if (Famicom2Read()) reportBuffer->x = 127;		// Right
 
 	// Super Famicom only bits

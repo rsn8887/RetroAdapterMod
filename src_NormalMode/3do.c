@@ -39,9 +39,9 @@ void Read3DO(report_t *reportBuffer)
 	if ((temp & 0xf0) != 0b01000000)
 		return;
 
-	if (temp & (1<<0))	reportBuffer->x = -127;
+	if (temp & (1<<0))	reportBuffer->x = -128;
 	if (temp & (1<<1))	reportBuffer->x = 127;
-	if (temp & (1<<2))	reportBuffer->y = -127;
+	if (temp & (1<<2))	reportBuffer->y = -128;
 	if (temp & (1<<3))	reportBuffer->y = 127;
 
 	//	Bit		0	1	2	3	4	5	6	7

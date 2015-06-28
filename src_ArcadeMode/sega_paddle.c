@@ -43,7 +43,6 @@ void ReadSegaPaddle(report_t *reportBuffer)
 	if (!(temp & (1<<5))) i |= (1<<7);
 
 	reportBuffer->x = 127 - i;
-	if (reportBuffer->x==-128) reportBuffer->x=-127;
 	//reportBuffer->x = (last - i); //(127 - i);
 	//last = i;
 }

@@ -125,9 +125,9 @@ void ReadFamicom(report_t *reportBuffer)
 		{
 			temp = 0;
 			if (byte0 & (1<<0)) reportBuffer->ry = 127;		// R-Down
-			if (byte0 & (1<<1)) reportBuffer->rx = -127;	// R-Left
+			if (byte0 & (1<<1)) reportBuffer->rx = -128;	// R-Left
 			if (byte1 & (1<<0)) reportBuffer->rx = 127;		// R-Right
-			if (byte1 & (1<<1)) reportBuffer->ry = -127;	// R-Up
+			if (byte1 & (1<<1)) reportBuffer->ry = -128;	// R-Up
 
 			if (byte1 & (1<<2)) reportBuffer->b1 |= (1<<4);	// L
 			if (byte1 & (1<<3)) reportBuffer->b1 |= (1<<5);	// R

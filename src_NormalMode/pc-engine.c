@@ -41,10 +41,10 @@ void ReadPCE(report_t *reportBuffer)
 		if (PINB & (PCE_UP|PCE_DN|PCE_LF|PCE_RT))
 		{
 			// Normal pad or part 1 of double poll
-			if (!(PINB & PCE_UP)) reportBuffer->y = -127;		// Up
+			if (!(PINB & PCE_UP)) reportBuffer->y = -128;		// Up
 			if (!(PINB & PCE_RT)) reportBuffer->x = 127;		// Right
 			if (!(PINB & PCE_DN)) reportBuffer->y = 127;		// Down
-			if (!(PINB & PCE_LF)) reportBuffer->x = -127;		// Left
+			if (!(PINB & PCE_LF)) reportBuffer->x = -128;		// Left
 
 			PORTB &= ~PCE_DS;						// DS low
 			asm("nop");

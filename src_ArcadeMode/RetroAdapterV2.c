@@ -9,12 +9,8 @@
 
 
 #include <avr/io.h>
-
 #include <avr/interrupt.h>  /* for sei() */
-
 #include <util/delay.h>     /* for _delay_ms() */
-
-
 #include <avr/pgmspace.h>   /* required by usbdrv.h */
 
 #include "usbdrv.h"
@@ -45,6 +41,7 @@ static	void*			usbDeviceDescriptorAddress;
 static	int				usbDeviceDescriptorLength;
 static	report_t		reportBuffer;
 static	reportMouse_t	reportBufferMouse;
+static 	reportWheel_t	reportBufferWheel;
 void*	reportBufferAddress;
 uchar	reportBufferLength;
 uchar	hidMode;
@@ -87,6 +84,12 @@ void ReadController(uchar id)
 	reportBufferMouse.b1 = 0;
 	reportBufferMouse.reportid = id;
 
+	reportBufferWheel.x = reportBufferWheel.y = 0;
+	reportBufferWheel.slider1 = reportBufferWheel.slider2 = reportBufferWheel.slider3 = 0;
+	reportBufferWheel.b1 = reportBufferWheel.b2 = 0;
+	reportBufferWheel.hat = -1;
+	reportBufferWheel.reportid = id;
+	
 	hidMode = HIDM_1P;
 	//ReadDreamcast(&reportBuffer);
 
@@ -103,7 +106,7 @@ void ReadController(uchar id)
 				break;
 				
 				case (1<<1):				// LLLH
-				ReadPSX(&reportBuffer);
+				ReadPSX(&reportBuffer, &reportBufferWheel);
 				skipdb9flag = 1;
 				break;
 				
@@ -244,6 +247,15 @@ void SetHIDMode()
 			reportBufferAddress = &reportBufferMouse;
 			reportBufferLength = sizeof(reportBufferMouse);
 			break;
+		case HIDM_WHEEL:
+			usbDeviceDescriptorAddress = usbDescriptorDeviceJoystick;
+			usbDeviceDescriptorLength = sizeof(usbDescriptorDeviceJoystick);
+			hidReportDescriptorAddress = usbHidReportDescriptorWheel;
+			hidReportDescriptorLength = usbHidReportDescriptorWheelLength;
+			hidNumReports = 1;
+			reportBufferAddress = &reportBufferWheel;
+			reportBufferLength = sizeof(reportBufferWheel);
+			break;		
 	}
 	usbDescriptorConfiguration[25] = hidReportDescriptorLength;
 
@@ -318,6 +330,8 @@ int main(void)
 {
 	uchar   i = 1;
 	uchar	hidCurrentMode = 255;
+	char remainingData=0;
+	uchar offset=0;
 
 	HardwareInit();
 	usbInit();
@@ -332,7 +346,25 @@ int main(void)
         if(usbInterruptIsReady()){
             /* called after every poll of the interrupt endpoint */
 			ReadController(i);
-            usbSetInterrupt(reportBufferAddress, reportBufferLength);
+			
+			remainingData=reportBufferLength;
+			offset=0;
+			// handle report with more than 8 byte length (for NegCon and future expansion)
+			do {
+				if (remainingData<=8) {
+					usbSetInterrupt(reportBufferAddress+offset, remainingData);
+					remainingData=0;
+				}
+				else {	
+					usbSetInterrupt(reportBufferAddress+offset, 8);				
+					offset+=8;
+					remainingData-=8;
+					do {
+						usbPoll();
+					} while (!usbInterruptIsReady());	
+				}
+			} while (remainingData>0);				
+				
 			i++;
 			if (i > hidNumReports) i = 1;
 			if (hidCurrentMode != hidMode)
