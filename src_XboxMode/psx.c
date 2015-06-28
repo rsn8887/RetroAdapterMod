@@ -97,32 +97,32 @@ void ReadPSX(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogBu
 				reportBuffer->y = -128+(char)data;
 			}
 		}
-		if (id == PSX_ID_NEGCON)
+	}
+	if (id == PSX_ID_NEGCON)
+	{
+		data = PSXCommand(0xff);	// expect 0x5a from controller
+		if (data == 0x5a)
 		{
-			data = PSXCommand(0xff);	// expect 0x5a from controller
-			if (data == 0x5a)
-			{
-				data = PSXCommand(0xff);
-				if (!(data & (1<<3))) reportBuffer->b2 |= (1<<3);	// Start
-				reportBuffer->hat = ~(data>>4)&0x0f;
+			data = PSXCommand(0xff);
+			if (!(data & (1<<3))) reportBuffer->b2 |= (1<<3);	// Start
+			reportBuffer->hat = ~(data>>4)&0x0f;
 
-				data = PSXCommand(0xff);
-				if (!(data & (1<<3))) reportBuffer->b1 |= (1<<5);	// R1
-				if (!(data & (1<<4))) reportBuffer->b1 |= (1<<2);	// /\ Triangle (A on Negcon)
-				if (!(data & (1<<5))) reportBuffer->b1 |= (1<<3);	// O  Circle (B on Negcon)
+			data = PSXCommand(0xff);
+			if (!(data & (1<<3))) reportBuffer->b1 |= (1<<5);	// R1
+			if (!(data & (1<<4))) reportBuffer->b1 |= (1<<2);	// /\ Triangle (A on Negcon)
+			if (!(data & (1<<5))) reportBuffer->b1 |= (1<<3);	// O  Circle (B on Negcon)
 			
-				data = PSXCommand(0xff); //Steering axis 0x00 = right
-				reportBuffer->x = 127-(char)data;
+			data = PSXCommand(0xff); //Steering axis 0x00 = right
+			reportBuffer->x = 127-(char)data;
 			
-				data = PSXCommand(0xff); //I button (bottom button analog)
-				reportBufferAnalogButtons->a = data;
+			data = PSXCommand(0xff); //I button (bottom button analog)
+			reportBufferAnalogButtons->a = data;
 				
-				data = PSXCommand(0xff); //II button (left button analog)
-				reportBufferAnalogButtons->x = data;
+			data = PSXCommand(0xff); //II button (left button analog)
+			reportBufferAnalogButtons->x = data;
 
-				data = PSXCommand(0xff); //L1 Button analog
-				reportBufferAnalogButtons->l = data;
-			}
+			data = PSXCommand(0xff); //L1 Button analog
+			reportBufferAnalogButtons->l = data;
 		}
 	}
 
@@ -177,10 +177,10 @@ uchar PSXCommand(uchar command)
 		if (PINB & DAT) data |= (1<<7); //(1<<i);
 
 #ifdef DEBUG
-	PORTA |= (1<<3);
-	PORTA &= ~(1<<3);
-	if (data & (1<<7)) PORTA |= (1<<3);
-	else PORTA &= ~(1<<3);
+//	PORTA |= (1<<3);
+//	PORTA &= ~(1<<3);
+//	if (data & (1<<7)) PORTA |= (1<<3);
+//	else PORTA &= ~(1<<3);
 #endif
 	}
 	

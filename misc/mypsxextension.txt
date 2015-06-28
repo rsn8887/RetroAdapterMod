@@ -1,0 +1,11 @@
+1 - brown    db15 3
+2 - orange   db15 4
+3 - grey     db15 nc
+4 - black    db15 1
+5 - red      db15 8
+6 - yellow   db15 5
+7 - blue     db15 6
+8 - 
+9 - green    db15 7
+
+db15 1,2,9,10,11  all connected

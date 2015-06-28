@@ -46,12 +46,13 @@ void ReadPSX(report_t *reportBuffer, reportWheel_t *reportBufferWheel)
 	_delay_us(1);
 
 	data = PSXCommand(0x01);		// Issue start command, data is discarded
+
 	if (!(PSXWaitACK()))			// Wait for ACK, if not received then no pad connected
 	{
 		PORTB |= ATT;				// ATT high again
 		return;
 	}
-
+	
 	id = PSXCommand(0x42);			// Request controller ID
 
 	if ((id == PSX_ID_DIGITAL) | (id == PSX_ID_A_RED) | (id == PSX_ID_A_GREEN))
@@ -102,35 +103,35 @@ void ReadPSX(report_t *reportBuffer, reportWheel_t *reportBufferWheel)
 				reportBuffer->y = -128+(char)data;				
 			}
 		}
-		if (id==PSX_ID_NEGCON) 
-		{
-			hidMode = HIDM_WHEEL;
+	}
+	if (id==PSX_ID_NEGCON) 
+	{
+		hidMode = HIDM_WHEEL;
 			
-			data = PSXCommand(0xff);	// expect 0x5a from controller
-			if (data == 0x5a)
-			{
-				data = PSXCommand(0xff);
-				if (!(data & (1<<3))) reportBuffer->b2 |= (1<<0);	// Start
-				reportBuffer->hat = pgm_read_byte(&psx_hat_lut[(~(data>>4)&0x0f)]);
-			}
-
+		data = PSXCommand(0xff);	// expect 0x5a from controller
+		if (data == 0x5a)
+		{
 			data = PSXCommand(0xff);
-			if (!(data & (1<<3))) reportBufferWheel->b1 |= (1<<7);	// R1
-			if (!(data & (1<<4))) reportBufferWheel->b1 |= (1<<0);	// /\ Triangle (A on Negcon)
-			if (!(data & (1<<5))) reportBufferWheel->b1 |= (1<<1);	// O  Circle (B on Negcon)
-
-			data = PSXCommand(0xff); //Steering axis 0x00 = right
-			reportBufferWheel->x = 127-(char)data;
-				
-			data = PSXCommand(0xff); //I button
-			reportBufferWheel->slider1 = (char)data;
-				
-			data = PSXCommand(0xff); //II button
-			reportBufferWheel->slider2 = (char)data;
-
-			data = PSXCommand(0xff); //L1 Button
-			reportBufferWheel->slider3 = (char)data;	
+			if (!(data & (1<<3))) reportBufferWheel->b2 |= (1<<0);	// Start
+			reportBufferWheel->hat = pgm_read_byte(&psx_hat_lut[(~(data>>4)&0x0f)]);
 		}
+
+		data = PSXCommand(0xff);
+		if (!(data & (1<<3))) reportBufferWheel->b1 |= (1<<7);	// R1
+		if (!(data & (1<<4))) reportBufferWheel->b1 |= (1<<0);	// /\ Triangle (A on Negcon)
+		if (!(data & (1<<5))) reportBufferWheel->b1 |= (1<<1);	// O  Circle (B on Negcon)
+
+		data = PSXCommand(0xff); //Steering axis 0x00 = right
+		reportBufferWheel->x = 127-(char)data;
+				
+		data = PSXCommand(0xff); //I button
+		reportBufferWheel->slider1 = (char)data;
+			
+		data = PSXCommand(0xff); //II button
+		reportBufferWheel->slider2 = (char)data;
+
+		data = PSXCommand(0xff); //L1 Button
+		reportBufferWheel->slider3 = (char)data;
 	}
 
 	PORTB |= ATT;				// ATT high again

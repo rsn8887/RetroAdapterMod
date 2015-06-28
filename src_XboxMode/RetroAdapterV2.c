@@ -270,18 +270,15 @@ int main(void)
 		ReadController(1);
         UpdateGamePadState(&reportBuffer, &reportBufferAnalogButtons); //Translate from Mojo PC USB Controller button structure to Xbox structure 
 		xbox_send_pad_state(); //From Bruno Freitas
+		
 		//usbPoll();
-        //if(usbInterruptIsReady()){
+        //if(usbInterruptIsReady3()){
         //    /* called after every poll of the interrupt endpoint */
-		//	ReadController(i);
-        //    usbSetInterrupt(reportBufferAddress, reportBufferLength);
-		//	i++;
-		//	if (i > hidNumReports) i = 1;
-		//	if (hidCurrentMode != hidMode)
-		//	{
-		//		SetHIDMode();
-		//		hidCurrentMode = hidMode;
-		//	}
+		//	xbox_reset_watchdog();
+		//	ReadController(1);
+		//	UpdateGamePadState(&reportBuffer, &reportBufferAnalogButtons); //Translate from Mojo PC USB Controller button structure to Xbox structure 
+		//	usbSetInterrupt3((unsigned char *) &gamepad_state, 20);
+		//}
     }
     return 0;
 }

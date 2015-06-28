@@ -1,3 +1,6 @@
+v0.6
+some problems with NegCon fixed in both Xbox and PC Mode.
+
 v0.5
 - finally figured out the real reason why Android did not work with reported axis values of -128:
 the usb descriptor in the original Mojo code incorrectly sets the min to -127, but then frequently uses -128 as a value. Windows seems to ignore this discrepancy, but Android is more picky.
