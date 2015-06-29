@@ -24,6 +24,8 @@ What is it?
 
 - Included are three modified versions of the original Mojo Retroadapter firmware, as hex and source files: "Xbox mode, arcade mode, and normal mode"
 
+- All three versions include the addition of NegCon controller support, amongst other enhancements.
+
 - Xbox mode:
 I modified and recompiled the Retroadapter firmware, replacing the original PC support with Xbox classic support. 
 
