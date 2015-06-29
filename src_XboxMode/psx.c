@@ -4,7 +4,8 @@
 #include "report.h"
 #include "psx.h"
 
-#define PSXDELAY	10	// 16 for 12MHz
+#define PSXCLK	16	// 16 us from rising edge to falling edge
+#define PSXBYTEDELAY 3 // 3 us between bytes
 
 /*	LDRU
 	0000	-
@@ -39,25 +40,22 @@ void ReadPSX(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogBu
 	DDRB	&= 0b11011101;			// See table above for I/O directions
 	DDRB	|= 0b00011100;
 	PORTB	|= 0b00111110;			// Pull-ups prevent floating inputs, all outputs start high
-
+	
 	PORTB &= ~ATT;					// Attention line low for duration of comms
-	_delay_us(1);
+	_delay_us(PSXBYTEDELAY);
 
 	data = PSXCommand(0x01);		// Issue start command, data is discarded
-	if (!(PSXWaitACK()))			// Wait for ACK, if not received then no pad connected
-	{
-		PORTB |= ATT;				// ATT high again
-		return;
-	}
-
+	
 	id = PSXCommand(0x42);			// Request controller ID
-
+	
 	if ((id == PSX_ID_DIGITAL) | (id == PSX_ID_A_RED) | (id == PSX_ID_A_GREEN))
 	{
 		data = PSXCommand(0xff);	// expect 0x5a from controller
+	
 		if (data == 0x5a)
 		{
 			data = PSXCommand(0xff);
+	
 			if (!(data & (1<<0))) reportBuffer->b2 |= (1<<2);	// Select
 			if (!(data & (1<<3))) reportBuffer->b2 |= (1<<3);	// Start
 
@@ -76,6 +74,7 @@ void ReadPSX(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogBu
 			}
 
 			data = PSXCommand(0xff);
+
 			if (!(data & (1<<2))) reportBuffer->b1 |= (1<<4);	// L1
 			if (!(data & (1<<3))) reportBuffer->b1 |= (1<<5);	// R1
 			if (!(data & (1<<0))) reportBuffer->b1 |= (1<<6);	// L2
@@ -85,14 +84,18 @@ void ReadPSX(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogBu
 			if (!(data & (1<<4))) reportBuffer->b1 |= (1<<2);	// /\ Triangle
 			if (!(data & (1<<5))) reportBuffer->b1 |= (1<<3);	// O  Circle
 			
+			
 			if ((id == PSX_ID_A_RED) | (id == PSX_ID_A_GREEN))
 			{
 				data = PSXCommand(0xff);
 				reportBuffer->rx = -128+(char)data;
+
 				data = PSXCommand(0xff);
 				reportBuffer->ry = -128+(char)data;
+
 				data = PSXCommand(0xff);
 				reportBuffer->x = -128+(char)data;
+
 				data = PSXCommand(0xff);
 				reportBuffer->y = -128+(char)data;
 			}
@@ -101,19 +104,23 @@ void ReadPSX(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogBu
 	if (id == PSX_ID_NEGCON)
 	{
 		data = PSXCommand(0xff);	// expect 0x5a from controller
+		
 		if (data == 0x5a)
 		{
 			data = PSXCommand(0xff);
+			
 			if (!(data & (1<<3))) reportBuffer->b2 |= (1<<3);	// Start
 			reportBuffer->hat = ~(data>>4)&0x0f;
 
 			data = PSXCommand(0xff);
+			
 			if (!(data & (1<<3))) reportBuffer->b1 |= (1<<5);	// R1
 			if (!(data & (1<<4))) reportBuffer->b1 |= (1<<2);	// /\ Triangle (A on Negcon)
 			if (!(data & (1<<5))) reportBuffer->b1 |= (1<<3);	// O  Circle (B on Negcon)
 			
-			data = PSXCommand(0xff); //Steering axis 0x00 = right
-			reportBuffer->x = 127-(char)data;
+			data = PSXCommand(0xff); //Steering axis 0x00 = left: 
+			//TESTED ON REAL PSX: moving the right half away from you turns the Wipeout vehicle to the RIGHT!
+			reportBuffer->x = -128+(char)data;
 			
 			data = PSXCommand(0xff); //I button (bottom button analog)
 			reportBufferAnalogButtons->a = data;
@@ -129,34 +136,12 @@ void ReadPSX(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogBu
 	PORTB |= ATT;				// ATT high again
 }
 
-char PSXWaitACK()
-{
-	uchar	count = 0;
-
-	// wait approximately 50us for ACK.
-	while (count < 50)
-	{
-		if (!(PINB & ACK)) return 1;
-		count++;
-		_delay_us(1);
-	}
-	return 0;
-}
-
 uchar PSXCommand(uchar command)
 {
 	uchar i = 0;
 	uchar data = 0;
 
-	// wait up to approx 50us for ACK line to go high
-	while ((PINB & ACK) == 0)
-	{
-		i++;
-		_delay_us(1);
-		if (i > 50) return 0;		// for some reason ACK is stuck high, should never happen
-	}								// but testing prevents an infinite loop
-
-	_delay_us(2);
+	_delay_us(PSXBYTEDELAY);
 
 	for (i = 0; i < 8; i++)
 	{
@@ -164,17 +149,17 @@ uchar PSXCommand(uchar command)
 		if (command & 1) PORTB |= CMD;
 		else PORTB &= ~CMD;
 		command >>= 1;
+	
+		PORTB &= ~CLK;				// clock falling edge this is when data is changed by both host and controller
 
-		PORTB &= ~CLK;				// clock falling edge
-
-		_delay_us(PSXDELAY);
+		_delay_us(PSXCLK);
 		
 		data >>= 1;
-		PORTB |= CLK;				// clock rising edge
-
-		_delay_us(PSXDELAY - 1);
+		PORTB |= CLK;				// clock rising edge this is when data is read by both host and controller
 
 		if (PINB & DAT) data |= (1<<7); //(1<<i);
+		
+		_delay_us(PSXCLK);
 
 #ifdef DEBUG
 //	PORTA |= (1<<3);
@@ -183,6 +168,8 @@ uchar PSXCommand(uchar command)
 //	else PORTA &= ~(1<<3);
 #endif
 	}
+		
+	_delay_us(PSXBYTEDELAY);
 	
 	return data;
 }

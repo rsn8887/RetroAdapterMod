@@ -1,10 +1,13 @@
+v0.7
+-finally made my own PSX adapter cable so I can debug PSX controllers. I found and fixed jitter problems with the original RetroAdapter communication code between adapter and PSX controller. The bytes were read almost half a PSX clock cycle after the supposed readout time on clk rising edge. This lead to jitter effects, where some buttons occasionally flickered off and on even if pressed down continously. Due to this, the vertical axis of the left analog stick also wasn't as accurate as it could have been. The Xbox controller tester for Xbox classic was an invaluable tool and shows such problems very clearly. All those problems should be completely fixed now.
+
+-flipped NeGCon x-axis direction to conform to what happens in WipeOut on a real PSX: moving the right half of the controller away from the player steers the vehicle to the right. This means axis value 0xFF corresponds to the right direction, consistent with all other PSX controllers. This is contrary to what some sources on the web say.
+
 v0.6
 some problems with NegCon fixed in both Xbox and PC Mode.
 
 v0.5
-- finally figured out the real reason why Android did not work with reported axis values of -128:
-the usb descriptor in the original Mojo code incorrectly sets the min to -127, but then frequently uses -128 as a value. Windows seems to ignore this discrepancy, but Android is more picky.
-This is now fixed in the correct way: the axis range for x,y,rx,ry is always -128...127 as it should be, and the minimum is correctly defined in the USB Descriptor. Tested in Android on NVidia Shield and it works.
+- finally figured out the real reason why Android did not work with reported axis values of -128: the usb descriptor in the original Mojo code incorrectly sets the min to -127, but then frequently uses -128 as a value. Windows seems to ignore this discrepancy, but Android is more picky. This is now fixed in the correct way: the axis range for x,y,rx,ry is always -128...127 as it should be, and the minimum is correctly defined in the USB Descriptor. Tested in Android on NVidia Shield and it works.
 - Fixed a few bugs for some controllers in XBox Mode (sometimes, a button would be pressed always together with x or y-axis, etc.
 - Changed NegCon support for PC: when Negcon is detected, three extra sliders are added to the joystick, those represent the three analog buttons of the NegCon. They go from 0 to 255. The rx, ry axis are removed in NegCon mode, because they went from -128 to 127 instead which did not make sense for analog buttons.
 - added the ability to send USB reports with length >8 bytes. This is currently only used for NegCon, but opens the way for other controllers with more analog buttons.

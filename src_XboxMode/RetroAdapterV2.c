@@ -237,8 +237,8 @@ void UpdateGamePadState(report_t *reportBuffer, reportAnalogButtons_t *reportBuf
 		
 		gamepad_state.l = ((reportBuffer->b1 & (1<<4)) > 0) * 0xFF; // left shoulder
 		gamepad_state.r = ((reportBuffer->b1 & (1<<5)) > 0) * 0xFF; // right shoulder
-		gamepad_state.black = ((reportBuffer->b1 & (1<<6)) > 0) * 0xFF; //black (aka L2)
-		gamepad_state.white = ((reportBuffer->b1 & (1<<7)) > 0) * 0xFF; //white (aka R2)
+		gamepad_state.black = ((reportBuffer->b1 & (1<<7)) > 0) * 0xFF; //black (aka R2)
+		gamepad_state.white = ((reportBuffer->b1 & (1<<6)) > 0) * 0xFF; //white (aka L2)
 
 		//NegCon analog button support
 		if (reportBufferAnalogButtons->a != 0) gamepad_state.a = reportBufferAnalogButtons->a;
