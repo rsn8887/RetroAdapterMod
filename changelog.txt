@@ -1,3 +1,9 @@
+v0.9
+- added some stubs for PS2 pressure sensitive button support, but disabled them all because the pressure sensitive buttons were sluggish and seemingly useless.
+
+v0.8
+- slight tweak to psx clock delay to make it work with PS2 controllers. 
+
 v0.7
 -finally made my own PSX adapter cable so I can debug PSX controllers. I found and fixed jitter problems with the original RetroAdapter communication code between adapter and PSX controller. The bytes were read almost half a PSX clock cycle after the supposed readout time on clk rising edge. This lead to jitter effects, where some buttons occasionally flickered off and on even if pressed down continously. Due to this, the vertical axis of the left analog stick also wasn't as accurate as it could have been. The Xbox controller tester for Xbox classic was an invaluable tool and shows such problems very clearly. All those problems should be completely fixed now.
 

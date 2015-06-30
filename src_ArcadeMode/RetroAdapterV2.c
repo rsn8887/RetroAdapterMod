@@ -42,6 +42,13 @@ static	int				usbDeviceDescriptorLength;
 static	report_t		reportBuffer;
 static	reportMouse_t	reportBufferMouse;
 static 	reportWheel_t	reportBufferWheel;
+static  reportAnalogButtons_t	reportBufferAnalogButtons;
+
+static const report_t emptyReportBuffer;
+static const reportMouse_t emptyReportBufferMouse;
+static const reportWheel_t emptyReportBufferWheel;
+static const reportAnalogButtons_t emptyReportBufferAnalogButtons;
+
 void*	reportBufferAddress;
 uchar	reportBufferLength;
 uchar	hidMode;
@@ -74,21 +81,21 @@ void ReadController(uchar id)
 {
 	uchar	skipdb9flag = 0;	// don't read DB9 when shared lines are in use by DB15
 	uchar	pcinton	= 0;
-
-	reportBuffer.y = reportBuffer.x = reportBuffer.b1 = reportBuffer.b2 = 0;
-	reportBuffer.rx = reportBuffer.ry = 0;
+	
+	reportBuffer = emptyReportBuffer;
 	reportBuffer.hat = -1;
 	reportBuffer.reportid = id;
-
-	reportBufferMouse.x = reportBufferMouse.y = reportBufferMouse.w = 0;
-	reportBufferMouse.b1 = 0;
+	
+	reportBufferMouse = emptyReportBufferMouse;
 	reportBufferMouse.reportid = id;
-
-	reportBufferWheel.x = reportBufferWheel.y = 0;
-	reportBufferWheel.slider1 = reportBufferWheel.slider2 = reportBufferWheel.slider3 = 0;
-	reportBufferWheel.b1 = reportBufferWheel.b2 = 0;
+	
+	reportBufferWheel = emptyReportBufferWheel;
 	reportBufferWheel.hat = -1;
 	reportBufferWheel.reportid = id;
+	
+	reportBufferAnalogButtons = emptyReportBufferAnalogButtons;
+	reportBufferAnalogButtons.hat = -1;
+	reportBufferAnalogButtons.reportid = id;
 	
 	hidMode = HIDM_1P;
 	//ReadDreamcast(&reportBuffer);
@@ -106,7 +113,7 @@ void ReadController(uchar id)
 				break;
 				
 				case (1<<1):				// LLLH
-				ReadPSX(&reportBuffer, &reportBufferWheel);
+				ReadPSX(&reportBuffer, &reportBufferWheel, &reportBufferAnalogButtons);
 				skipdb9flag = 1;
 				break;
 				
@@ -255,6 +262,15 @@ void SetHIDMode()
 			hidNumReports = 1;
 			reportBufferAddress = &reportBufferWheel;
 			reportBufferLength = sizeof(reportBufferWheel);
+			break;	
+		case HIDM_ANALOGBUTTONS:
+			usbDeviceDescriptorAddress = usbDescriptorDeviceJoystick;
+			usbDeviceDescriptorLength = sizeof(usbDescriptorDeviceJoystick);
+			hidReportDescriptorAddress = usbHidReportDescriptorAnalogButtons;
+			hidReportDescriptorLength = usbHidReportDescriptorAnalogButtonsLength;
+			hidNumReports = 1;
+			reportBufferAddress = &reportBufferAnalogButtons;
+			reportBufferLength = sizeof(reportBufferAnalogButtons);
 			break;		
 	}
 	usbDescriptorConfiguration[25] = hidReportDescriptorLength;

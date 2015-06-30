@@ -3,7 +3,7 @@
 #include <avr/pgmspace.h>
 #include "report.h"
 #include "famicom.h"
-#include "hid_modes.h"
+//#include "hid_modes.h"
 
 /*	D5	Data
 	D7	Latch
@@ -18,7 +18,6 @@
 */
 
 extern	uchar	hat_lut[];
-extern	uchar	hidMode;
 
 #define FAMDELAY	24 //12
 

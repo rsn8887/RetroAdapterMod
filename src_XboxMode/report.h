@@ -10,13 +10,13 @@
 //for NegCon
 typedef struct {
 	uchar	a; 
-	//uchar	b; 
+	uchar	b; 
 	uchar	x; 
-	//uchar	y; 
+	uchar	y; 
 	uchar	l; 
-	//uchar	r; 
-	//uchar	black; 
-	//uchar	white; 
+	uchar	r; 
+	uchar	black; 
+	uchar	white; 
 } reportAnalogButtons_t;
 
 typedef struct {

@@ -45,7 +45,7 @@ extern "C" {
 #include <avr/pgmspace.h>   /* required by usbdrv.h */
 #include "report.h"
 //#include "descriptors.h"
-#include "hid_modes.h"
+//#include "hid_modes.h"
 #include "direct.h"
 #include "saturn.h"
 #include "psx.h"
@@ -67,9 +67,12 @@ extern gamepad_state_t gamepad_state;
 
 static	report_t		reportBuffer;
 static	reportMouse_t	reportBufferMouse;
-static reportAnalogButtons_t	reportBufferAnalogButtons;
+static  reportAnalogButtons_t	reportBufferAnalogButtons;
 
-uchar	hidMode;
+static const report_t emptyReportBuffer;
+static const reportMouse_t emptyReportBufferMouse;
+static const reportAnalogButtons_t emptyReportBufferAnalogButtons;
+
 uchar	hidNumReports;
 uchar	idleRate;
 
@@ -119,16 +122,26 @@ void ReadController(uchar id)
 	uchar	skipdb9flag = 0;	// don't read DB9 when shared lines are in use by DB15
 	uchar	pcinton	= 0;
 
-	reportBuffer.y = reportBuffer.x = reportBuffer.b1 = reportBuffer.b2 = 0;
-	reportBuffer.rx = reportBuffer.ry = 0;
-	reportBuffer.hat = 0;
+	//reportBuffer.y = reportBuffer.x = reportBuffer.b1 = reportBuffer.b2 = 0;
+	//reportBuffer.rx = reportBuffer.ry = 0;
+	//reportBuffer.hat = 0;
+	
+	reportBuffer = emptyReportBuffer;
 	reportBuffer.reportid = id;
 
-	reportBufferMouse.x = reportBufferMouse.y = reportBufferMouse.w = 0;
-	reportBufferMouse.b1 = 0;
+	//reportBufferMouse.x = reportBufferMouse.y = reportBufferMouse.w = 0;
+	//reportBufferMouse.b1 = 0;
+	
+	reportBufferMouse = emptyReportBufferMouse;
 	reportBufferMouse.reportid = id;
 	
-	reportBufferAnalogButtons.a = reportBufferAnalogButtons.x = reportBufferAnalogButtons.l = 0x00;
+	//reportBufferAnalogButtons.a = reportBufferAnalogButtons.b
+	//= reportBufferAnalogButtons.x = reportBufferAnalogButtons.y 
+	//= reportBufferAnalogButtons.l = reportBufferAnalogButtons.r
+	//= reportBufferAnalogButtons.black = reportBufferAnalogButtons.white 
+	//= 0x00;
+	
+	reportBufferAnalogButtons = emptyReportBufferAnalogButtons;
 	
 	//ReadDreamcast(&reportBuffer);
 	// Check 15 pin connector
@@ -225,11 +238,20 @@ void ReadController(uchar id)
 // This function below translates the report structure used by the Mojo RetroAdapterV2 sources into the gamepad_state structure 
 // used by the XBox code from Bruno Freitas' RetroPad Adapter that is used here to implement Xbox Support
 void UpdateGamePadState(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogButtons) {
+
+		//Dpad
 		((reportBuffer->hat & HAT_UP) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_DPAD_UP)    : bitClear(gamepad_state.digital_buttons, XBOX_DPAD_UP);
 		((reportBuffer->hat & HAT_DOWN) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_DPAD_DOWN)  : bitClear(gamepad_state.digital_buttons, XBOX_DPAD_DOWN);
 		((reportBuffer->hat & HAT_LEFT) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_DPAD_LEFT)  : bitClear(gamepad_state.digital_buttons, XBOX_DPAD_LEFT);
 		((reportBuffer->hat & HAT_RIGHT) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_DPAD_RIGHT) : bitClear(gamepad_state.digital_buttons, XBOX_DPAD_RIGHT);
-
+		
+		//Digital Buttons
+		((reportBuffer->b2 & (1<<3)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_START) : bitClear(gamepad_state.digital_buttons, XBOX_START); // start
+		((reportBuffer->b2 & (1<<2)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_BACK) : bitClear(gamepad_state.digital_buttons, XBOX_BACK); // back
+		((reportBuffer->b2 & (1<<0)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_LEFT_STICK) : bitClear(gamepad_state.digital_buttons, XBOX_LEFT_STICK); // left stick press (aka L3)
+		((reportBuffer->b2 & (1<<1)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_RIGHT_STICK) : bitClear(gamepad_state.digital_buttons, XBOX_RIGHT_STICK); // right stick press (aka R3)
+		
+		//Analog buttons as digital Buttons
 		gamepad_state.a = ((reportBuffer->b1 & (1<<0)) > 0) * 0xFF; //A bottom button
 		gamepad_state.x = ((reportBuffer->b1 & (1<<1)) > 0) * 0xFF; //X left button	
 		gamepad_state.y = ((reportBuffer->b1 & (1<<2)) > 0) * 0xFF; //Y top button
@@ -237,22 +259,24 @@ void UpdateGamePadState(report_t *reportBuffer, reportAnalogButtons_t *reportBuf
 		
 		gamepad_state.l = ((reportBuffer->b1 & (1<<4)) > 0) * 0xFF; // left shoulder
 		gamepad_state.r = ((reportBuffer->b1 & (1<<5)) > 0) * 0xFF; // right shoulder
-		gamepad_state.black = ((reportBuffer->b1 & (1<<7)) > 0) * 0xFF; //black (aka R2)
-		gamepad_state.white = ((reportBuffer->b1 & (1<<6)) > 0) * 0xFF; //white (aka L2)
+		gamepad_state.black = ((reportBuffer->b1 & (1<<7)) > 0) * 0xFF; //black (aka R2 on psx)
+		gamepad_state.white = ((reportBuffer->b1 & (1<<6)) > 0) * 0xFF; //white (aka L2 on psx)
 
-		//NegCon analog button support
-		if (reportBufferAnalogButtons->a != 0) gamepad_state.a = reportBufferAnalogButtons->a;
-		if (reportBufferAnalogButtons->x != 0) gamepad_state.x = reportBufferAnalogButtons->x;
-		if (reportBufferAnalogButtons->l != 0) gamepad_state.l = reportBufferAnalogButtons->l;
+		//Analog buttons as true analog values, if non-zero
+		if (reportBufferAnalogButtons->a != 0) gamepad_state.a = reportBufferAnalogButtons->a; //A analog
+		if (reportBufferAnalogButtons->x != 0) gamepad_state.x = reportBufferAnalogButtons->x; //X analog	
+		if (reportBufferAnalogButtons->y != 0) gamepad_state.y = reportBufferAnalogButtons->y; //Y analog
+		if (reportBufferAnalogButtons->b != 0) gamepad_state.b = reportBufferAnalogButtons->b; //B analog
+		if (reportBufferAnalogButtons->l != 0) gamepad_state.l = reportBufferAnalogButtons->l; //left shoulder analog		
+		if (reportBufferAnalogButtons->r != 0) gamepad_state.r = reportBufferAnalogButtons->r; //right shoulder analog
+		if (reportBufferAnalogButtons->black != 0) gamepad_state.black = reportBufferAnalogButtons->black; //black analog
+		if (reportBufferAnalogButtons->white != 0) gamepad_state.white = reportBufferAnalogButtons->white; //white analog
 		
-		((reportBuffer->b2 & (1<<3)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_START) : bitClear(gamepad_state.digital_buttons, XBOX_START); // start
-		((reportBuffer->b2 & (1<<2)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_BACK) : bitClear(gamepad_state.digital_buttons, XBOX_BACK); // back
-		((reportBuffer->b2 & (1<<0)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_LEFT_STICK) : bitClear(gamepad_state.digital_buttons, XBOX_LEFT_STICK); // left stick press (aka L3)
-		((reportBuffer->b2 & (1<<1)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_RIGHT_STICK) : bitClear(gamepad_state.digital_buttons, XBOX_RIGHT_STICK); // right stick press (aka R3)
-		
+		//Left analog stick
 		gamepad_state.l_x = map(reportBuffer->x, -128, 127, -32768, 32767);
 		gamepad_state.l_y = map(reportBuffer->y, -128, 127, 32767, -32768);
 
+		//Right analog stick
 		gamepad_state.r_x = map(reportBuffer->rx, -128, 127, -32768, 32767);
 		gamepad_state.r_y = map(reportBuffer->ry, -128, 127, 32767, -32768);
 }

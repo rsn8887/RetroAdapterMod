@@ -2,7 +2,7 @@
 #include <util/delay.h>
 #include "report.h"
 #include "analogue.h"
-#include "hid_modes.h"
+//#include "hid_modes.h"
 
 /*	--- Analogue controller input ---
 
@@ -102,7 +102,6 @@ void ReadAnalogue(report_t *reportBuffer, uchar id)
 	}
 	else
 	{
-		hidMode = HIDM_1P;
 		// Read 3 columns of 4 buttons. Button numbering is from the Voltmace 14B manual and
 		// since USB numbers buttons starting from 1 the USB button is 14B+1
 		PORTB &= ~(1<<3);				// column 0
