@@ -1,5 +1,6 @@
 v0.9
 - added some stubs for PS2 pressure sensitive button support, but disabled them all because the pressure sensitive buttons were sluggish and seemingly useless.
+- slightly adjusted timing and psx order bit writes vs. clock pulses to remove random bitflip every few seconds on NegCon pad L button.
 
 v0.8
 - slight tweak to psx clock delay to make it work with PS2 controllers. 
