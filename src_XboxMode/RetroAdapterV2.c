@@ -44,8 +44,6 @@ extern "C" {
 #include <util/delay.h>     /* for _delay_ms() */
 #include <avr/pgmspace.h>   /* required by usbdrv.h */
 #include "report.h"
-//#include "descriptors.h"
-//#include "hid_modes.h"
 #include "direct.h"
 #include "saturn.h"
 #include "psx.h"
@@ -73,7 +71,6 @@ static const report_t emptyReportBuffer;
 static const reportMouse_t emptyReportBufferMouse;
 static const reportAnalogButtons_t emptyReportBufferAnalogButtons;
 
-uchar	hidNumReports;
 uchar	idleRate;
 
 long map(long x, long in_min, long in_max, long out_min, long out_max)
