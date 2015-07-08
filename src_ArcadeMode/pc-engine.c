@@ -52,8 +52,8 @@ void ReadPCE(report_t *reportBuffer)
 
 			if (!(PINB & PCE_UP)) reportBuffer->b1 |= (1<<0);	// I / A
 			if (!(PINB & PCE_RT)) reportBuffer->b1 |= (1<<1);	// II / B
-			if (!(PINB & PCE_DN)) reportBuffer->b2 |= (1<<1);	// Select
-			if (!(PINB & PCE_LF)) reportBuffer->b2 |= (1<<0);	// Run / Start
+			if (!(PINB & PCE_DN)) reportBuffer->b2 |= (1<<0);	// Select
+			if (!(PINB & PCE_LF)) reportBuffer->b2 |= (1<<1);	// Run / Start
 		}
 		else
 		{

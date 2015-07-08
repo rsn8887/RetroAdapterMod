@@ -7,6 +7,20 @@
  * License: GNU GPL v2
  */
 
+/* Global mappings when connected to Windows PC:
+button 1: bottom button (SNES B, PSX Cross, NES A), 
+button 2: left button (SNES Y, PSX Square, NES B), 
+button 3: upper button (SNES X, PSX Triangle)
+button 4: right button (SNES A, PSX Circle)
+button 5: Misc 1 (PSX L1, Genesis Y, N64 Yellow Left), 
+button 6: Misc 2 (PSX R1, Genesis Z, N64 Yellow Right),
+button 7: Left Shoulder (PSX L2)
+button 8: Right Shoulder (PSX R2)
+button 9: Select
+button 10: Start
+button 11: Misc 3 (PSX L3) 
+button 12: Misc 4 (PSX R3)
+*/
 
 #include <avr/io.h>
 #include <avr/interrupt.h>  /* for sei() */

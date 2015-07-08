@@ -1,3 +1,24 @@
+v0.92
+- accidentally left PS2 pressure sensitive mode (WIP) enabled. Disabled now.
+
+v0.91
+- I built a second adapter and found some differences in the timings affecting PSX controllers, probably due to some slight hardware differences (stray capacitance, crystal tolerance etc.)
+- adjusted all PSX timings to hopefully be more robust against slight changes in clock timings and delays etc.
+- changed button mappings in Normal Mode and Arcade Mode for all supported controllers to be more consistent, new mappings:
+
+	button 1: bottom button (SNES B, PSX Cross, NES A, NeoGeo A, Genesis A), 
+	button 2: left button (SNES Y, PSX Square, NES B, NeoGeo B, Genesis B), 
+	button 3: upper button (SNES X, PSX Triangle, NeoGeo C, Genesis C)
+	button 4: right button (SNES A, PSX Circle, Neogeo D, Genesis X)
+	button 5: Misc 1 (PSX L1, Genesis Y, N64 Yellow Left), 
+	button 6: Misc 2 (PSX R1, Genesis Z, N64 Yellow Right),
+	button 7: Left Shoulder (PSX L2)
+	button 8: Right Shoulder (PSX R2)
+	button 9: Select
+	button 10: Start
+	button 11: Misc 3 (PSX L3) 
+	button 12: Misc 4 (PSX R3)
+
 v0.9
 - added some stubs for PS2 pressure sensitive button support, but disabled them all because the pressure sensitive buttons were sluggish and seemingly useless.
 - slightly adjusted timing and psx order bit writes vs. clock pulses to remove random bitflip every few seconds on NegCon pad L button.

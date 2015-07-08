@@ -37,10 +37,10 @@ void ReadCD32(report_t *reportBuffer)
 	if (!(PINB & (1<<3))) reportBuffer->x = -128;			// left
 	if (!(PINB & (1<<2))) reportBuffer->x = 127;			// right
 
-	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<1);			// Blue
+	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<3);			// Blue
 	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<0);			// Red
-	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<3);			// Yellow
-	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<2);			// Green
+	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<2);			// Yellow
+	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<1);			// Green
 	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<7);			// Right Shoulder
 	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<6);			// Left Shoulder
 	if (!CD32ReadBit()) reportBuffer->b2 |= (1<<0);			// Pause

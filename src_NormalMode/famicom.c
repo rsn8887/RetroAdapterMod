@@ -73,8 +73,8 @@ void ReadFamicom(report_t *reportBuffer, reportMouse_t *reportBufferMouse)
 	if (byte0 & (1<<6)) reportBuffer->x = -128;			// Left
 	if (byte0 & (1<<5)) reportBuffer->y = 127;			// Down
 	if (byte0 & (1<<4)) reportBuffer->y = -128;			// Up
-	if (byte0 & (1<<3)) reportBuffer->b2 |= (1<<0);		// Start
-	if (byte0 & (1<<2)) reportBuffer->b2 |= (1<<1);		// Select
+	if (byte0 & (1<<3)) reportBuffer->b2 |= (1<<1);		// Start
+	if (byte0 & (1<<2)) reportBuffer->b2 |= (1<<0);		// Select
 
 	if ((byte2 & 0x0f) == (1<<3))		// Famicom Trackball
 	{
@@ -90,8 +90,8 @@ void ReadFamicom(report_t *reportBuffer, reportMouse_t *reportBufferMouse)
 		if (temp > 7) temp = -16 + temp;
 		reportBuffer->x = 0 - (temp * 4);
 
-		if (byte0 & (1<<3)) reportBuffer->b2 |= (1<<0);	// Start
-		if (byte0 & (1<<2)) reportBuffer->b2 |= (1<<1);	// Select
+		if (byte0 & (1<<3)) reportBuffer->b2 |= (1<<1);	// Start
+		if (byte0 & (1<<2)) reportBuffer->b2 |= (1<<0);	// Select
 		if (byte0 & (1<<1)) reportBuffer->b1 |= (1<<1);	// B
 		if (byte0 & (1<<0)) reportBuffer->b1 |= (1<<0);	// A
 	}
@@ -121,10 +121,10 @@ void ReadFamicom(report_t *reportBuffer, reportMouse_t *reportBufferMouse)
 	else if ((byte1 & 0xf0) == 0)		// Super Famicom mode or no pad
 	{
 		vbmode = 0;
-		if (byte0 & (1<<1)) reportBuffer->b1 |= (1<<4);	// Y
-		if (byte0 & (1<<0)) reportBuffer->b1 |= (1<<1);	// B
-		if (byte1 & (1<<0)) reportBuffer->b1 |= (1<<0);	// A
-		if (byte1 & (1<<1)) reportBuffer->b1 |= (1<<3);	// X
+		if (byte0 & (1<<1)) reportBuffer->b1 |= (1<<1);	// Y
+		if (byte0 & (1<<0)) reportBuffer->b1 |= (1<<0);	// B
+		if (byte1 & (1<<0)) reportBuffer->b1 |= (1<<3);	// A
+		if (byte1 & (1<<1)) reportBuffer->b1 |= (1<<2);	// X
 		if (byte1 & (1<<2)) reportBuffer->b1 |= (1<<6);	// L
 		if (byte1 & (1<<3)) reportBuffer->b1 |= (1<<7);	// R
 	}

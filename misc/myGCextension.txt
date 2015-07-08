@@ -1,0 +1,9 @@
+1 - white   dg9 5 
+2 - red   db9 9
+3 - black db9 8
+4 - yellow db9 8
+5 - 
+6 - green V.Reg. out (3.4 V)
+Vreg In - db9 5
+
+db9 1,2,8,Vreg GND all connected

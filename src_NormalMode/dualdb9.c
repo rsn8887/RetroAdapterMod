@@ -41,7 +41,7 @@ void Read2ndDirect(report_t *reportBuffer)
 	{
 		megadrive = 1;
 		if (!(PINB & (1<<1))) reportBuffer->b1 |= (1<<0);	// Megadrive A
-		if (!(PINC & (1<<1))) reportBuffer->b1 |= (1<<6);	// Megadrive Start
+		if (!(PINC & (1<<1))) reportBuffer->b2 |= (1<<1);	// Megadrive Start
 	}
 
 	PORTC	|= (1<<2);					// Select high for Megadrive
@@ -81,7 +81,7 @@ void Read2ndDirect(report_t *reportBuffer)
 			if (!(PINB & (1<<5))) reportBuffer->b1 |= (1<<5);	// Z
 			if (!(PINB & (1<<4))) reportBuffer->b1 |= (1<<4);	// Y
 			if (!(PINB & (1<<3))) reportBuffer->b1 |= (1<<3);	// X
-			if (!(PINB & (1<<2))) reportBuffer->b1 |= (1<<6);	// Mode
+			if (!(PINB & (1<<2))) reportBuffer->b2 |= (1<<0);	// Mode
 		}
 	}
 }
@@ -107,8 +107,8 @@ void Read2ndFamicom(report_t *reportBuffer)
 	// button IDs in brackers are Super Famicom
 	if (Famicom2Read()) reportBuffer->b1 |= (1<<0);	// A (B)
 	if (Famicom2Read()) reportBuffer->b1 |= (1<<1);	// B (Y)
-	if (Famicom2Read()) reportBuffer->b2 |= (1<<1);	// Select 
-	if (Famicom2Read()) reportBuffer->b2 |= (1<<0);	// Start
+	if (Famicom2Read()) reportBuffer->b2 |= (1<<0);	// Select 
+	if (Famicom2Read()) reportBuffer->b2 |= (1<<1);	// Start
 	if (Famicom2Read()) reportBuffer->y = -128;		// Up
 	if (Famicom2Read()) reportBuffer->y = 127;		// Down
 	if (Famicom2Read()) reportBuffer->x = -128;		// Left
@@ -116,22 +116,23 @@ void Read2ndFamicom(report_t *reportBuffer)
 
 	// Super Famicom only bits
 	if (Famicom2Read()) reportBuffer->b1 |= (1<<3);	// (A)
-	if (Famicom2Read()) reportBuffer->b1 |= (1<<4);	// (X)
-	if (Famicom2Read()) reportBuffer->b1 |= (1<<2);	// (L)
-	if (Famicom2Read()) reportBuffer->b1 |= (1<<5);	// (R)
+	if (Famicom2Read()) reportBuffer->b1 |= (1<<2);	// (X)
+	if (Famicom2Read()) reportBuffer->b1 |= (1<<6);	// (L)
+	if (Famicom2Read()) reportBuffer->b1 |= (1<<7);	// (R)
 	// If the next bit is high, Super Famicom detected so need to remap buttons.
 	// If not, mask out above bits which are always low on the Famicom
 	if (Famicom2Read())
 	{
-		reportBuffer->b1 &= 0b11000011;	// mask out non-Famicom buttons
-	} else {
-		temp = reportBuffer->b1;
-		reportBuffer->b1 &= 0b11100100;	// clear buttons to be remapped
-		if (temp & (1<<0)) reportBuffer->b1 |= (1<<1);	// A->B
-		if (temp & (1<<1)) reportBuffer->b1 |= (1<<4);	// B->Y
-		if (temp & (1<<3)) reportBuffer->b1 |= (1<<0);	// A
-		if (temp & (1<<4)) reportBuffer->b1 |= (1<<3);	// X
-	}
+		reportBuffer->b1 &= 0b00000011;	// mask out non-Famicom buttons
+	} 
+	//else {
+	//	temp = reportBuffer->b1;
+	//	reportBuffer->b1 &= 0b11100100;	// clear buttons to be remapped
+	//	if (temp & (1<<0)) reportBuffer->b1 |= (1<<1);	// A->B
+	//	if (temp & (1<<1)) reportBuffer->b1 |= (1<<4);	// B->Y
+	//	if (temp & (1<<3)) reportBuffer->b1 |= (1<<0);	// A
+	//	if (temp & (1<<4)) reportBuffer->b1 |= (1<<3);	// X
+	//}
 }
 
 uchar Famicom2Read(void)

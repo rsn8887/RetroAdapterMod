@@ -1,0 +1,9 @@
+1 - white   db9 8
+2 - yellow   db9 9 
+3 - green db9 7
+4 - black  db9 4
+5 - red    db9 5   
+6 -    
+7 - 
+
+db9 1,2,3,8  all connected

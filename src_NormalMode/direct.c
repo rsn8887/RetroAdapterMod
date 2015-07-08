@@ -29,7 +29,7 @@ void ReadDB9(report_t *reportBuffer)
 	{
 		megadrive = 1;
 		if (!(PIND & (1<<6))) reportBuffer->b1 |= (1<<0);	// Megadrive A
-		if (!(PINB & (1<<0))) reportBuffer->b2 |= (1<<0);	// Megadrive Start
+		if (!(PINB & (1<<0))) reportBuffer->b2 |= (1<<1);	// Megadrive Start
 	}
 
 	PORTD	|= (1<<7);					// P1 select high for Megadrive
@@ -69,7 +69,7 @@ void ReadDB9(report_t *reportBuffer)
 			if (!(PIND & (1<<0))) reportBuffer->b1 |= (1<<5);	// Z
 			if (!(PIND & (1<<3))) reportBuffer->b1 |= (1<<4);	// Y
 			if (!(PIND & (1<<4))) reportBuffer->b1 |= (1<<3);	// X
-			if (!(PIND & (1<<5))) reportBuffer->b2 |= (1<<2);	// Mode
+			if (!(PIND & (1<<5))) reportBuffer->b2 |= (1<<0);	// Mode
 		}
 
 	}
@@ -92,12 +92,12 @@ void ReadDB15(report_t *reportBuffer)
 	DDRD	&= ~((1<<0)|(1<<4));		// PD0/PD4 inputs
 	PORTD	|= (1<<0)|(1<<4);
 
-	if (!(PINB & (1<<5))) reportBuffer->b2 |= (1<<2);	// Select
+	if (!(PINB & (1<<5))) reportBuffer->b2 |= (1<<0);	// Select
 	if (!(PINB & (1<<4))) reportBuffer->b1 |= (1<<3);	// D
 	if (!(PINB & (1<<3))) reportBuffer->b1 |= (1<<1);	// B
 	if (!(PINB & (1<<2))) reportBuffer->x = 127;		// Right
 	if (!(PINB & (1<<1))) reportBuffer->y = 127;		// Down
-	if (!(PINC & (1<<2))) reportBuffer->b2 |= (1<<3);	// Start
+	if (!(PINC & (1<<2))) reportBuffer->b2 |= (1<<1);	// Start
 	if (!(PINC & (1<<1))) reportBuffer->b1 |= (1<<2);	// C
 	if (!(PINC & (1<<0))) reportBuffer->b1 |= (1<<0);	// A
 

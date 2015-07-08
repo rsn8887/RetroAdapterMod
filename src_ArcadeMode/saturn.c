@@ -35,7 +35,7 @@ void ReadSaturn(report_t *reportBuffer)
 	// TH = 1, TR = 1
 	if (PIND & SAT_LF)		// Standard digital pad
 	{
-		if (!(PIND & SAT_RT)) reportBuffer->b1 |= (1<<6);		// L
+		if (!(PIND & SAT_RT)) reportBuffer->b1 |= (1<<4);		// L
 
 		// TH = 0, TR = 1
 		PORTB &= ~(SAT_TH);
@@ -55,7 +55,7 @@ void ReadSaturn(report_t *reportBuffer)
 		if (!(PINB & SAT_UP)) reportBuffer->b1 |= (1<<1);		// B
 		if (!(PINB & SAT_DN)) reportBuffer->b1 |= (1<<2);		// C
 		if (!(PIND & SAT_LF)) reportBuffer->b1 |= (1<<0);		// A
-		if (!(PIND & SAT_RT)) reportBuffer->b2 |= (1<<0);		// Start
+		if (!(PIND & SAT_RT)) reportBuffer->b2 |= (1<<1);		// Start
 
 		// TH = 0, TR = 0
 		PORTB &= ~(SAT_TH|SAT_TR);
