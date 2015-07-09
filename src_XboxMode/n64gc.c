@@ -31,9 +31,9 @@
 
 const uchar n64gc_hat_lut[] PROGMEM  = { -1, 2, 6, -1, 4, 3, 5, -1, 0, 1, 7, -1, -1 };
 
-extern	uchar readnintendo(report_t *reportBuffer);
+extern	uchar readnintendo(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogButtons);
 
-void ReadN64GC(report_t *reportBuffer)
+void ReadN64GC(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogButtons)
 {
 	uchar	dpad;
 
@@ -43,7 +43,7 @@ void ReadN64GC(report_t *reportBuffer)
 	PORTD	&= ~(1<<7);		// debug
 	DDRD	|= (1<<7);
 
-	dpad = readnintendo(reportBuffer);
+	dpad = readnintendo(reportBuffer, reportBufferAnalogButtons);
 	//reportBuffer->hat = pgm_read_byte(&n64gc_hat_lut[dpad]);	
 	if (dpad & (1<<3)) reportBuffer->hat |= HAT_UP;	// up
 	if (dpad & (1<<2)) reportBuffer->hat |= HAT_DOWN;	// down

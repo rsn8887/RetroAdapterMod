@@ -20,6 +20,11 @@
 #define	count	r26
 #define	timer	r27
 
+; delay is roughly number of loops * 3 * clock cycle time
+; at 15 MHz cycle time this is 0.067 us
+; send 1 bit: low 1 us, high 3 us
+; send 0 bit: low 3 us, high 1 us
+
 #define	MSD3	13
 #define	MSD2	9
 #define	MSD1	3
@@ -28,10 +33,10 @@
 
 ; Timing macro
 		.MACRO __DELAY loops
-		ldi		timer, \loops
+		ldi		timer, \loops 	;1 cycle
 __DELAY_LOOP_\@:
-		dec		timer
-		brne	__DELAY_LOOP_\@
+		dec		timer 			;1 cycle
+		brne	__DELAY_LOOP_\@ ;2 cycles if branching, 1 cycle if continuing
 		.ENDM
 
 ; main function
@@ -66,13 +71,13 @@ readnintendo:
 		mov		data2, data8
 		rcall	readbyte
 		mov		data3, data8
-
+		
 		cpi		data1, 0x05		; N64 pad
 		breq	readn64
-
+		
 		cpi		data1, 0x09		; GameCube pad
 		breq	readgc
-
+		
 		ldi		r24, 0			; return
 		ret
 
@@ -99,7 +104,13 @@ readn64:
 		mov		data4, data8
 
 		st		Z, data3		; x
-		neg		data4			; for some reason y is inverted
+		; special handling for y axis, reduce possible area from -128..127 to -127..127 as easy fix
+		; using ones complement does not solve problem, as then everythin (including 0) would be offset -1
+		cpi		data4, 0x80		; check if -128
+		brne	jumpyincrement	; jump over if number different -128
+		inc		data4 			; +1 so that -128 gets to -127
+jumpyincrement:
+		neg data4 				; invert data using twos complement		
 		std		Z+1, data4		; y
 
 		; data3 - b1
@@ -274,11 +285,11 @@ gc_no_r:
 ; byte in data8, timer and count trashed
 readbyte:
 		ldi		data8, 0
-		ldi		timer, 20
+		ldi		timer, 255 ; was 20
 		ldi		count, 8
 in_byte:
 		dec		timer
-		breq	timeout
+		breq	timeout 
 		sbic	PINB, 0
 		rjmp	in_byte
 		__DELAY	MSD2			;~2us
@@ -294,14 +305,14 @@ in_byte:
 		;sbrc	data8, 0
 		;sbi		PORTD, 7	// debug
 		;cbi		PORTD, 7	// debug
-
-		ldi		timer, 20
+		
+		ldi		timer, 255 ; was 20
 in_wait_high:
 		dec		timer
 		breq	timeout
 		sbis	PINB, 0
 		rjmp	in_wait_high
-		dec		count
+		dec		count ; one bit read
 		brne	in_byte
 
 timeout:

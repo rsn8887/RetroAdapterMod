@@ -40,6 +40,9 @@ __DELAY_LOOP_\@:
 readnintendo:
 		mov		ZH, r25		; pointer to reportBuffer[]
 		mov		ZL, r24
+		mov		YH, r23		; pointer to reportBufferAnalogButtons[]
+		mov		YL,	r22		
+		
 		ldi		data1, 1	; add 1 to skip report ID
 		ldi		data2, 0
 		add		ZL, data1
@@ -99,7 +102,13 @@ readn64:
 		mov		data4, data8
 
 		st		Z, data3		; x
-		neg		data4			; for some reason y is inverted
+		; special handling for y axis, reduce possible area from -128..127 to -127..127 as easy fix
+		; using ones complement does not solve problem, as then everythin (including 0) would be offset -1
+		cpi		data4, 0x80		; check if -128
+		brne	jumpyincrement			; jump over if number different -128
+		inc		data4 			; +1 so that -128 gets to -127
+jumpyincrement:
+		neg data4 				; invert data using twos complement
 		std		Z+1, data4		; y
 
 		; data3 - b1
@@ -133,9 +142,9 @@ readn64:
 		sbrc	data1, 6		; B
 		ori		data3, (1<<1)
 		sbrc	data1, 5		; Z
-		ori		data4, (1<<1)
+		ori		data4, (1<<2)
 		sbrc	data1, 4		; Start
-		ori		data4, (1<<0)
+		ori		data4, (1<<3)
 		andi	data1, 0x0f		; d-pad
 		
 		; 2:	0 - C-Right
@@ -148,17 +157,17 @@ readn64:
 		; C buttons mapped as buttons because you can press opposite directions at the
 		; same time so they are not suitable for mapping to an axis/hat.
 		sbrc	data2, 5		; L
-		ori		data3, (1<<6)
+		ori		data3, (1<<4)
 		sbrc	data2, 4		; R
-		ori		data3, (1<<7)
+		ori		data3, (1<<5)
 		sbrc	data2, 3		; C-Up
 		ori		data3, (1<<2)
 		sbrc	data2, 2		; C-Down
 		ori		data3, (1<<3)
 		sbrc	data2, 1		; C-Left
-		ori		data3, (1<<4)
+		ori		data3, (1<<6)
 		sbrc	data2, 0		; C-Right
-		ori		data3, (1<<5)
+		ori		data3, (1<<7)
 
 		std		Z+5, data3		; b1
 		std		Z+6, data4		; b2
@@ -229,33 +238,29 @@ readgc:
 		sbrc	data1, 2		; X 
 		ori		b1, (1<<3)
 		sbrc	data1, 3		; Y 
-		ori		b1, (1<<4)
+		ori		b1, (1<<2)
 		sbrc	data1, 4		; Start 
-		ori		b2, (1<<0)
+		ori		b2, (1<<3)
 
 		; data2:	4 - Z
 		;			5 - R
 		;			6 - L
 
 		sbrc	data2, 4		; Z
-		ori		b2, (1<<1)
+		ori		b2, (1<<2)
 		sbrc	data2, 5		; R
-		ori		b1, (1<<7)
+		ori		b1, (1<<5)
 		sbrc	data2, 6		; L
-		ori		b1, (1<<6)
+		ori		b1, (1<<4)
 
 		; data7:	L trigger
-		cpi		data7, 64
-		brlo	gc_no_l
-		ori		b1, (1<<6)
-gc_no_l:
-
+		sbrc	data2, 6		; if L button is pressed leave analog value at zero, else adjust it
+		std		Y+4, data7
+		
 		; data8:	R trigger
-		cpi		data8, 64
-		brlo	gc_no_r
-		ori		b1, (1<<7)
-gc_no_r:
-	
+		sbrc	data2, 5		; if R button is pressed leave analog value at zero, else adjust it
+		std		Y+5, data8
+		
 		std		Z+5, data3		; b1
 		std		Z+6, data4		; b2
 

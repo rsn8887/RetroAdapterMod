@@ -8,7 +8,7 @@
 
 #define PSXCLK	36	// 36 us from falling edge to rising edge this low clock values ensures that the adapter works with PSX, Dualshock and NegCon without any bitflips and jitter.
 #define PSXBYTEDELAY 3 // 3 us between bytes
-#define PSXCLKHIGH	9 // 9 us from rising to falling edge NegCon needs this to be 9 us at least the other controllers function with delays as low as 3us
+#define PSXCLKHIGH 9 // 9 us from rising to falling edge NegCon needs this to be 9 us at least the other controllers function with delays as low as 3us
 
 //#define PS2PRESSURE
 
@@ -264,7 +264,7 @@ uchar PSXCommand(uchar command)
 		_delay_us(PSXCLK);
 		
 		data >>= 1;		
-		
+
 		PORTB |= CLK;				// clock rising edge this is when data is read by both host and controller
 
 		if (PINB & DAT) data |= (1<<7); //(1<<i);

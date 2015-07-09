@@ -1,5 +1,6 @@
 #include <avr/io.h>
 #include <avr/pgmspace.h>
+#include <avr/interrupt.h>
 #include <util/delay.h>
 #include "report.h"
 #include "n64gc.h"
@@ -42,7 +43,6 @@ void ReadN64GC(report_t *reportBuffer)
 
 	PORTD	&= ~(1<<7);		// debug
 	DDRD	|= (1<<7);
-
 	dpad = readnintendo(reportBuffer);
 	reportBuffer->hat = pgm_read_byte(&n64gc_hat_lut[dpad]);
 }

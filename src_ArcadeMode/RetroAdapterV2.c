@@ -8,10 +8,10 @@
  */
 
 /* Global mappings when connected to Windows PC:
-button 1: bottom button (SNES B, PSX Cross, NES A), 
-button 2: left button (SNES Y, PSX Square, NES B), 
-button 3: upper button (SNES X, PSX Triangle)
-button 4: right button (SNES A, PSX Circle)
+button 1: bottom button (SNES B, PSX Cross, NES A, NeoGeo A, Genesis A), 
+button 2: left button (SNES Y, PSX Square, NES B, NeoGeo B, Genesis B), 
+button 3: upper button (SNES X, PSX Triangle, NeoGeo C, Genesis C)
+button 4: right button (SNES A, PSX Circle, Neogeo D, Genesis X)
 button 5: Misc 1 (PSX L1, Genesis Y, N64 Yellow Left), 
 button 6: Misc 2 (PSX R1, Genesis Z, N64 Yellow Right),
 button 7: Left Shoulder (PSX L2)

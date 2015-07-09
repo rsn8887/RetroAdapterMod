@@ -112,5 +112,4 @@ void ReadDB15(report_t *reportBuffer)
 	if (!(PINC & (1<<2))) reportBuffer->b1 |= (1<<7);	// Button 8
 	if (!(PINC & (1<<1))) reportBuffer->b1 |= (1<<2);	// Button 3
 	if (!(PINC & (1<<0))) reportBuffer->b1 |= (1<<4);	// Button 5
-
 }

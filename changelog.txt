@@ -1,3 +1,7 @@
+v0.93
+- incorporated N64 y-axis inversion assembler fix from AlmightyFrog
+- added support for analog Gamecube L/R triggers in Xbox mode
+
 v0.92
 - accidentally left PS2 pressure sensitive mode (WIP) enabled. Disabled now.
 

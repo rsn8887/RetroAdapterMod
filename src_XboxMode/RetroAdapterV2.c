@@ -217,7 +217,7 @@ void ReadController(uchar id)
 			if (PIND & (1<<4))
 			{
 				// N64 / Gamecube
-				ReadN64GC(&reportBuffer);
+				ReadN64GC(&reportBuffer, &reportBufferAnalogButtons);
 			}
 			else
 			{

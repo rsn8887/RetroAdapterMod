@@ -1,4 +1,4 @@
-Paul Qureshi RetroAdapter Firmware v2.1a Mod v0.92
+Paul Qureshi RetroAdapter Firmware v2.1a Mod v0.93
 --------------------------------------------------
 
 References
@@ -141,6 +141,10 @@ avrdude -c arduino -p atmega168 -P com3 -b 19200 -U flash:w:combined.hex
 avrdude -c arduino -p atmega168 -P com3 -b 19200 -U lfuse:w:0xef:m -U hfuse:w:0xdf:m -U efuse:w:0xf8:m
 
 - Now this should give you a working original RetroAdapter that can then be modded.
+
+Note
+----
+The connector cables between RetroAdapter and old-school controllers should be kept short when using unshielded wires to reduce noise.
 
 Cheers,
 rsn8887, 06/26/2015
