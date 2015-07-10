@@ -6,22 +6,16 @@
 #include "psx.h"
 #include "hid_modes.h"
 
-#define PSXCLK	36	// 36 us from falling edge to rising edge this low clock values ensures that the adapter works with PSX, Dualshock and NegCon without any bitflips and jitter.
+#define PSXCLK	12 // 36 us from falling edge to rising edge this low clock values ensures that the adapter works with PSX, Dualshock and NegCon without any bitflips and jitter.
 #define PSXBYTEDELAY 3 // 3 us between bytes
-#define PSXCLKHIGH 9 // 9 us from rising to falling edge NegCon needs this to be 9 us at least the other controllers function with delays as low as 3us
+#define PSXCLKHIGH 12 // 9 us from rising to falling edge NegCon needs this to be 9 us at least the other controllers function with delays as low as 3us
 
-//#define PS2PRESSURE
-
-#ifdef PS2PRESSURE
 // ps2 pressure button support, preliminary
-#define PS2CLK 20 // faster clock for PS2 pressure sensitive mode
-#define PS2BYTEDELAY 3 // faster clock for PS2 pressure sensitive mode
-#define PS2CLKHIGH 3 // 3 us from rising to falling edge is enough for PS2 pressure sens. mode
+//#define PS2PRESSURE
 
 static uchar enter_config[]={0x01,0x43,0x00,0x01,0x00};
 static uchar set_bytes_large[]={0x01,0x4F,0x00,0xFF,0xFF,0x03,0x00,0x00,0x00};
 static uchar exit_config[]={0x01,0x43,0x00,0x00,0x5A,0x5A,0x5A,0x5A,0x5A};
-#endif
 
 /*	LDRU
 	0000	-
@@ -41,8 +35,6 @@ static uchar exit_config[]={0x01,0x43,0x00,0x00,0x5A,0x5A,0x5A,0x5A,0x5A};
 
 const uchar psx_hat_lut[] PROGMEM  = { -1, 0, 2, 1, 4, -1, 3, -1, 6, 7, -1, -1, 5 };
 extern	uchar	hidMode;
-
-uchar i;
 
 /*
 PB5		DAT		In
@@ -77,9 +69,9 @@ void ReadPSX(report_t *reportBuffer, reportWheel_t *reportBufferWheel, reportAna
 		PORTB |= ATT;				// ATT high again
 		_delay_us(PSXBYTEDELAY);	// wait a few us
 		
-		PS2SendCommandString(enter_config, sizeof(enter_config));
-  		PS2SendCommandString(set_bytes_large, sizeof(set_bytes_large));
-  		PS2SendCommandString(exit_config, sizeof(exit_config));
+		PSXSendCommandString(enter_config, sizeof(enter_config));
+  		PSXSendCommandString(set_bytes_large, sizeof(set_bytes_large));
+  		PSXSendCommandString(exit_config, sizeof(exit_config));
 		
 		_delay_us(100);
 		
@@ -171,8 +163,8 @@ void ReadPSX(report_t *reportBuffer, reportWheel_t *reportBufferWheel, reportAna
 	{
 		hidMode = HIDM_ANALOGBUTTONS;
 		reportBuffer->b2 |= (1<<4);
-		data = PS2Command(0xff);	// expect 0x5a from controller
-		data = PS2Command(0xff);
+		data = PSXCommand(0xff);	// expect 0x5a from controller
+		data = PSXCommand(0xff);
 		if (!(data & (1<<0))) reportBufferAnalogButtons->b2 |= (1<<0);	// Select
 		if (!(data & (1<<3))) reportBufferAnalogButtons->b2 |= (1<<1);	// Start
 
@@ -180,7 +172,7 @@ void ReadPSX(report_t *reportBuffer, reportWheel_t *reportBufferWheel, reportAna
 		if (!(data & (1<<2))) reportBufferAnalogButtons->b2 |= (1<<3);	// R3 Right joystick
 		reportBufferAnalogButtons->hat = pgm_read_byte(&psx_hat_lut[(~(data>>4)&0x0f)]);
 
-		data = PS2Command(0xff);
+		data = PSXCommand(0xff);
 		
 		if (!(data & (1<<0))) reportBufferAnalogButtons->b1 |= (1<<6);	// L2
 		if (!(data & (1<<1))) reportBufferAnalogButtons->b1 |= (1<<7);	// R2
@@ -191,53 +183,53 @@ void ReadPSX(report_t *reportBuffer, reportWheel_t *reportBufferWheel, reportAna
 		if (!(data & (1<<6))) reportBufferAnalogButtons->b1 |= (1<<0);	// X  Cross
 		if (!(data & (1<<7))) reportBufferAnalogButtons->b1 |= (1<<1);	// [] Square
 
-		data = PS2Command(0xff);
+		data = PSXCommand(0xff);
 		reportBufferAnalogButtons->rx = -128+(char)data;
 			
-		data = PS2Command(0xff);
+		data = PSXCommand(0xff);
 		reportBufferAnalogButtons->ry = -128+(char)data;
 			
-		data = PS2Command(0xff);
+		data = PSXCommand(0xff);
 		reportBufferAnalogButtons->x = -128+(char)data;
 			
-		data = PS2Command(0xff);
+		data = PSXCommand(0xff);
 		reportBufferAnalogButtons->y = -128+(char)data;				
 				
 		// here come the pressure sensitive button values
-		data = PS2Command(0xff); //byte 9: right
+		data = PSXCommand(0xff); //byte 9: right
 		reportBufferAnalogButtons->slider1 = data;
 		
-		data = PS2Command(0xff); //byte 10: left
+		data = PSXCommand(0xff); //byte 10: left
 		reportBufferAnalogButtons->slider10 = data;
 
-		data = PS2Command(0xff); //byte 11: up
+		data = PSXCommand(0xff); //byte 11: up
 		reportBufferAnalogButtons->slider11 = data;
 
-		data = PS2Command(0xff); //byte 12: down
+		data = PSXCommand(0xff); //byte 12: down
 		reportBufferAnalogButtons->slider12 = data;
 			
-		data = PS2Command(0xff); //byte 13: Triangle
+		data = PSXCommand(0xff); //byte 13: Triangle
 		reportBufferAnalogButtons->slider1 = data;
 			
-		data = PS2Command(0xff); //byte 14: Circle
+		data = PSXCommand(0xff); //byte 14: Circle
 		reportBufferAnalogButtons->slider2 = data;
 			
-		data = PS2Command(0xff); //byte 15: Cross
+		data = PSXCommand(0xff); //byte 15: Cross
 		reportBufferAnalogButtons->slider3 = data;
 			
-		data = PS2Command(0xff); //byte 16: Square
+		data = PSXCommand(0xff); //byte 16: Square
 		reportBufferAnalogButtons->slider4 = data;
 			
-		data = PS2Command(0xff); //byte 17: L1
+		data = PSXCommand(0xff); //byte 17: L1
 		reportBufferAnalogButtons->slider5 = data;
 			
-		data = PS2Command(0xff); //byte 18: R1
+		data = PSXCommand(0xff); //byte 18: R1
 		reportBufferAnalogButtons->slider6 = data;
 			
-		data = PS2Command(0xff); //byte 19: L2
+		data = PSXCommand(0xff); //byte 19: L2
 		reportBufferAnalogButtons->slider7 = data;
 			
-		data = PS2Command(0xff); //byte 20: R2
+		data = PSXCommand(0xff); //byte 20: R2
 		reportBufferAnalogButtons->slider8 = data; 
 	}	
 #endif
@@ -275,48 +267,15 @@ uchar PSXCommand(uchar command)
 	
 	return data;
 }
-#ifdef PS2PRESSURE
-//faster clock works on ps2 but not on dualshock, so these functions for ps2 use the faster clock
-uchar PS2Command(uchar command)
-{
-	uchar i = 0;
-	uchar data = 0;
 
-	_delay_us(PS2BYTEDELAY);
-
-	for (i = 0; i < 8; i++)
-	{
-		// set command line
-		if (command & 1) PORTB |= CMD;
-		else PORTB &= ~CMD;
-		command >>= 1;
-
-		PORTB &= ~CLK;				// clock falling edge this is when data is changed by both host and controller
-
-		_delay_us(PS2CLK);
-		
-		data >>= 1;		
-				
-		if (PINB & DAT) data |= (1<<7); //(1<<i);
-
-		PORTB |= CLK;				// clock rising edge this is when data is read by both host and controller
-				
-		_delay_us(PS2CLKHIGH);
-	}
-	_delay_us(PS2BYTEDELAY);
-	
-	return data;
-}
-
-void PS2SendCommandString(uchar string[], uchar len) 
+void PSXSendCommandString(uchar string[], uchar len) 
 {
 	// low enable joysticks
 	PORTB &= ~ATT;
 	for (int y=0; y<len; y++)
 	{
-		PS2Command(string[y]);
+		PSXCommand(string[y]);
 	};
 	PORTB |= ATT;
-	_delay_us(PS2BYTEDELAY);
+	_delay_us(PSXBYTEDELAY);
 }
-#endif

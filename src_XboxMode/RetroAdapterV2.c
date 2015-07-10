@@ -116,6 +116,8 @@ void setup() {
 
 void ReadController(uchar id)
 {
+	cli(); //disable interrupts when reading controller
+	
 	uchar	skipdb9flag = 0;	// don't read DB9 when shared lines are in use by DB15
 	uchar	pcinton	= 0;
 
@@ -231,6 +233,8 @@ void ReadController(uchar id)
 		}
 	}
 	if (!pcinton) PCICR	&= ~(1<<PCIE0);
+	
+	sei(); //re-enable interrupts
 }
 // This function below translates the report structure used by the Mojo RetroAdapterV2 sources into the gamepad_state structure 
 // used by the XBox code from Bruno Freitas' RetroPad Adapter that is used here to implement Xbox Support
@@ -289,7 +293,7 @@ int main(void)
     for(;;){                /* main event loop */
         xbox_reset_watchdog(); //From Bruno Freitas
 		ReadController(1);
-        UpdateGamePadState(&reportBuffer, &reportBufferAnalogButtons); //Translate from Mojo PC USB Controller button structure to Xbox structure 
+	    UpdateGamePadState(&reportBuffer, &reportBufferAnalogButtons); //Translate from Mojo PC USB Controller button structure to Xbox structure 
 		xbox_send_pad_state(); //From Bruno Freitas
 		
 		//usbPoll();

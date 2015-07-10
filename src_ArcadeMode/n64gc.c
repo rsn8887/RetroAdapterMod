@@ -45,4 +45,11 @@ void ReadN64GC(report_t *reportBuffer)
 	DDRD	|= (1<<7);
 	dpad = readnintendo(reportBuffer);
 	reportBuffer->hat = pgm_read_byte(&n64gc_hat_lut[dpad]);
+	
+	// y and ry-axes are inverted on N64 and Gamecube, fix this here in C
+	if (reportBuffer->y==-128) reportBuffer->y=127;
+	else reportBuffer->y= -reportBuffer->y;
+	
+	if (reportBuffer->ry==-128) reportBuffer->ry=127;
+	else reportBuffer->ry= -reportBuffer->ry;
 }

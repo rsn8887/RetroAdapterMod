@@ -93,6 +93,8 @@ void HardwareInit()
 
 void ReadController(uchar id)
 {
+	cli(); // disable interrupts when reading controller
+	
 	uchar	skipdb9flag = 0;	// don't read DB9 when shared lines are in use by DB15
 	uchar	pcinton	= 0;
 	
@@ -231,6 +233,8 @@ void ReadController(uchar id)
 	}
 
 	if (!pcinton) PCICR	&= ~(1<<PCIE0);
+	
+	sei(); // re-enable interrupts after reading controller
 }
 
 /* ------------------------------------------------------------------------- */
@@ -376,7 +380,6 @@ int main(void)
         if(usbInterruptIsReady()){
             /* called after every poll of the interrupt endpoint */
 			ReadController(i);
-			
 			remainingData=reportBufferLength;
 			offset=0;
 			// handle report with more than 8 byte length (for NegCon and future expansion)

@@ -1,8 +1,6 @@
 void ReadPSX(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogButtons);
-char PSXWaitACK();
 uchar PSXCommand(uchar cmd);
-void PS2SendCommandString(uchar *string, uchar len);
-uchar PS2Command(uchar cmd);
+void PSXSendCommandString(uchar *string, uchar len);
 
 #define	PSX_ID_DIGITAL	0x41
 #define PSX_ID_A_RED	0x73

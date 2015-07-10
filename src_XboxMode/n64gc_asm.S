@@ -40,8 +40,12 @@ __DELAY_LOOP_\@:
 readnintendo:
 		mov		ZH, r25		; pointer to reportBuffer[]
 		mov		ZL, r24
+		
+		push	r28			; save register 28 and 29 on the stack, because c expects those values to not change
+		push	r29
+		
 		mov		YH, r23		; pointer to reportBufferAnalogButtons[]
-		mov		YL,	r22		
+		mov		YL,	r22		; this overwrites register 28 and 29
 		
 		ldi		data1, 1	; add 1 to skip report ID
 		ldi		data2, 0
@@ -77,6 +81,10 @@ readnintendo:
 		breq	readgc
 
 		ldi		r24, 0			; return
+		
+		pop 	r29				; restore r28 and r29
+		pop		r28				; because those two registers are "save and restore type"
+		
 		ret
 
 ; --- read N64 ------------------------------------------------------------------------------------
@@ -102,14 +110,7 @@ readn64:
 		mov		data4, data8
 
 		st		Z, data3		; x
-		; special handling for y axis, reduce possible area from -128..127 to -127..127 as easy fix
-		; using ones complement does not solve problem, as then everythin (including 0) would be offset -1
-		cpi		data4, 0x80		; check if -128
-		brne	jumpyincrement			; jump over if number different -128
-		inc		data4 			; +1 so that -128 gets to -127
-jumpyincrement:
-		neg data4 				; invert data using twos complement
-		std		Z+1, data4		; y
+		std		Z+1, data4		; y (inverted)
 
 		; data3 - b1
 		; data4 - b2
@@ -173,6 +174,10 @@ jumpyincrement:
 		std		Z+6, data4		; b2
 
 		mov		r24, data1		; return d-pad
+		
+		pop 	r29				; restore r28 and r29
+		pop		r28
+		
 		ret
 
 ; --- read GameCube -------------------------------------------------------------------------------
@@ -180,7 +185,7 @@ jumpyincrement:
 readgc:
 		; wait for controller to be ready again
 		__DELAY 100
-
+		
 		; send 0x400302 to read controller status words
 		ldi		data8, 0x40
 		rcall	writebyte
@@ -209,16 +214,14 @@ readgc:
 
 		subi	data3, 128
 		subi	data4, 128
-		neg		data4
+		
 		st		Z, data3		; x
-		std		Z+1, data4		; y
+		std		Z+1, data4		; y (inverted)
 
-		subi	data5, 128
-		neg		data5
+		subi	data5, 128		
 		subi	data6, 128
-		neg		data6
-		std		Z+2, data5
-		std		Z+3, data6
+		std		Z+2, data5		; rx
+		std		Z+3, data6		; ry (inverted)
 
 		; data3 - b1
 		; data4 - b2
@@ -254,11 +257,11 @@ readgc:
 		ori		b1, (1<<4)
 
 		; data7:	L trigger
-		sbrc	data2, 6		; if L button is pressed leave analog value at zero, else adjust it
+		sbrs	data2, 6		; if L button is pressed leave analog value at zero, else adjust it
 		std		Y+4, data7
 		
 		; data8:	R trigger
-		sbrc	data2, 5		; if R button is pressed leave analog value at zero, else adjust it
+		sbrs	data2, 5		; if R button is pressed leave analog value at zero, else adjust it
 		std		Y+5, data8
 		
 		std		Z+5, data3		; b1
@@ -273,13 +276,17 @@ readgc:
 		sbrc	data1, 0
 		ori		data2, (1<<1)
 		mov		r24, data2		; return d-pad
+		
+		pop 	r29				; restore r28 and r29
+		pop		r28
+				
 		ret
 
 ; --- read byte -----------------------------------------------------------------------------------
 ; byte in data8, timer and count trashed
 readbyte:
 		ldi		data8, 0
-		ldi		timer, 20
+		ldi		timer, 255 ; was 20
 		ldi		count, 8
 in_byte:
 		dec		timer
@@ -300,7 +307,7 @@ in_byte:
 		;sbi		PORTD, 7	// debug
 		;cbi		PORTD, 7	// debug
 
-		ldi		timer, 20
+		ldi		timer, 255 ; was 20
 in_wait_high:
 		dec		timer
 		breq	timeout
@@ -308,7 +315,7 @@ in_wait_high:
 		rjmp	in_wait_high
 		dec		count
 		brne	in_byte
-
+		
 timeout:
 		ret
 

@@ -104,14 +104,7 @@ readn64:
 		mov		data4, data8
 
 		st		Z, data3		; x
-		; special handling for y axis, reduce possible area from -128..127 to -127..127 as easy fix
-		; using ones complement does not solve problem, as then everythin (including 0) would be offset -1
-		cpi		data4, 0x80		; check if -128
-		brne	jumpyincrement	; jump over if number different -128
-		inc		data4 			; +1 so that -128 gets to -127
-jumpyincrement:
-		neg data4 				; invert data using twos complement		
-		std		Z+1, data4		; y
+		std		Z+1, data4		; y (inverted)
 
 		; data3 - b1
 		; data4 - b2
@@ -211,14 +204,11 @@ readgc:
 
 		subi	data3, 128
 		subi	data4, 128
-		neg		data4
 		st		Z, data3		; x
-		std		Z+1, data4		; y
+		std		Z+1, data4		; y (inverted)
 
-		subi	data5, 128
-		neg		data5
-		subi	data6, 128
-		neg		data6
+		subi	data5, 128		; rx
+		subi	data6, 128		; ry (inverted)
 		std		Z+2, data5
 		std		Z+3, data6
 

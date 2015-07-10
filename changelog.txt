@@ -1,3 +1,12 @@
+v0.94
+- disabled interrupts while reading game controllers (via a cli() and sei() command pair)! This is a huge bug fix, especially for Xbox mode! This finally fixes ALL timing problems with timing critical controllers such as PSX and Gamecube. This is certainly a big improvement for Xbox mode because the Xbox triggers more interrupts than Windows. This was definitely the cause of all the bitflips I have seen while testing PSX/GC on Xbox. Windows triggers less interrupts per second, but it might still fix the occasional bitflip even there. Whenever an interrupt came in at just at the wrong time while the adapter was reading a controller signal it would have caused problems.
+- Gamecube right stick y-axis was inverted - this is fixed now.
+- Gamecube button flickers and shoulder buttons in Xbox mode fixed.
+- Analog L/R deadzone range adjusted in Xbox mode to prevent accidental L/R triggering.
+- N64/GC axis inversion now handled in C instead of assembler.
+- Clock speed increased for PSX controllers. With the new interrupt handling it works fine with 24 us per bit on Windows and Xbox. Before I had to set it to ~44 us per bit because of the bitflips I saw on Xbox at smaller delays.
+ 
+
 v0.93
 - incorporated N64 y-axis inversion assembler fix from AlmightyFrog
 - added support for analog Gamecube L/R triggers in Xbox mode

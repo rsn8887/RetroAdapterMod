@@ -1,5 +1,6 @@
 #include <avr/io.h>
 #include <avr/pgmspace.h>
+#include <avr/interrupt.h>
 #include <util/delay.h>
 #include "report.h"
 #include "n64gc.h"
@@ -29,8 +30,6 @@
 		4
 */
 
-const uchar n64gc_hat_lut[] PROGMEM  = { -1, 2, 6, -1, 4, 3, 5, -1, 0, 1, 7, -1, -1 };
-
 extern	uchar readnintendo(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogButtons);
 
 void ReadN64GC(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogButtons)
@@ -42,11 +41,22 @@ void ReadN64GC(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalog
 
 	PORTD	&= ~(1<<7);		// debug
 	DDRD	|= (1<<7);
-
+	
 	dpad = readnintendo(reportBuffer, reportBufferAnalogButtons);
-	//reportBuffer->hat = pgm_read_byte(&n64gc_hat_lut[dpad]);	
+	
 	if (dpad & (1<<3)) reportBuffer->hat |= HAT_UP;	// up
 	if (dpad & (1<<2)) reportBuffer->hat |= HAT_DOWN;	// down
 	if (dpad & (1<<1)) reportBuffer->hat |= HAT_LEFT;	// left
 	if (dpad & (1<<0)) reportBuffer->hat |= HAT_RIGHT;	// right
+
+	// Gamecube L and R analog buttons report values between 0 and 30 when not pressed, contrary to Xbox
+	if (reportBufferAnalogButtons->l < 35) reportBufferAnalogButtons->l = 0;
+	if (reportBufferAnalogButtons->r < 35) reportBufferAnalogButtons->r = 0;
+
+	// y and ry-axes are inverted on N64 and Gamecube, fix this here in C
+	if (reportBuffer->y==-128) reportBuffer->y=127;
+	else reportBuffer->y= -reportBuffer->y;
+	
+	if (reportBuffer->ry==-128) reportBuffer->ry=127;
+	else reportBuffer->ry= -reportBuffer->ry;
 }
