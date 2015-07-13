@@ -20,6 +20,11 @@
 #define	count	r26
 #define	timer	r27
 
+; delay is roughly number of loops * 3 * clock cycle time
+; at 15 MHz cycle time this is 0.067 us
+; send 1 bit: low 1 us, high 3 us
+; send 0 bit: low 3 us, high 1 us
+
 #define	MSD3	13
 #define	MSD2	9
 #define	MSD1	3
@@ -28,10 +33,10 @@
 
 ; Timing macro
 		.MACRO __DELAY loops
-		ldi		timer, \loops
+		ldi		timer, \loops 	;1 cycle
 __DELAY_LOOP_\@:
-		dec		timer
-		brne	__DELAY_LOOP_\@
+		dec		timer 			;1 cycle
+		brne	__DELAY_LOOP_\@ ;2 cycles if branching, 1 cycle if continuing
 		.ENDM
 
 ; main function
@@ -40,13 +45,6 @@ __DELAY_LOOP_\@:
 readnintendo:
 		mov		ZH, r25		; pointer to reportBuffer[]
 		mov		ZL, r24
-		
-		push	r28			; save register 28 and 29 on the stack, because c expects those values to not change
-		push	r29
-		
-		mov		YH, r23		; pointer to reportBufferAnalogButtons[]
-		mov		YL,	r22		; this overwrites register 28 and 29
-		
 		ldi		data1, 1	; add 1 to skip report ID
 		ldi		data2, 0
 		add		ZL, data1
@@ -73,18 +71,14 @@ readnintendo:
 		mov		data2, data8
 		rcall	readbyte
 		mov		data3, data8
-
+		
 		cpi		data1, 0x05		; N64 pad
 		breq	readn64
-
+		
 		cpi		data1, 0x09		; GameCube pad
 		breq	readgc
-
+		
 		ldi		r24, 0			; return
-		
-		pop 	r29				; restore r28 and r29
-		pop		r28				; because those two registers are "save and restore type"
-		
 		ret
 
 ; --- read N64 ------------------------------------------------------------------------------------
@@ -126,7 +120,7 @@ readn64:
 		;		6 - L trigger
 		;		7 - R trigger
 		;		0 - Z
-		;		3 - Start
+		;		1 - Start
 
 		; 1:	0 - Right
 		;		1 - Left
@@ -139,13 +133,13 @@ readn64:
 
 		; d-pad to hat switch is decoding done by n64gc.c, returned in r24
 		sbrc	data1, 7		; A
-		ori		data3, (1<<0)
+		ori		b1, (1<<0)
 		sbrc	data1, 6		; B
-		ori		data3, (1<<1)
+		ori		b1, (1<<1)
 		sbrc	data1, 5		; Z
-		ori		data4, (1<<2)
+		ori		b2, (1<<0)
 		sbrc	data1, 4		; Start
-		ori		data4, (1<<3)
+		ori		b2, (1<<1)
 		andi	data1, 0x0f		; d-pad
 		
 		; 2:	0 - C-Right
@@ -158,26 +152,22 @@ readn64:
 		; C buttons mapped as buttons because you can press opposite directions at the
 		; same time so they are not suitable for mapping to an axis/hat.
 		sbrc	data2, 5		; L
-		ori		data3, (1<<4)
+		ori		b1, (1<<6)
 		sbrc	data2, 4		; R
-		ori		data3, (1<<5)
+		ori		b1, (1<<7)
 		sbrc	data2, 3		; C-Up
-		ori		data3, (1<<2)
+		ori		b1, (1<<2)
 		sbrc	data2, 2		; C-Down
-		ori		data3, (1<<3)
+		ori		b1, (1<<3)
 		sbrc	data2, 1		; C-Left
-		ori		data3, (1<<6)
+		ori		b1, (1<<4)
 		sbrc	data2, 0		; C-Right
-		ori		data3, (1<<7)
+		ori		b1, (1<<5)
 
 		std		Z+5, data3		; b1
 		std		Z+6, data4		; b2
 
 		mov		r24, data1		; return d-pad
-		
-		pop 	r29				; restore r28 and r29
-		pop		r28
-		
 		ret
 
 ; --- read GameCube -------------------------------------------------------------------------------
@@ -185,7 +175,7 @@ readn64:
 readgc:
 		; wait for controller to be ready again
 		__DELAY 100
-		
+
 		; send 0x400302 to read controller status words
 		ldi		data8, 0x40
 		rcall	writebyte
@@ -214,14 +204,13 @@ readgc:
 
 		subi	data3, 128
 		subi	data4, 128
-		
 		st		Z, data3		; x
 		std		Z+1, data4		; y (inverted)
 
-		subi	data5, 128		
-		subi	data6, 128
-		std		Z+2, data5		; rx
-		std		Z+3, data6		; ry (inverted)
+		subi	data5, 128		; rx
+		subi	data6, 128		; ry (inverted)
+		std		Z+2, data5
+		std		Z+3, data6
 
 		; data3 - b1
 		; data4 - b2
@@ -243,27 +232,31 @@ readgc:
 		sbrc	data1, 3		; Y 
 		ori		b1, (1<<2)
 		sbrc	data1, 4		; Start 
-		ori		b2, (1<<3)
+		ori		b2, (1<<1)
 
 		; data2:	4 - Z
 		;			5 - R
 		;			6 - L
 
 		sbrc	data2, 4		; Z
-		ori		b2, (1<<2)
+		ori		b2, (1<<0)
 		sbrc	data2, 5		; R
-		ori		b1, (1<<5)
+		ori		b1, (1<<7)
 		sbrc	data2, 6		; L
-		ori		b1, (1<<4)
+		ori		b1, (1<<6)
 
 		; data7:	L trigger
-		sbrs	data2, 6		; if L button is pressed leave analog value at zero, else adjust it
-		std		Y+4, data7
-		
+		cpi		data7, 64
+		brlo	gc_no_l
+		ori		b1, (1<<6)
+gc_no_l:
+
 		; data8:	R trigger
-		sbrs	data2, 5		; if R button is pressed leave analog value at zero, else adjust it
-		std		Y+5, data8
-		
+		cpi		data8, 64
+		brlo	gc_no_r
+		ori		b1, (1<<7)
+gc_no_r:
+	
 		std		Z+5, data3		; b1
 		std		Z+6, data4		; b2
 
@@ -276,10 +269,6 @@ readgc:
 		sbrc	data1, 0
 		ori		data2, (1<<1)
 		mov		r24, data2		; return d-pad
-		
-		pop 	r29				; restore r28 and r29
-		pop		r28
-				
 		ret
 
 ; --- read byte -----------------------------------------------------------------------------------
@@ -290,7 +279,7 @@ readbyte:
 		ldi		count, 8
 in_byte:
 		dec		timer
-		breq	timeout
+		breq	timeout 
 		sbic	PINB, 0
 		rjmp	in_byte
 		__DELAY	MSD2			;~2us
@@ -306,16 +295,16 @@ in_byte:
 		;sbrc	data8, 0
 		;sbi		PORTD, 7	// debug
 		;cbi		PORTD, 7	// debug
-
+		
 		ldi		timer, 20
 in_wait_high:
 		dec		timer
 		breq	timeout
 		sbis	PINB, 0
 		rjmp	in_wait_high
-		dec		count
+		dec		count ; one bit read
 		brne	in_byte
-		
+
 timeout:
 		ret
 

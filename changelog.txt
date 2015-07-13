@@ -1,3 +1,8 @@
+v0.95
+- changed USB ID from "Retro Adapter" to "Retropad Adapter Mod" since button assignments have recently changed
+- merged Normal Mode and Arcade Mode source directories
+- changed N64/Gamecube timeout delay back from >255 us to ~40 us since it works reliably now
+
 v0.94
 - disabled interrupts while reading game controllers (via a cli() and sei() command pair)! This is a huge bug fix, especially for Xbox mode! This finally fixes ALL timing problems with timing critical controllers such as PSX and Gamecube. This is certainly a big improvement for Xbox mode because the Xbox triggers more interrupts than Windows. This was definitely the cause of all the bitflips I have seen while testing PSX/GC on Xbox. Windows triggers less interrupts per second, but it might still fix the occasional bitflip even there. Whenever an interrupt came in at just at the wrong time while the adapter was reading a controller signal it would have caused problems.
 - Gamecube right stick y-axis was inverted - this is fixed now.
