@@ -107,10 +107,10 @@ void ReadPSX(report_t *reportBuffer, reportWheel_t *reportBufferWheel, reportAna
 		
 		data = PSXCommand(0xff);
 		
-		if (!(data & (1<<0))) reportBuffer->b1 |= (1<<6);	// L2
-		if (!(data & (1<<1))) reportBuffer->b1 |= (1<<7);	// R2
-		if (!(data & (1<<2))) reportBuffer->b1 |= (1<<4);	// L1
-		if (!(data & (1<<3))) reportBuffer->b1 |= (1<<5);	// R1
+		if (!(data & (1<<0))) reportBuffer->b1 |= (1<<4);	// L2
+		if (!(data & (1<<1))) reportBuffer->b1 |= (1<<5);	// R2
+		if (!(data & (1<<2))) reportBuffer->b1 |= (1<<6);	// L1
+		if (!(data & (1<<3))) reportBuffer->b1 |= (1<<7);	// R1
 		if (!(data & (1<<4))) reportBuffer->b1 |= (1<<2);	// /\ Triangle
 		if (!(data & (1<<5))) reportBuffer->b1 |= (1<<3);	// O  Circle
 		if (!(data & (1<<6))) reportBuffer->b1 |= (1<<0);	// X  Cross
@@ -174,10 +174,10 @@ void ReadPSX(report_t *reportBuffer, reportWheel_t *reportBufferWheel, reportAna
 
 		data = PSXCommand(0xff);
 		
-		if (!(data & (1<<0))) reportBufferAnalogButtons->b1 |= (1<<6);	// L2
-		if (!(data & (1<<1))) reportBufferAnalogButtons->b1 |= (1<<7);	// R2
-		if (!(data & (1<<2))) reportBufferAnalogButtons->b1 |= (1<<4);	// L1
-		if (!(data & (1<<3))) reportBufferAnalogButtons->b1 |= (1<<5);	// R1
+		if (!(data & (1<<0))) reportBufferAnalogButtons->b1 |= (1<<4);	// L2
+		if (!(data & (1<<1))) reportBufferAnalogButtons->b1 |= (1<<5);	// R2
+		if (!(data & (1<<2))) reportBufferAnalogButtons->b1 |= (1<<6);	// L1
+		if (!(data & (1<<3))) reportBufferAnalogButtons->b1 |= (1<<7);	// R1
 		if (!(data & (1<<4))) reportBufferAnalogButtons->b1 |= (1<<2);	// /\ Triangle
 		if (!(data & (1<<5))) reportBufferAnalogButtons->b1 |= (1<<3);	// O  Circle
 		if (!(data & (1<<6))) reportBufferAnalogButtons->b1 |= (1<<0);	// X  Cross

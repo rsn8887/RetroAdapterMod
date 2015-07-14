@@ -1,3 +1,6 @@
+v0.96
+- PSX L1/R1 where swapped with PSX L2/R2 swapped in normal and arcade mode. This is now fixed.
+
 v0.95
 - changed USB ID from "Retro Adapter" to "Retropad Adapter Mod" since button assignments have recently changed
 - merged Normal Mode and Arcade Mode source directories
