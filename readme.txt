@@ -61,16 +61,16 @@ pin 9 - button 2
 This is for regular use and functions identical to the original RetroAdapter. However, it is improved for operation under Android OS. Under Android, the original RetroAdapter was not reporting directions up and left for NES and some other controller types. Note: The Android fixes are also incorporated into the Arcade mode version.
 
 The button config for Normal Mode since v0.96:
-	button 1: bottom button (SNES B, PSX Cross, NES A, NeoGeo A, Genesis A), 
-	button 2: left button (SNES Y, PSX Square, NES B, NeoGeo B, Genesis B), 
+	button 1: bottom button (SNES B, PSX Cross, NES A, NeoGeo A, Genesis A, Gamecube A, N64 A), 
+	button 2: left button (SNES Y, PSX Square, NES B, NeoGeo B, Genesis B, Gamecube B, N64 A), 
 	button 3: upper button (SNES X, PSX Triangle, NeoGeo C, Genesis C, Gamecube Y, N64 Yellow Up)
 	button 4: right button (SNES A, PSX Circle, Neogeo D, Genesis X, Gamecube X, N64 Yellow Down)
 	button 5: Misc 1 (PSX L2, Genesis Y, N64 Yellow Left), 
 	button 6: Misc 2 (PSX R2, Genesis Z, N64 Yellow Right),
-	button 7: Left Shoulder (PSX L1, Gamecube L, N64 L)
-	button 8: Right Shoulder (PSX R1 Gamecube R, N64 R)
-	button 9: (Select, Gamecube Z, N64 Z)
-	button 10: (Start, Play)
+	button 7: Left Shoulder (SNES L, PSX L1, Gamecube L, N64 L)
+	button 8: Right Shoulder (SNES R, PSX R1, Gamecube R, N64 R)
+	button 9: Select (Gamecube Z, N64 Z)
+	button 10: Start (Play)
 	button 11: Misc 3 (PSX L3) 
 	button 12: Misc 4 (PSX R3)
 
