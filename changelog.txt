@@ -1,3 +1,19 @@
+v0.97
+- Right analog stick and DPAD now work correctly in Android. (Android expects second analog stick to be reported as Z/Rz axes instead of Rx/Ry. Also DPAD was reported as 4 bits instead of 8, breaking compatibility with android. This is now all fixed.)
+- Just for reference, the new button config since v0.96:
+	button 1: bottom button (SNES B, PSX Cross, NES A, NeoGeo A, Genesis A), 
+	button 2: left button (SNES Y, PSX Square, NES B, NeoGeo B, Genesis B), 
+	button 3: upper button (SNES X, PSX Triangle, NeoGeo C, Genesis C, Gamecube Y, N64 Yellow Up)
+	button 4: right button (SNES A, PSX Circle, Neogeo D, Genesis X, Gamecube X, N64 Yellow Down)
+	button 5: Misc 1 (PSX L2, Genesis Y, N64 Yellow Left), 
+	button 6: Misc 2 (PSX R2, Genesis Z, N64 Yellow Right),
+	button 7: Left Shoulder (PSX L1, Gamecube L, N64 L)
+	button 8: Right Shoulder (PSX R1 Gamecube R, N64 R)
+	button 9: (Select, Gamecube Z, N64 Z)
+	button 10: (Start, Play)
+	button 11: Misc 3 (PSX L3) 
+	button 12: Misc 4 (PSX R3)
+
 v0.96
 - PSX L1/R1 where swapped with PSX L2/R2 swapped in normal and arcade mode. This is now fixed.
 

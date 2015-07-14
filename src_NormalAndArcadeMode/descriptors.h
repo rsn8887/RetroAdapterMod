@@ -89,9 +89,9 @@ PROGMEM char usbDescriptorDeviceMouse[] = {    /* USB device descriptor */
 
 /* ----- HID Descriptor 1P --------------------------------------------------------------------- */
 
-#define	usbHidReportDescriptor1PLength	80
+#define	usbHidReportDescriptor1PLength	74
 
-PROGMEM char usbHidReportDescriptor1P[80] = {
+PROGMEM char usbHidReportDescriptor1P[] = {
 	0x05,0x01,		//Usage_Page (Generic Desktop)
 	0x09,0x04,		//Usage (Joystick)
 // 4
@@ -110,9 +110,9 @@ PROGMEM char usbHidReportDescriptor1P[80] = {
 	0x81,0x02,				//Input (Data, Var, Abs)		
 // (20)
 
-// Second joystick Rx/Ry
-	0x09,0x33,				//Usage (Rx)
-	0x09,0x34,				//Usage (Ry)
+// Second joystick Z/Rz
+	0x09,0x32,				//Usage (Z)
+	0x09,0x35,				//Usage (Rz)
 	0x15,0x80,				//Logical_Minimum (-128)
 	0x25,0x7F,				//Logical Maximum (127)
 	0x75,0x08,				//Report_Size (8)
@@ -124,14 +124,10 @@ PROGMEM char usbHidReportDescriptor1P[80] = {
 	0x09,0x39,				//Usage (Hat switch)
 	0x15,0x00,				//Logical_Minimum (0)
 	0x25,0x07,				//Logical_Maximum (7)
-	0x75,0x05,				//Report_Size (4)
+	0x75,0x08,				//Report_Size (8)
 	0x95,0x01,				//Report_Count (1)
-	0x81,0x03,				//Input (Data, Var, Abs)
-// Round to one byte
-	0x75,0x03,				//Report_Size (4)
-	0x95,0x01,				//Report_Count (1)
-	0x81,0x03,				//Input (Data, Var, Abs)
-//()18)
+	0x81,0x02,				//Input (Data, Var, Abs)
+//(12) was 18
 
 // Digital fire buttons
 	0x05,0x09,				//Usage_Page (Button)
@@ -154,15 +150,15 @@ PROGMEM char usbHidReportDescriptor1P[80] = {
 
 /* ----- HID Descriptor 2P --------------------------------------------------------------------- */
 
-#define	usbHidReportDescriptor2PLength	160
+#define	usbHidReportDescriptor2PLength	148
 
-PROGMEM char usbHidReportDescriptor2P[160] = {
+PROGMEM char usbHidReportDescriptor2P[148] = {
 
 	/* ----- Player 1 ----- */
 
 	0x05,0x01,		//Usage_Page (Generic Desktop)
 	0x09,0x04,		//Usage (Joystick)
-// 4
+//(4)
 
 // Main joystick x/y
 	0xA1,0x01,		//Collection (Application)
@@ -176,30 +172,26 @@ PROGMEM char usbHidReportDescriptor2P[160] = {
 	0x75,0x08,				//Report_Size (8)
 	0x95,0x02,				//Report_Count (4)
 	0x81,0x02,				//Input (Data, Var, Abs)		
-// (20)
+//(22)
 
-// Second joystick Rx/Ry
-	0x09,0x33,				//Usage (Rx)
-	0x09,0x34,				//Usage (Ry)
+// Second joystick Z/Rz
+	0x09,0x32,				//Usage (Z)
+	0x09,0x35,				//Usage (Rz)
 	0x15,0x80,				//Logical_Minimum (-128)
 	0x25,0x7F,				//Logical Maximum (127)
 	0x75,0x08,				//Report_Size (8)
 	0x95,0x02,				//Report_Count (4)
 	0x81,0x02,				//Input (Data, Var, Abs)		
-// (14)
+//(14)
 
 // Hat switch
 	0x09,0x39,				//Usage (Hat switch)
 	0x15,0x00,				//Logical_Minimum (0)
 	0x25,0x07,				//Logical_Maximum (7)
-	0x75,0x05,				//Report_Size (4)
+	0x75,0x08,				//Report_Size (8)
 	0x95,0x01,				//Report_Count (1)
-	0x81,0x03,				//Input (Data, Var, Abs)
-// Round to one byte
-	0x75,0x03,				//Report_Size (4)
-	0x95,0x01,				//Report_Count (1)
-	0x81,0x03,				//Input (Data, Var, Abs)
-// (18)
+	0x81,0x02,				//Input (Data, Var, Abs)
+//(12)
 
 // Digital fire buttons
 	0x05,0x09,				//Usage_Page (Button)
@@ -214,7 +206,7 @@ PROGMEM char usbHidReportDescriptor2P[160] = {
 	0x81,0x02,				//Input (Data, Var, Abs)
 	0xC0,				//End_Collection
 	0xC0,			//End_Collection
-// (22)
+//(22)
 
 	/* ----- Player 2 ----- */
 
@@ -232,9 +224,9 @@ PROGMEM char usbHidReportDescriptor2P[160] = {
 	0x75,0x08,				//Report_Size (8)
 	0x95,0x02,				//Report_Count (4)
 	0x81,0x02,				//Input (Data, Var, Abs)		
-// Second joystick Rx/Ry
-	0x09,0x33,				//Usage (Rx)
-	0x09,0x34,				//Usage (Ry)
+// Second joystick Z/Rz
+	0x09,0x32,				//Usage (Z)
+	0x09,0x35,				//Usage (Rz)
 	0x15,0x80,				//Logical_Minimum (-128)
 	0x25,0x7F,				//Logical Maximum (127)
 	0x75,0x08,				//Report_Size (8)
@@ -244,13 +236,10 @@ PROGMEM char usbHidReportDescriptor2P[160] = {
 	0x09,0x39,				//Usage (Hat switch)
 	0x15,0x00,				//Logical_Minimum (0)
 	0x25,0x07,				//Logical_Maximum (7)
-	0x75,0x05,				//Report_Size (4)
+	0x75,0x08,				//Report_Size (8)
 	0x95,0x01,				//Report_Count (1)
-	0x81,0x03,				//Input (Data, Var, Abs)
-// Round to one byte
-	0x75,0x03,				//Report_Size (4)
-	0x95,0x01,				//Report_Count (1)
-	0x81,0x03,				//Input (Data, Var, Abs)
+	0x81,0x02,				//Input (Data, Var, Abs)
+
 // Digital fire buttons
 	0x05,0x09,				//Usage_Page (Button)
 	0x19,0x01,				//Usage_Minimum (Button 1)
@@ -327,21 +316,17 @@ PROGMEM char usbHidReportDescriptorMouse[100] = {
 	0x55,0x00,			// Unit_Exponent (0)
 	0x65,0x00,			// Unit (None)
 	0x81,0x02,			// Input (Data, Var, Abs)
-// Padding to make report 5 bytes
-	//0x75,0x08,			// Report_Size (8)
-	//0x95,0x01,			// Report_Count (1)
-	//0x81,0x03,			// Input (Data, Var, Abs)
 	0xC0,			// End_Collection
 };
 
 /* ----- HID Descriptor Wheel (NegCon) --------------------------------------------------------------------- */
 
-#define	usbHidReportDescriptorWheelLength	85
+#define	usbHidReportDescriptorWheelLength	79
 
-PROGMEM char usbHidReportDescriptorWheel[85] = {
+PROGMEM char usbHidReportDescriptorWheel[79] = {
 	0x05,0x01,		//Usage_Page (Generic Desktop)
 	0x09,0x04,		//Usage (Joystick)
-// 4
+//(4)
 
 // Main joystick x/y
 	0xA1,0x01,		//Collection (Application)
@@ -355,20 +340,16 @@ PROGMEM char usbHidReportDescriptorWheel[85] = {
 	0x75,0x08,				//Report_Size (8)
 	0x95,0x02,				//Report_Count (2)
 	0x81,0x02,				//Input (Data, Var, Abs)		
-// (20)
+//(22)
 
 // Hat switch
 	0x09,0x39,				//Usage (Hat switch)
 	0x15,0x00,				//Logical_Minimum (0)
 	0x25,0x07,				//Logical_Maximum (7)
-	0x75,0x05,				//Report_Size (4)
+	0x75,0x08,				//Report_Size (8)
 	0x95,0x01,				//Report_Count (1)
-	0x81,0x03,				//Input (Data, Var, Abs)
-// Round to one byte
-	0x75,0x03,				//Report_Size (4)
-	0x95,0x01,				//Report_Count (1)
-	0x81,0x03,				//Input (Data, Var, Abs)
-//()18)
+	0x81,0x02,				//Input (Data, Var, Abs)
+//(12)
 
 // Digital fire buttons
 	0x05,0x09,				//Usage_Page (Button)
