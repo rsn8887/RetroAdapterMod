@@ -19,15 +19,16 @@ typedef struct {
 } report_t;
 
 typedef struct {
-	char	reportid;	// 0
-	char	x;			// 1
-	char	y;			// 2
-	uchar	hat;		// 3
-	uchar	b1;			// 4
-	uchar	b2;			// 5
-	uchar	slider1;	// 6
-	uchar	slider2;	// 7
-	uchar	slider3;	// 8
+	char	reportid;
+	char	x;
+	char	y;
+	uchar	z;  
+	uchar	rz; 
+	uchar	hat;
+	uchar	b1;
+	uchar	b2;
+	uchar	brake;
+	uchar	accel;
 } reportWheel_t;
 
 typedef struct {
@@ -59,4 +60,4 @@ typedef struct{
     char    x;
     char    y;
     char    w;
-}reportMouse_t;
+} reportMouse_t;

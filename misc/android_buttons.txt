@@ -1,0 +1,27 @@
+HID usages must be declared within a Game pad CA (0x01 0x0005).
+
+Button	HID Usage	Android Button
+A 0x09	0x0001	KEYCODE_BUTTON_A (96)
+B 0x09	0x0002	KEYCODE_BUTTON_B (97)
+X 0x09	0x0004	KEYCODE_BUTTON_X (99)
+Y 0x09	0x0005	KEYCODE_BUTTON_Y (100)
+D-pad up
+D-pad down	0x01 0x0039	AXIS_HAT_Y*
+D-pad left
+D-pad right	0x01 0x0039	AXIS_HAT_X*
+Left shoulder button	0x09 0x0007	KEYCODE_BUTTON_L1 (102)
+Right shoulder button	0x09 0x0008	KEYCODE_BUTTON_R1 (103)
+Left stick click	0x09 0x000E	KEYCODE_BUTTON_THUMBL (106)
+Right stick click	0x09 0x000F	KEYCODE_BUTTON_THUMBR (107)
+Home	0x0c 0x0223	KEYCODE_HOME (3)
+Back	0x0c 0x0224	KEYCODE_BACK  (4)
+
+* This usage must have a Logical Minimum of 0, a Logical Maximum of 7, a Physical Minimum of 0, a Physical Maximum of 315, Units in Degrees, and a Report Size of 4. The logical value is defined to be the clockwise rotation away from the vertical axis; for example, a logical value of 0 represents no rotation and the up button being pressed, while a logical value of 1 represents a rotation of 45 degrees and both the up and left keys  being  pressed.
+
+Analog Controls	HID Usage	Android Button
+Left Trigger	0x02 0x00C5	AXIS_LTRIGGER
+Right Trigger	0x02 0x00C4	AXIS_RTRIGGER
+Left Joystick	0x01 0x0030	AXIS_X
+	0x01 0x0031	AXIS_Y
+Right Joystick	0x01 0x0032	AXIS_Z
+	0x01 0x0035	AXIS_RZ

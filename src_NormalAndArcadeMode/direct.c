@@ -66,8 +66,8 @@ void ReadDB9(report_t *reportBuffer)
 			PORTD	|= (1<<7);					// select high
 			_delay_us(14);
 
-			if (!(PIND & (1<<0))) reportBuffer->b1 |= (1<<5);	// Z
-			if (!(PIND & (1<<3))) reportBuffer->b1 |= (1<<4);	// Y
+			if (!(PIND & (1<<0))) reportBuffer->b1 |= (1<<7);	// Z
+			if (!(PIND & (1<<3))) reportBuffer->b1 |= (1<<6);	// Y
 			if (!(PIND & (1<<4))) reportBuffer->b1 |= (1<<3);	// X
 			if (!(PIND & (1<<5))) reportBuffer->b2 |= (1<<0);	// Mode
 		}

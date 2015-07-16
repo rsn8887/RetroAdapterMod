@@ -111,8 +111,8 @@ readn64:
 		ldi		data3, 0
 		ldi		data4, 0
 
-		; map:	0 - A
-		;		1 - B
+		; map:	0 - A (bottom)
+		;		1 - B (left)
 		;		2 - C-Up
 		;		3 - C-Down
 		;		4 - C-Left
@@ -135,9 +135,9 @@ readn64:
 		sbrc	data1, 7		; A
 		ori		b1, (1<<0)
 		sbrc	data1, 6		; B
-		ori		b1, (1<<1)
+		ori		b1, (1<<2)
 		sbrc	data1, 5		; Z
-		ori		b2, (1<<0)
+		ori		b2, (1<<2)
 		sbrc	data1, 4		; Start
 		ori		b2, (1<<1)
 		andi	data1, 0x0f		; d-pad
@@ -156,9 +156,9 @@ readn64:
 		sbrc	data2, 4		; R
 		ori		b1, (1<<7)
 		sbrc	data2, 3		; C-Up
-		ori		b1, (1<<2)
-		sbrc	data2, 2		; C-Down
 		ori		b1, (1<<3)
+		sbrc	data2, 2		; C-Down
+		ori		b1, (1<<1)
 		sbrc	data2, 1		; C-Left
 		ori		b1, (1<<4)
 		sbrc	data2, 0		; C-Right
@@ -217,20 +217,20 @@ readgc:
 		ldi		data3, 0
 		ldi		data4, 0
 
-		; data1:	0 - A
-		;			1 - B
-		;			2 - X
-		;			3 - Y
+		; data1:	0 - A (bottom)
+		;			1 - B (left)
+		;			2 - X (right)
+		;			3 - Y (top)
 		;			4 - Start
 
 		sbrc	data1, 0		; A 
 		ori		b1, (1<<0)
 		sbrc	data1, 1		; B 
-		ori		b1, (1<<1)
-		sbrc	data1, 2		; X 
-		ori		b1, (1<<3)
-		sbrc	data1, 3		; Y 
 		ori		b1, (1<<2)
+		sbrc	data1, 2		; X 
+		ori		b1, (1<<1)
+		sbrc	data1, 3		; Y 
+		ori		b1, (1<<3)
 		sbrc	data1, 4		; Start 
 		ori		b2, (1<<1)
 
@@ -239,7 +239,7 @@ readgc:
 		;			6 - L
 
 		sbrc	data2, 4		; Z
-		ori		b2, (1<<0)
+		ori		b2, (1<<2)
 		sbrc	data2, 5		; R
 		ori		b1, (1<<7)
 		sbrc	data2, 6		; L

@@ -111,10 +111,10 @@ void ReadPSX(report_t *reportBuffer, reportWheel_t *reportBufferWheel, reportAna
 		if (!(data & (1<<1))) reportBuffer->b1 |= (1<<5);	// R2
 		if (!(data & (1<<2))) reportBuffer->b1 |= (1<<6);	// L1
 		if (!(data & (1<<3))) reportBuffer->b1 |= (1<<7);	// R1
-		if (!(data & (1<<4))) reportBuffer->b1 |= (1<<2);	// /\ Triangle
-		if (!(data & (1<<5))) reportBuffer->b1 |= (1<<3);	// O  Circle
+		if (!(data & (1<<4))) reportBuffer->b1 |= (1<<3);	// /\ Triangle
+		if (!(data & (1<<5))) reportBuffer->b1 |= (1<<1);	// O  Circle
 		if (!(data & (1<<6))) reportBuffer->b1 |= (1<<0);	// X  Cross
-		if (!(data & (1<<7))) reportBuffer->b1 |= (1<<1);	// [] Square
+		if (!(data & (1<<7))) reportBuffer->b1 |= (1<<2);	// [] Square
 
 		if ((id == PSX_ID_A_RED) | (id == PSX_ID_A_GREEN))
 		{
@@ -141,21 +141,21 @@ void ReadPSX(report_t *reportBuffer, reportWheel_t *reportBufferWheel, reportAna
 		reportBufferWheel->hat = pgm_read_byte(&psx_hat_lut[(~(data>>4)&0x0f)]);
 		data = PSXCommand(0xff);
 		if (!(data & (1<<3))) reportBufferWheel->b1 |= (1<<7);	// R1
-		if (!(data & (1<<4))) reportBufferWheel->b1 |= (1<<2);	// /\ Triangle (A on Negcon)
-		if (!(data & (1<<5))) reportBufferWheel->b1 |= (1<<3);	// O  Circle (B on Negcon)
+		if (!(data & (1<<4))) reportBufferWheel->b1 |= (1<<1);	// /\ Triangle (A on Negcon)
+		if (!(data & (1<<5))) reportBufferWheel->b1 |= (1<<0);	// O  Circle (B on Negcon)
 
 		data = PSXCommand(0xff); //Steering axis 0x00 = left
 		//TESTED ON REAL PSX: moving the right half away from you turns the Wipeout vehicle to the RIGHT!
 		reportBufferWheel->x = -128+(char)data;
 			
 		data = PSXCommand(0xff); //I button (bottom button analog)
-		reportBufferWheel->slider1 = (char)data;
+		reportBufferWheel->z = (char)data;
 		
 		data = PSXCommand(0xff); //II button (left button analog)
-		reportBufferWheel->slider2 = (char)data;
+		reportBufferWheel->accel = (char)data;
 
-		data = PSXCommand(0xff); //L1 Button analo
-		reportBufferWheel->slider3 = (char)data;
+		data = PSXCommand(0xff); //L1 Button analog
+		reportBufferWheel->brake = (char)data;
 	}
 #ifdef PS2PRESSURE
 	// pressure sensitive PS2 button support, preliminary
@@ -178,10 +178,10 @@ void ReadPSX(report_t *reportBuffer, reportWheel_t *reportBufferWheel, reportAna
 		if (!(data & (1<<1))) reportBufferAnalogButtons->b1 |= (1<<5);	// R2
 		if (!(data & (1<<2))) reportBufferAnalogButtons->b1 |= (1<<6);	// L1
 		if (!(data & (1<<3))) reportBufferAnalogButtons->b1 |= (1<<7);	// R1
-		if (!(data & (1<<4))) reportBufferAnalogButtons->b1 |= (1<<2);	// /\ Triangle
-		if (!(data & (1<<5))) reportBufferAnalogButtons->b1 |= (1<<3);	// O  Circle
+		if (!(data & (1<<4))) reportBufferAnalogButtons->b1 |= (1<<3);	// /\ Triangle
+		if (!(data & (1<<5))) reportBufferAnalogButtons->b1 |= (1<<1);	// O  Circle
 		if (!(data & (1<<6))) reportBufferAnalogButtons->b1 |= (1<<0);	// X  Cross
-		if (!(data & (1<<7))) reportBufferAnalogButtons->b1 |= (1<<1);	// [] Square
+		if (!(data & (1<<7))) reportBufferAnalogButtons->b1 |= (1<<2);	// [] Square
 
 		data = PSXCommand(0xff);
 		reportBufferAnalogButtons->rx = -128+(char)data;

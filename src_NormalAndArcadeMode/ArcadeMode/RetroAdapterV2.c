@@ -7,19 +7,34 @@
  * License: GNU GPL v2
  */
 
-/* Global mappings when connected to Windows PC:
-button 1: bottom button (SNES B, PSX Cross, NES A, NeoGeo A, Genesis A), 
-button 2: left button (SNES Y, PSX Square, NES B, NeoGeo B, Genesis B), 
-button 3: upper button (SNES X, PSX Triangle, NeoGeo C, Genesis C)
-button 4: right button (SNES A, PSX Circle, Neogeo D, Genesis X)
-button 5: Misc 1 (PSX L1, Genesis Y, N64 Yellow Left), 
-button 6: Misc 2 (PSX R1, Genesis Z, N64 Yellow Right),
-button 7: Left Shoulder (PSX L2)
-button 8: Right Shoulder (PSX R2)
-button 9: Select
-button 10: Start
-button 11: Misc 3 (PSX L3) 
-button 12: Misc 4 (PSX R3)
+/* Button mapping to conform with Android:
+	button 1: 	bottom button (SNES B, PSX Cross, NegCon B, NES B, NeoGeo A, Genesis A, Gamecube A, N64 A. PCE II), 
+	button 2: 	right button (SNES A, PSX Circle, NegCon A, NES A, Neogeo B, Genesis B, Gamecube X, N64 Yellow Down, PCE I)
+	
+	button 4: 	left button (SNES Y, PSX Square, NeoGeo C, Genesis C, Gamecube B, N64 B), 
+	button 5: 	upper button (SNES X, PSX Triangle, NeoGeo D, Genesis X, Gamecube Y, N64 Yellow Up)
+	
+	button 7: 	Left Shoulder (PSX L1, Genesis Y, Gamecube L, N64 L, Saturn L)
+	button 8: 	Right Shoulder (PSX R1 Genesis Z, Gamecube R, N64 R, Saturn R)
+	
+	button 9: 	Misc 1 (PSX L2, N64 Yellow Left), 
+	button 10: 	Misc 2 (PSX R2, N64 Yellow Right),
+	
+	button 11: 	Select
+	button 12: 	Start (PC Engine Play, Genesis Mode)
+	
+	button 14: 	Misc 3 (PSX L3, N64 Z, Gamecube Z) 
+	button 15: 	Misc 4 (PSX R3)
+
+	Analog:
+	Left Joystick: x,y
+	Right Joystick: z,Rz
+	
+	NegCon mode (identifies as "Mojo Retro Adapter NegCon" instead of "Mojo Retro Adapter" when NegCon is detected):
+	Steering: x
+	Button I: z (0..255 in NegCon mode instead of -128..127)
+	Button II: "Accelerator" axis
+	Button L: "Brake axis"
 */
 
 #include <avr/io.h>
@@ -68,6 +83,8 @@ uchar	reportBufferLength;
 uchar	hidMode;
 void*	hidReportDescriptorAddress;
 int		hidReportDescriptorLength;
+void*	usbDescriptorStringDeviceAddress;
+int		usbDescriptorStringDeviceLength;
 uchar	hidNumReports;
 uchar	idleRate;
 
@@ -249,46 +266,56 @@ void SetHIDMode()
 			usbDeviceDescriptorAddress = usbDescriptorDeviceJoystick;
 			usbDeviceDescriptorLength = sizeof(usbDescriptorDeviceJoystick);
 			hidReportDescriptorAddress = usbHidReportDescriptor1P;
-			hidReportDescriptorLength = usbHidReportDescriptor1PLength;
+			hidReportDescriptorLength = sizeof(usbHidReportDescriptor1P);
 			hidNumReports = 1;
 			reportBufferAddress = &reportBuffer;
 			reportBufferLength = sizeof(reportBuffer);
+			usbDescriptorStringDeviceAddress = usbDescriptorStringDeviceDefault;
+			usbDescriptorStringDeviceLength = sizeof(usbDescriptorStringDeviceDefault);
 			break;
 		case HIDM_2P:
 			usbDeviceDescriptorAddress = usbDescriptorDeviceJoystick;
 			usbDeviceDescriptorLength = sizeof(usbDescriptorDeviceJoystick);
 			hidReportDescriptorAddress = usbHidReportDescriptor2P;
-			hidReportDescriptorLength = usbHidReportDescriptor2PLength;
+			hidReportDescriptorLength = sizeof(usbHidReportDescriptor2P);
 			hidNumReports = 2;
 			reportBufferAddress = &reportBuffer;
 			reportBufferLength = sizeof(reportBuffer);
+			usbDescriptorStringDeviceAddress = usbDescriptorStringDeviceDefault;
+			usbDescriptorStringDeviceLength = sizeof(usbDescriptorStringDeviceDefault);
 			break;
 		case HIDM_MOUSE:
 			usbDeviceDescriptorAddress = usbDescriptorDeviceMouse;
 			usbDeviceDescriptorLength = sizeof(usbDescriptorDeviceMouse);
 			hidReportDescriptorAddress = usbHidReportDescriptorMouse;
-			hidReportDescriptorLength = usbHidReportDescriptorMouseLength;
+			hidReportDescriptorLength = sizeof(usbHidReportDescriptorMouse);
 			hidNumReports = 2;
 			reportBufferAddress = &reportBufferMouse;
 			reportBufferLength = sizeof(reportBufferMouse);
+			usbDescriptorStringDeviceAddress = usbDescriptorStringDeviceDefault;
+			usbDescriptorStringDeviceLength = sizeof(usbDescriptorStringDeviceDefault);
 			break;
 		case HIDM_WHEEL:
 			usbDeviceDescriptorAddress = usbDescriptorDeviceJoystick;
 			usbDeviceDescriptorLength = sizeof(usbDescriptorDeviceJoystick);
 			hidReportDescriptorAddress = usbHidReportDescriptorWheel;
-			hidReportDescriptorLength = usbHidReportDescriptorWheelLength;
+			hidReportDescriptorLength = sizeof(usbHidReportDescriptorWheel);
 			hidNumReports = 1;
 			reportBufferAddress = &reportBufferWheel;
 			reportBufferLength = sizeof(reportBufferWheel);
+			usbDescriptorStringDeviceAddress = usbDescriptorStringDeviceNegCon;
+			usbDescriptorStringDeviceLength = sizeof(usbDescriptorStringDeviceNegCon);
 			break;	
 		case HIDM_ANALOGBUTTONS:
 			usbDeviceDescriptorAddress = usbDescriptorDeviceJoystick;
 			usbDeviceDescriptorLength = sizeof(usbDescriptorDeviceJoystick);
 			hidReportDescriptorAddress = usbHidReportDescriptorAnalogButtons;
-			hidReportDescriptorLength = usbHidReportDescriptorAnalogButtonsLength;
+			hidReportDescriptorLength = sizeof(usbHidReportDescriptorAnalogButtons);
 			hidNumReports = 1;
 			reportBufferAddress = &reportBufferAnalogButtons;
 			reportBufferLength = sizeof(reportBufferAnalogButtons);
+			usbDescriptorStringDeviceAddress = usbDescriptorStringDeviceDefault;
+			usbDescriptorStringDeviceLength = sizeof(usbDescriptorStringDeviceDefault);
 			break;		
 	}
 	usbDescriptorConfiguration[25] = hidReportDescriptorLength;
@@ -352,11 +379,83 @@ uchar	usbFunctionDescriptor(struct usbRequest *rq)
 			case USBDESCR_DEVICE:
 				usbMsgPtr = usbDeviceDescriptorAddress;
 				return usbDeviceDescriptorLength;
+			case USBDESCR_STRING:
+				switch (rq->wValue.bytes[0])
+				{
+					case 2:
+						usbMsgPtr = (void*)usbDescriptorStringDeviceAddress;
+						return usbDescriptorStringDeviceLength;
+				}
 		}
 	}
 
 	return 0;
 }
+
+/* ------------------------------------------------------------------------- */
+void RemapButtons(uchar *b1, uchar *b2)
+{
+/* Updated mapping used in all current subroutines:
+	bit 0	button 1: 	bottom button (SNES B, PSX Cross, NegCon B, NES B, NeoGeo A, Genesis A, Gamecube A, N64 A. PCE II), 
+	bit 1	button 2: 	right button (SNES A, PSX Circle, NegCon A, NES A, Neogeo B, Genesis B, Gamecube X, N64 Yellow Down, PCE I)
+	bit 2	button 3: 	left button (SNES Y, PSX Square, NeoGeo C, Genesis C, Gamecube B, N64 B), 
+	bit 3	button 4: 	upper button (SNES X, PSX Triangle, NeoGeo D, Genesis X, Gamecube Y, N64 Yellow Up)
+	bit 4	button 5: 	Misc 1 (PSX L2, N64 Yellow Left), 
+	bit 5	button 6: 	Misc 2 (PSX R2, N64 Yellow Right),
+	bit 6	button 7: 	Left Shoulder (PSX L1, Genesis Y, Gamecube L, N64 L, Saturn L)
+	bit 7	button 8: 	Right Shoulder (PSX R1 Genesis Z, Gamecube R, N64 R, Saturn R)
+	bit 0	button 9: 	Select
+	bit 1	button 10: 	Start (PC Engine Play, Genesis Mode)
+	bit 2	button 11: 	Misc 3 (PSX L3, N64 Z, Gamecube Z) 
+	bit 3	button 12: 	Misc 4 (PSX R3)
+
+	/* Mapping required by Android
+	buttons in parentheses are non-standard, but seem to be supported in android
+	bit 0	button 1: 	Android A (bottom)
+	bit 1	button 2: 	Android B (right)
+	bit 2	button 3: 	(Android C)
+	bit 3	button 4: 	Android X (left)
+	bit 4	button 5: 	Android Y (top)
+	bit 5	button 6: 	(Android Z)
+	bit 6	button 7: 	Android L1 
+	bit 7	button 8: 	Android R1 
+	bit 0	button 9: 	Android L2 
+	bit 1	button 10: 	Android R2
+	bit 2	button 11: 	(Android Select) (Select)
+	bit 3	button 12: 	(Android Start) (Start)
+	bit 4	button 13:	??
+	bit 5	button 14: 	Android Left Stick Press
+	bit 6	button 15: 	Android Right Stick Press
+	bit 7	button 16: 	??
+*/
+
+	// So we have to map b1 bit 2 to 3 etc to conform with android
+	if ((*b1 | 0x00) | (*b2 | 0x00))
+	{	
+			uchar oldb1 = *b1;
+			uchar oldb2 = *b2;
+			*b1=0;
+			*b2=0;
+			
+			if (oldb1 & (1<<0)) *b1 |= (1<<0); // bottom
+			if (oldb1 & (1<<1)) *b1 |= (1<<1); // right
+			if (oldb1 & (1<<2)) *b1 |= (1<<3); // left
+			if (oldb1 & (1<<3)) *b1 |= (1<<4); // top
+			if (oldb1 & (1<<4)) *b2 |= (1<<0); // L2
+			if (oldb1 & (1<<5)) *b2 |= (1<<1); // R2
+			if (oldb1 & (1<<6)) *b1 |= (1<<6); // L1
+			if (oldb1 & (1<<7)) *b1 |= (1<<7); // R1
+			
+			if (oldb2 & (1<<0)) *b2 |= (1<<2); // Select 
+			if (oldb2 & (1<<1)) *b2 |= (1<<3); // Start
+			if (oldb2 & (1<<2)) *b2 |= (1<<5); // L3
+			if (oldb2 & (1<<3)) *b2 |= (1<<6); // R3
+			if (oldb2 & (1<<4)) *b2 |= (1<<4); // 
+			if (oldb2 & (1<<5)) *b2 |= (1<<7); // 
+			if (oldb2 & (1<<6)) *b1 |= (1<<2); // 
+			if (oldb2 & (1<<7)) *b1 |= (1<<5); // 
+	}
+}	
 
 /* ------------------------------------------------------------------------- */
 
@@ -380,6 +479,8 @@ int main(void)
         if(usbInterruptIsReady()){
             /* called after every poll of the interrupt endpoint */
 			ReadController(i);
+			RemapButtons(&(reportBuffer.b1), &(reportBuffer.b2));
+			RemapButtons(&(reportBufferWheel.b1), &(reportBufferWheel.b2));
 			remainingData=reportBufferLength;
 			offset=0;
 			// handle report with more than 8 byte length (for NegCon and future expansion)

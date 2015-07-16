@@ -1,18 +1,55 @@
+v0.99
+- changed USB Usage ID to game pad to comply with Android and Windows simultaneously
+- new button layout to fully conform with Android while maintaining Windows compatibility
+/* Button mapping to conform with Android:
+    button 1:   bottom button (SNES B, PSX Cross, NegCon B, NES B, NeoGeo A, Genesis A, Gamecube A, N64 A. PCE II), 
+    button 2:   right button (SNES A, PSX Circle, NegCon A, NES A, Neogeo B, Genesis B, Gamecube X, N64 Yellow Down, PCE I)
+    
+    button 4:   left button (SNES Y, PSX Square, NeoGeo C, Genesis C, Gamecube B, N64 B), 
+    button 5:   upper button (SNES X, PSX Triangle, NeoGeo D, Genesis X, Gamecube Y, N64 Yellow Up)
+    
+    button 7:   Left Shoulder (PSX L1, Genesis Y, Gamecube L, N64 L, Saturn L)
+    button 8:   Right Shoulder (PSX R1 Genesis Z, Gamecube R, N64 R, Saturn R)
+    
+    button 9:   Misc 1 (PSX L2, N64 Yellow Left), 
+    button 10:  Misc 2 (PSX R2, N64 Yellow Right),
+    
+    button 11:  Select
+    button 12:  Start (PC Engine Play, Genesis Mode)
+    
+    button 14:  Misc 3 (PSX L3, N64 Z, Gamecube Z) 
+    button 15:  Misc 4 (PSX R3)
+
+    Analog axes:
+    Left Joystick: x,y
+    Right Joystick: z,Rz
+    
+    NegCon mode axes (device name changes to "Mojo Retro Adapter Mod NegCon" instead of "Mojo Retro Adapter Mod" when a NegCon is detected):
+    Steering (twist): x
+    Button I: z (0..255 in NegCon mode instead of -128..127)
+    Button II: "Accelerator" axis (not shown in Windows, but registered nonetheless)
+    Button L: "Brake" axis (not shown in Windows, but registered nonetheless)
+*/
+
+v0.98
+- The adapter now reports as "Retro Adapter Mod NegCon" instead of "Retro Adapter Mod" when a PSX NegCon type controller is attached, because it then implements three additional sliders for the analog buttons.
+- To make NegCon work better with Android, I changed the analog buttons to Brake (Axis_Brake in Android) Accelerator (Axis_Gas in Android), as well as Slider (Axis_Throttle in Android) for the three analog buttons. Axis_Gas does not show up in the windows control panel, but Windows does register it.
+
 v0.97
 - Right analog stick and DPAD now work correctly in Android. (Android expects second analog stick to be reported as Z/Rz axes instead of Rx/Ry. Also DPAD was reported as 4 bits instead of 8, breaking compatibility with android. This is now all fixed.)
 - Just for reference, the new button config since v0.96:
-	button 1: bottom button (SNES B, PSX Cross, NES A, NeoGeo A, Genesis A), 
-	button 2: left button (SNES Y, PSX Square, NES B, NeoGeo B, Genesis B), 
-	button 3: upper button (SNES X, PSX Triangle, NeoGeo C, Genesis C, Gamecube Y, N64 Yellow Up)
-	button 4: right button (SNES A, PSX Circle, Neogeo D, Genesis X, Gamecube X, N64 Yellow Down)
-	button 5: Misc 1 (PSX L2, Genesis Y, N64 Yellow Left), 
-	button 6: Misc 2 (PSX R2, Genesis Z, N64 Yellow Right),
-	button 7: Left Shoulder (PSX L1, Gamecube L, N64 L)
-	button 8: Right Shoulder (PSX R1 Gamecube R, N64 R)
-	button 9: (Select, Gamecube Z, N64 Z)
-	button 10: (Start, Play)
-	button 11: Misc 3 (PSX L3) 
-	button 12: Misc 4 (PSX R3)
+    button 1: bottom button (SNES B, PSX Cross, NES A, NeoGeo A, Genesis A), 
+    button 2: left button (SNES Y, PSX Square, NES B, NeoGeo B, Genesis B), 
+    button 3: upper button (SNES X, PSX Triangle, NeoGeo C, Genesis C, Gamecube Y, N64 Yellow Up)
+    button 4: right button (SNES A, PSX Circle, Neogeo D, Genesis X, Gamecube X, N64 Yellow Down)
+    button 5: Misc 1 (PSX L2, Genesis Y, N64 Yellow Left), 
+    button 6: Misc 2 (PSX R2, Genesis Z, N64 Yellow Right),
+    button 7: Left Shoulder (PSX L1, Gamecube L, N64 L)
+    button 8: Right Shoulder (PSX R1 Gamecube R, N64 R)
+    button 9: (Select, Gamecube Z, N64 Z)
+    button 10: (Start, Play)
+    button 11: Misc 3 (PSX L3) 
+    button 12: Misc 4 (PSX R3)
 
 v0.96
 - PSX L1/R1 where swapped with PSX L2/R2 swapped in normal and arcade mode. This is now fixed.
@@ -43,18 +80,18 @@ v0.91
 - adjusted all PSX timings to hopefully be more robust against slight changes in clock timings and delays etc.
 - changed button mappings in Normal Mode and Arcade Mode for all supported controllers to be more consistent, new mappings:
 
-	button 1: bottom button (SNES B, PSX Cross, NES A, NeoGeo A, Genesis A), 
-	button 2: left button (SNES Y, PSX Square, NES B, NeoGeo B, Genesis B), 
-	button 3: upper button (SNES X, PSX Triangle, NeoGeo C, Genesis C)
-	button 4: right button (SNES A, PSX Circle, Neogeo D, Genesis X)
-	button 5: Misc 1 (PSX L1, Genesis Y, N64 Yellow Left), 
-	button 6: Misc 2 (PSX R1, Genesis Z, N64 Yellow Right),
-	button 7: Left Shoulder (PSX L2)
-	button 8: Right Shoulder (PSX R2)
-	button 9: Select
-	button 10: Start
-	button 11: Misc 3 (PSX L3) 
-	button 12: Misc 4 (PSX R3)
+    button 1: bottom button (SNES B, PSX Cross, NES A, NeoGeo A, Genesis A), 
+    button 2: left button (SNES Y, PSX Square, NES B, NeoGeo B, Genesis B), 
+    button 3: upper button (SNES X, PSX Triangle, NeoGeo C, Genesis C)
+    button 4: right button (SNES A, PSX Circle, Neogeo D, Genesis X)
+    button 5: Misc 1 (PSX L1, Genesis Y, N64 Yellow Left), 
+    button 6: Misc 2 (PSX R1, Genesis Z, N64 Yellow Right),
+    button 7: Left Shoulder (PSX L2)
+    button 8: Right Shoulder (PSX R2)
+    button 9: Select
+    button 10: Start
+    button 11: Misc 3 (PSX L3) 
+    button 12: Misc 4 (PSX R3)
 
 v0.9
 - added some stubs for PS2 pressure sensitive button support, but disabled them all because the pressure sensitive buttons were sluggish and seemingly useless.
