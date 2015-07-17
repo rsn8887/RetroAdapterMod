@@ -133,9 +133,9 @@ readn64:
 
 		; d-pad to hat switch is decoding done by n64gc.c, returned in r24
 		sbrc	data1, 7		; A
-		ori		b1, (1<<0)
+		ori		b1, (1<<1)
 		sbrc	data1, 6		; B
-		ori		b1, (1<<2)
+		ori		b1, (1<<0)
 		sbrc	data1, 5		; Z
 		ori		b2, (1<<2)
 		sbrc	data1, 4		; Start
@@ -158,7 +158,7 @@ readn64:
 		sbrc	data2, 3		; C-Up
 		ori		b1, (1<<3)
 		sbrc	data2, 2		; C-Down
-		ori		b1, (1<<1)
+		ori		b1, (1<<2)
 		sbrc	data2, 1		; C-Left
 		ori		b1, (1<<4)
 		sbrc	data2, 0		; C-Right
@@ -224,13 +224,13 @@ readgc:
 		;			4 - Start
 
 		sbrc	data1, 0		; A 
-		ori		b1, (1<<0)
-		sbrc	data1, 1		; B 
-		ori		b1, (1<<2)
-		sbrc	data1, 2		; X 
 		ori		b1, (1<<1)
-		sbrc	data1, 3		; Y 
+		sbrc	data1, 1		; B 
+		ori		b1, (1<<0)
+		sbrc	data1, 2		; X 
 		ori		b1, (1<<3)
+		sbrc	data1, 3		; Y 
+		ori		b1, (1<<2)
 		sbrc	data1, 4		; Start 
 		ori		b2, (1<<1)
 

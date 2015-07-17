@@ -7,34 +7,44 @@
  * License: GNU GPL v2
  */
 
-/* Button mapping to conform with Android:
-	button 1: 	bottom button (SNES B, PSX Cross, NegCon B, NES B, NeoGeo A, Genesis A, Gamecube A, N64 A. PCE II), 
-	button 2: 	right button (SNES A, PSX Circle, NegCon A, NES A, Neogeo B, Genesis B, Gamecube X, N64 Yellow Down, PCE I)
+/* Button mapping (used to conform with Android and Windows simultaneously):
+Button 1:	bottom button (SNES B, PSX Cross, NegCon B, NES B, NeoGeo A, Genesis A, Gamecube B, N64 B, PCE II)
+Button 2:	right button (SNES A, PSX Circle, NegCon A, NES A, Neogeo B, Genesis B, Gamecube A, N64 A, PCE I)
+Button 4:	left button (SNES Y, PSX Square, NeoGeo C, Genesis C, Gamecube Y, N64 Yellow Down), 
+Button 5:	upper button (SNES X, PSX Triangle, NeoGeo D, Genesis X, Gamecube X, N64 Yellow Up)
+Button 7:	Left Shoulder (SNES L, PSX L1, Genesis Y, Gamecube L, N64 L) 
+Button 8:	Right Shoulder (SNES R, PSX R1, Genesis Z, Gamecube R, N64 R)
+Button 9:	Misc 1 (PSX L2, N64 Yellow Left, Saturn L)
+Button 10:	Misc 2 (PSX R2, N64 Yellow Right, Saturn R)
+Button 11:	Select
+Button 12:	Start (PC Engine Play, Genesis Mode)
+Button 14:	Misc 3 (PSX L3, N64 Z, Gamecube Z) 
+Button 15:	Misc 4 (PSX R3)
 	
-	button 4: 	left button (SNES Y, PSX Square, NeoGeo C, Genesis C, Gamecube B, N64 B), 
-	button 5: 	upper button (SNES X, PSX Triangle, NeoGeo D, Genesis X, Gamecube Y, N64 Yellow Up)
-	
-	button 7: 	Left Shoulder (PSX L1, Genesis Y, Gamecube L, N64 L, Saturn L)
-	button 8: 	Right Shoulder (PSX R1 Genesis Z, Gamecube R, N64 R, Saturn R)
-	
-	button 9: 	Misc 1 (PSX L2, N64 Yellow Left), 
-	button 10: 	Misc 2 (PSX R2, N64 Yellow Right),
-	
-	button 11: 	Select
-	button 12: 	Start (PC Engine Play, Genesis Mode)
-	
-	button 14: 	Misc 3 (PSX L3, N64 Z, Gamecube Z) 
-	button 15: 	Misc 4 (PSX R3)
+Analog:
+Left Joystick: x,y
+Right Joystick: z,Rz
+NegCon mode, identifies as "Mojo Retro Adapter NegCon" instead of "Mojo Retro Adapter" when detected:
+Steering: x
+Button I: z (0..255 in NegCon mode instead of -128..127)
+Button II: "Accelerator" axis
+Button L: "Brake axis"
+*/
 
-	Analog:
-	Left Joystick: x,y
-	Right Joystick: z,Rz
-	
-	NegCon mode (identifies as "Mojo Retro Adapter NegCon" instead of "Mojo Retro Adapter" when NegCon is detected):
-	Steering: x
-	Button I: z (0..255 in NegCon mode instead of -128..127)
-	Button II: "Accelerator" axis
-	Button L: "Brake axis"
+/*
+Updated bitmap used in all current controller subroutines:
+b1	bit 0	bottom button 
+	bit 1	right button 
+	bit 2	left button  
+	bit 3	upper button 
+	bit 4	L2
+	bit 5	R2
+	bit 6	L1
+	bit 7	R1
+b2	bit 0	Select
+	bit 1	Start 
+	bit 2	L3
+	bit 3	R3
 */
 
 #include <avr/io.h>
@@ -395,21 +405,22 @@ uchar	usbFunctionDescriptor(struct usbRequest *rq)
 /* ------------------------------------------------------------------------- */
 void RemapButtons(uchar *b1, uchar *b2)
 {
-/* Updated mapping used in all current subroutines:
-	bit 0	button 1: 	bottom button (SNES B, PSX Cross, NegCon B, NES B, NeoGeo A, Genesis A, Gamecube A, N64 A. PCE II), 
-	bit 1	button 2: 	right button (SNES A, PSX Circle, NegCon A, NES A, Neogeo B, Genesis B, Gamecube X, N64 Yellow Down, PCE I)
-	bit 2	button 3: 	left button (SNES Y, PSX Square, NeoGeo C, Genesis C, Gamecube B, N64 B), 
-	bit 3	button 4: 	upper button (SNES X, PSX Triangle, NeoGeo D, Genesis X, Gamecube Y, N64 Yellow Up)
-	bit 4	button 5: 	Misc 1 (PSX L2, N64 Yellow Left), 
-	bit 5	button 6: 	Misc 2 (PSX R2, N64 Yellow Right),
-	bit 6	button 7: 	Left Shoulder (PSX L1, Genesis Y, Gamecube L, N64 L, Saturn L)
-	bit 7	button 8: 	Right Shoulder (PSX R1 Genesis Z, Gamecube R, N64 R, Saturn R)
-	bit 0	button 9: 	Select
-	bit 1	button 10: 	Start (PC Engine Play, Genesis Mode)
-	bit 2	button 11: 	Misc 3 (PSX L3, N64 Z, Gamecube Z) 
-	bit 3	button 12: 	Misc 4 (PSX R3)
-
-	/* Mapping required by Android
+/*
+Updated mapping used in all current subroutines:
+b1	bit 0	bottom button 
+	bit 1	right button 
+	bit 2	left button  
+	bit 3	upper button 
+	bit 4	L2
+	bit 5	R2
+	bit 6	L1
+	bit 7	R1
+b2	bit 0	Select
+	bit 1	Start 
+	bit 2	L3
+	bit 3	R3
+	
+Mapping required by Android:
 	buttons in parentheses are non-standard, but seem to be supported in android
 	bit 0	button 1: 	Android A (bottom)
 	bit 1	button 2: 	Android B (right)
@@ -424,8 +435,8 @@ void RemapButtons(uchar *b1, uchar *b2)
 	bit 2	button 11: 	(Android Select) (Select)
 	bit 3	button 12: 	(Android Start) (Start)
 	bit 4	button 13:	??
-	bit 5	button 14: 	Android Left Stick Press
-	bit 6	button 15: 	Android Right Stick Press
+	bit 5	button 14: 	Android Left Thumb Stick Press
+	bit 6	button 15: 	Android Right Thumb Stick Press
 	bit 7	button 16: 	??
 */
 

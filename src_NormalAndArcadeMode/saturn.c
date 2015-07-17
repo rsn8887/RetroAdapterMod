@@ -114,16 +114,16 @@ void ReadSaturn(report_t *reportBuffer)
 		wait_tl_low();
 		// 7th
 
-		if (!(PINB & SAT_UP)) reportBuffer->b1 |= (1<<5);		// Z
-		if (!(PINB & SAT_DN)) reportBuffer->b1 |= (1<<4);		// Y
+		if (!(PINB & SAT_UP)) reportBuffer->b1 |= (1<<7);		// Z
+		if (!(PINB & SAT_DN)) reportBuffer->b1 |= (1<<6);		// Y
 		if (!(PIND & SAT_LF)) reportBuffer->b1 |= (1<<3);		// X
-		if (!(PIND & SAT_RT)) reportBuffer->b1 |= (1<<7);		// R
+		if (!(PIND & SAT_RT)) reportBuffer->b1 |= (1<<5);		// R (use R2 because R taken by Genesis/Saturn Z)
 
 		PORTB |= (SAT_TR);
 		wait_tl_high();
 		// 8th
 
-		if (!(PIND & SAT_RT)) reportBuffer->b1 |= (1<<6);		// L
+		if (!(PIND & SAT_RT)) reportBuffer->b1 |= (1<<4);		// L (use L2 because L taken by Genesis/Saturn Y)
 
 		/* --- Analogue X axis --------------------------------------------------------------*/
 

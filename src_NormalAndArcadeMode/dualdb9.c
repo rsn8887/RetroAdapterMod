@@ -105,8 +105,8 @@ void Read2ndFamicom(report_t *reportBuffer)
 	_delay_us(FAMDELAY);			// settle time
 
 	// button IDs in brackers are Super Famicom
-	if (Famicom2Read()) reportBuffer->b1 |= (1<<1);	// A (snes B)
-	if (Famicom2Read()) reportBuffer->b1 |= (1<<0);	// B (snes Y)
+	if (Famicom2Read()) reportBuffer->b1 |= (1<<1);	// NES A (snes B)
+	if (Famicom2Read()) reportBuffer->b1 |= (1<<0);	// NES B (snes Y)
 	if (Famicom2Read()) reportBuffer->b2 |= (1<<0);	// Select 
 	if (Famicom2Read()) reportBuffer->b2 |= (1<<1);	// Start
 	if (Famicom2Read()) reportBuffer->y = -128;		// Up

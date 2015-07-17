@@ -1,4 +1,4 @@
-Paul Qureshi RetroAdapter Firmware v2.1a Mod v0.99
+Paul Qureshi RetroAdapter Firmware v2.1a Mod v1.0
 --------------------------------------------------
 
 References
