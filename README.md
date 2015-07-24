@@ -17,7 +17,7 @@ http://www.brunofreitas.com/node/41
 http://denki.world3.net/retro_v2.html
 (incuded for reference in folder original_Files)
 
-- This mod by rsn8887 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-large.png)](https://flattr.com/submit/auto?user_id=rsn8887&url=https://github.com/rsn8887/RetroAdapterMod&title=RetroAdapterMod&language=C&tags=github&category=software)
+- This mod by rsn8887 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-small.png)](https://flattr.com/submit/auto?user_id=rsn8887&url=https://github.com/rsn8887/RetroAdapterMod&title=RetroAdapterMod&language=C&tags=github&category=software)
 
 What is it?
 -----------
