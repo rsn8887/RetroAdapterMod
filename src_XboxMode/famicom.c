@@ -80,8 +80,8 @@ void ReadFamicom(report_t *reportBuffer)
 	
 	
 	
-	if (byte0 & (1<<3)) reportBuffer->b2 |= (1<<3);		// Start
-	if (byte0 & (1<<2)) reportBuffer->b2 |= (1<<2);		// Select
+	if (byte0 & (1<<3)) reportBuffer->b2 |= (1<<1);		// Start
+	if (byte0 & (1<<2)) reportBuffer->b2 |= (1<<0);		// Select
 
 	if ((byte2 & 0x0f) == (1<<3))		// Famicom Trackball
 	{
@@ -106,10 +106,10 @@ void ReadFamicom(report_t *reportBuffer)
 		if (temp > 7) temp = -16 + temp;
 		reportBuffer->x = 0 - (temp * 4);
 
-		if (byte0 & (1<<3)) reportBuffer->b2 |= (1<<3);	// Start
-		if (byte0 & (1<<2)) reportBuffer->b2 |= (1<<2);	// Select
-		if (byte0 & (1<<1)) reportBuffer->b1 |= (1<<1);	// B
-		if (byte0 & (1<<0)) reportBuffer->b1 |= (1<<0);	// A
+		if (byte0 & (1<<3)) reportBuffer->b2 |= (1<<1);	// Start
+		if (byte0 & (1<<2)) reportBuffer->b2 |= (1<<0);	// Select
+		if (byte0 & (1<<1)) reportBuffer->b1 |= (1<<0);	// B
+		if (byte0 & (1<<0)) reportBuffer->b1 |= (1<<1);	// A
 	}
 	else if ((byte1 & 0xC0) == 0xC0)	// Famicom mode
 	{
@@ -117,8 +117,8 @@ void ReadFamicom(report_t *reportBuffer)
 		
 		if (vbmode == 0)				// Famicom
 		{
-			if (byte0 & (1<<1)) reportBuffer->b1 |= (1<<1);	// B (left)
-			if (byte0 & (1<<0)) reportBuffer->b1 |= (1<<0);	// A (right)
+			if (byte0 & (1<<1)) reportBuffer->b1 |= (1<<0);	// B (left)
+			if (byte0 & (1<<0)) reportBuffer->b1 |= (1<<1);	// A (right)
 		}
 		else
 		{
@@ -128,21 +128,21 @@ void ReadFamicom(report_t *reportBuffer)
 			if (byte1 & (1<<0)) reportBuffer->rx = 127;		// R-Right
 			if (byte1 & (1<<1)) reportBuffer->ry = -128;	// R-Up
 
-			if (byte1 & (1<<2)) reportBuffer->b1 |= (1<<4);	// L
-			if (byte1 & (1<<3)) reportBuffer->b1 |= (1<<5);	// R
-			if (byte1 & (1<<4)) reportBuffer->b1 |= (1<<1);	// B (left)
-			if (byte1 & (1<<5)) reportBuffer->b1 |= (1<<0);	// A (right)
+			if (byte1 & (1<<2)) reportBuffer->b1 |= (1<<6);	// L
+			if (byte1 & (1<<3)) reportBuffer->b1 |= (1<<7);	// R
+			if (byte1 & (1<<4)) reportBuffer->b1 |= (1<<0);	// B (left)
+			if (byte1 & (1<<5)) reportBuffer->b1 |= (1<<1);	// A (right)
 		}
 	}
 	else if ((byte1 & 0xf0) == 0)		// Super Famicom mode or no pad
 	{
 		vbmode = 0;
-		if (byte0 & (1<<1)) reportBuffer->b1 |= (1<<1);	// Y (left)
+		if (byte0 & (1<<1)) reportBuffer->b1 |= (1<<2);	// Y (left)
 		if (byte0 & (1<<0)) reportBuffer->b1 |= (1<<0);	// B (bottom)
-		if (byte1 & (1<<0)) reportBuffer->b1 |= (1<<3);	// A (right)
-		if (byte1 & (1<<1)) reportBuffer->b1 |= (1<<2);	// X (top)
-		if (byte1 & (1<<2)) reportBuffer->b1 |= (1<<4);	// L
-		if (byte1 & (1<<3)) reportBuffer->b1 |= (1<<5);	// R
+		if (byte1 & (1<<0)) reportBuffer->b1 |= (1<<1);	// A (right)
+		if (byte1 & (1<<1)) reportBuffer->b1 |= (1<<3);	// X (top)
+		if (byte1 & (1<<2)) reportBuffer->b1 |= (1<<6);	// L
+		if (byte1 & (1<<3)) reportBuffer->b1 |= (1<<7);	// R
 	}
 //	else if ((byte1 & 0xf0) == 0x80)	// SNES Mouse
 //	{

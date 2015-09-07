@@ -65,8 +65,8 @@ void ReadPCE(report_t *reportBuffer)
 
 			if (!(PINB & PCE_UP)) reportBuffer->b1 |= (1<<2);	// III
 			if (!(PINB & PCE_RT)) reportBuffer->b1 |= (1<<3);	// IV
-			if (!(PINB & PCE_DN)) reportBuffer->b1 |= (1<<4);	// V
-			if (!(PINB & PCE_LF)) reportBuffer->b1 |= (1<<5);	// VI
+			if (!(PINB & PCE_DN)) reportBuffer->b1 |= (1<<6);	// V
+			if (!(PINB & PCE_LF)) reportBuffer->b1 |= (1<<7);	// VI
 		}
 
 		PORTD |= PCE_OE;							// OE and DS high again

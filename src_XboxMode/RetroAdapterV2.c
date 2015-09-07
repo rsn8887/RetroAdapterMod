@@ -5,10 +5,6 @@
  * Parts (c) 2009 MoJo aka Paul Qureshi
  * Parts (c) 2008 by OBJECTIVE DEVELOPMENT Software GmbH
  * License: GNU GPL v2
- 
-
- 
-
  * NOTE by rsn8887:
  * Modified 06/26/2015 by rsn8887 to replace PC compatibility with XBOX Classic compatibility
  * This version of the source only works on Xbox Classic
@@ -19,6 +15,37 @@
  * SNES mouse and dual player support was removed to comply with the limitations of the XBox classic
  * If you want to use a mouse, just hook up an original Qureshi RetroAdapter to your Xbox, because Xbox already supports standard usb mice
  * If you want 2-4 player support, just hook up multiple retroadapters to the xbox, one player per port
+*/
+
+/* Button mapping:
+    A:   bottom button (SNES B, PSX Cross, NegCon I, NES B, NeoGeo A, Genesis A, Gamecube A, N64 B, PCE II)
+    B:   right button (SNES A, PSX Circle, NegCon A, NES A, Neogeo B, Genesis B, Gamecube X, N64 A, PCE I)
+    X:   left button (SNES Y, PSX Square, NegCon II, NeoGeo C, Genesis C, Gamecube B, N64 Yellow Down, PCE III) 
+    Y:   upper button (SNES X, PSX Triangle, NegCon B, NeoGeo D, Genesis X, Gamecube Y, N64 Yellow Up, PCE IV)
+    L:   Left Shoulder (SNES L, PSX L1, NegCon L, Genesis Y, Gamecube L, N64 L, PCE V)
+    R:   Right Shoulder (SNES R, PSX R1, NegCon R, Genesis Z, Gamecube R, N64 R, PCE VI)
+    White:   Misc 1 (PSX L2, N64 Yellow Left, Saturn L)
+    Black:  Misc 2 (PSX R2, N64 Yellow Right, Saturn R)
+    Select:  Select
+    Start:  Start (PC Engine Play, Genesis Mode)
+    Left Thumb Click:  Misc 3 (PSX L3, N64 Z, Gamecube Z) 
+    Right Thumb Click:  Misc 4 (PSX R3)
+*/
+
+/*
+Updated bitmap used in all current controller subroutines:
+b1	bit 0	bottom button 
+	bit 1	right button 
+	bit 2	left button  
+	bit 3	upper button 
+	bit 4	L2
+	bit 5	R2
+	bit 6	L1
+	bit 7	R1
+b2	bit 0	Select
+	bit 1	Start 
+	bit 2	L3
+	bit 3	R3
 */
 
 #define bitRead(value, bit) (((value) >> (bit)) & 0x01)
@@ -247,21 +274,21 @@ void UpdateGamePadState(report_t *reportBuffer, reportAnalogButtons_t *reportBuf
 		((reportBuffer->hat & HAT_RIGHT) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_DPAD_RIGHT) : bitClear(gamepad_state.digital_buttons, XBOX_DPAD_RIGHT);
 		
 		//Digital Buttons
-		((reportBuffer->b2 & (1<<3)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_START) : bitClear(gamepad_state.digital_buttons, XBOX_START); // start
-		((reportBuffer->b2 & (1<<2)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_BACK) : bitClear(gamepad_state.digital_buttons, XBOX_BACK); // back
-		((reportBuffer->b2 & (1<<0)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_LEFT_STICK) : bitClear(gamepad_state.digital_buttons, XBOX_LEFT_STICK); // left stick press (aka L3)
-		((reportBuffer->b2 & (1<<1)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_RIGHT_STICK) : bitClear(gamepad_state.digital_buttons, XBOX_RIGHT_STICK); // right stick press (aka R3)
+		((reportBuffer->b2 & (1<<1)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_START) : bitClear(gamepad_state.digital_buttons, XBOX_START); // start
+		((reportBuffer->b2 & (1<<0)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_BACK) : bitClear(gamepad_state.digital_buttons, XBOX_BACK); // back
+		((reportBuffer->b2 & (1<<2)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_LEFT_STICK) : bitClear(gamepad_state.digital_buttons, XBOX_LEFT_STICK); // left stick press (aka L3)
+		((reportBuffer->b2 & (1<<3)) > 0) ? bitSet(gamepad_state.digital_buttons, XBOX_RIGHT_STICK) : bitClear(gamepad_state.digital_buttons, XBOX_RIGHT_STICK); // right stick press (aka R3)
 		
 		//Analog buttons as digital Buttons
 		gamepad_state.a = ((reportBuffer->b1 & (1<<0)) > 0) * 0xFF; //A bottom button
-		gamepad_state.x = ((reportBuffer->b1 & (1<<1)) > 0) * 0xFF; //X left button	
-		gamepad_state.y = ((reportBuffer->b1 & (1<<2)) > 0) * 0xFF; //Y top button
-		gamepad_state.b = ((reportBuffer->b1 & (1<<3)) > 0) * 0xFF; //B right button
+		gamepad_state.b = ((reportBuffer->b1 & (1<<1)) > 0) * 0xFF; //B right button	
+		gamepad_state.x = ((reportBuffer->b1 & (1<<2)) > 0) * 0xFF; //X left button
+		gamepad_state.y = ((reportBuffer->b1 & (1<<3)) > 0) * 0xFF; //Y top button
 		
-		gamepad_state.l = ((reportBuffer->b1 & (1<<4)) > 0) * 0xFF; // left shoulder
-		gamepad_state.r = ((reportBuffer->b1 & (1<<5)) > 0) * 0xFF; // right shoulder
-		gamepad_state.black = ((reportBuffer->b1 & (1<<7)) > 0) * 0xFF; //black (aka R2 on psx)
-		gamepad_state.white = ((reportBuffer->b1 & (1<<6)) > 0) * 0xFF; //white (aka L2 on psx)
+		gamepad_state.l = ((reportBuffer->b1 & (1<<6)) > 0) * 0xFF; // left shoulder
+		gamepad_state.r = ((reportBuffer->b1 & (1<<7)) > 0) * 0xFF; // right shoulder
+		gamepad_state.black = ((reportBuffer->b1 & (1<<5)) > 0) * 0xFF; //black (aka R2 on psx)
+		gamepad_state.white = ((reportBuffer->b1 & (1<<4)) > 0) * 0xFF; //white (aka L2 on psx)
 
 		//Analog buttons as true analog values, if non-zero
 		if (reportBufferAnalogButtons->a != 0) gamepad_state.a = reportBufferAnalogButtons->a; //A analog

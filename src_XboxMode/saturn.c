@@ -124,22 +124,22 @@ void ReadSaturn(report_t *reportBuffer)
 		if (!(PINB & SAT_UP)) reportBuffer->b1 |= (1<<1);		// B
 		if (!(PINB & SAT_DN)) reportBuffer->b1 |= (1<<2);		// C
 		if (!(PIND & SAT_LF)) reportBuffer->b1 |= (1<<0);		// A
-		if (!(PIND & SAT_RT)) reportBuffer->b2 |= (1<<3);		// Start
+		if (!(PIND & SAT_RT)) reportBuffer->b2 |= (1<<1);		// Start
 
 		PORTB &= ~(SAT_TR);
 		wait_tl_low();
 		// 7th
 
-		if (!(PINB & SAT_UP)) reportBuffer->b1 |= (1<<5);		// Z
-		if (!(PINB & SAT_DN)) reportBuffer->b1 |= (1<<4);		// Y
+		if (!(PINB & SAT_UP)) reportBuffer->b1 |= (1<<7);		// Z
+		if (!(PINB & SAT_DN)) reportBuffer->b1 |= (1<<6);		// Y
 		if (!(PIND & SAT_LF)) reportBuffer->b1 |= (1<<3);		// X
-		if (!(PIND & SAT_RT)) reportBuffer->b1 |= (1<<7);		// R
+		if (!(PIND & SAT_RT)) reportBuffer->b1 |= (1<<5);		// R
 
 		PORTB |= (SAT_TR);
 		wait_tl_high();
 		// 8th
 
-		if (!(PIND & SAT_RT)) reportBuffer->b1 |= (1<<6);		// L
+		if (!(PIND & SAT_RT)) reportBuffer->b1 |= (1<<4);		// L
 
 		/* --- Analogue X axis --------------------------------------------------------------*/
 

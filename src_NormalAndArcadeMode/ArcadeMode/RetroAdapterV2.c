@@ -8,27 +8,28 @@
  */
 
 /* Button mapping (used to conform with Android and Windows simultaneously):
-Button 1:	bottom button (SNES B, PSX Cross, NegCon B, NES B, NeoGeo A, Genesis A, Gamecube B, N64 B, PCE II)
-Button 2:	right button (SNES A, PSX Circle, NegCon A, NES A, Neogeo B, Genesis B, Gamecube A, N64 A, PCE I)
-Button 4:	left button (SNES Y, PSX Square, NeoGeo C, Genesis C, Gamecube Y, N64 Yellow Down), 
-Button 5:	upper button (SNES X, PSX Triangle, NeoGeo D, Genesis X, Gamecube X, N64 Yellow Up)
-Button 7:	Left Shoulder (SNES L, PSX L1, Genesis Y, Gamecube L, N64 L) 
-Button 8:	Right Shoulder (SNES R, PSX R1, Genesis Z, Gamecube R, N64 R)
-Button 9:	Misc 1 (PSX L2, N64 Yellow Left, Saturn L)
-Button 10:	Misc 2 (PSX R2, N64 Yellow Right, Saturn R)
-Button 11:	Select
-Button 12:	Start (PC Engine Play, Genesis Mode)
-Button 14:	Misc 3 (PSX L3, N64 Z, Gamecube Z) 
-Button 15:	Misc 4 (PSX R3)
-	
-Analog:
-Left Joystick: x,y
-Right Joystick: z,Rz
-NegCon mode, identifies as "Mojo Retro Adapter NegCon" instead of "Mojo Retro Adapter" when detected:
-Steering: x
-Button I: z (0..255 in NegCon mode instead of -128..127)
-Button II: "Accelerator" axis
-Button L: "Brake axis"
+    button 1:   bottom button (SNES B, PSX Cross, NegCon B, NES B, NeoGeo A, Genesis A, Gamecube A, N64 B, PCE II)
+    button 2:   right button (SNES A, PSX Circle, NegCon A, NES A, Neogeo B, Genesis B, Gamecube X, N64 A, PCE I)
+    button 4:   left button (SNES Y, PSX Square, NeoGeo C, Genesis C, Gamecube B, N64 Yellow Down, PCE III), 
+    button 5:   upper button (SNES X, PSX Triangle, NeoGeo D, Genesis X, Gamecube Y, N64 Yellow Up, PCE IV)
+    button 7:   Left Shoulder (SNES L, PSX L1, Genesis Y, Gamecube L, N64 L, PCE V)
+    button 8:   Right Shoulder (SNES R, PSX R1 Genesis Z, Gamecube R, N64 R, PCE VI)
+    button 9:   Misc 1 (PSX L2, N64 Yellow Left, Saturn L), 
+    button 10:  Misc 2 (PSX R2, N64 Yellow Right, Saturn R),
+    button 11:  Select
+    button 12:  Start (PC Engine Play, Genesis Mode)
+    button 14:  Misc 3 (PSX L3, N64 Z, Gamecube Z) 
+    button 15:  Misc 4 (PSX R3)
+
+    Analog:
+    Left Joystick: x,y
+    Right Joystick: z,Rz
+    
+    NegCon mode (identifies as "Mojo Retro Adapter NegCon" instead of "Mojo Retro Adapter" when NegCon is detected):
+    Steering: x
+    Button I: z (0..255 in NegCon mode instead of -128..127)
+    Button II: "Accelerator" axis
+    Button L: "Brake axis"
 */
 
 /*

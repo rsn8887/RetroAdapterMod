@@ -139,13 +139,13 @@ readn64:
 
 		; d-pad to hat switch is decoding done by n64gc.c, returned in r24
 		sbrc	data1, 7		; A
-		ori		data3, (1<<0)
+		ori		b1, (1<<1)
 		sbrc	data1, 6		; B
-		ori		data3, (1<<1)
+		ori		b1, (1<<0)
 		sbrc	data1, 5		; Z
-		ori		data4, (1<<2)
+		ori		b2, (1<<2)
 		sbrc	data1, 4		; Start
-		ori		data4, (1<<3)
+		ori		b2, (1<<1)
 		andi	data1, 0x0f		; d-pad
 		
 		; 2:	0 - C-Right
@@ -158,17 +158,17 @@ readn64:
 		; C buttons mapped as buttons because you can press opposite directions at the
 		; same time so they are not suitable for mapping to an axis/hat.
 		sbrc	data2, 5		; L
-		ori		data3, (1<<4)
+		ori		b1, (1<<6)
 		sbrc	data2, 4		; R
-		ori		data3, (1<<5)
+		ori		b1, (1<<7)
 		sbrc	data2, 3		; C-Up
-		ori		data3, (1<<2)
+		ori		b1, (1<<3)
 		sbrc	data2, 2		; C-Down
-		ori		data3, (1<<3)
+		ori		b1, (1<<2)
 		sbrc	data2, 1		; C-Left
-		ori		data3, (1<<6)
+		ori		b1, (1<<4)
 		sbrc	data2, 0		; C-Right
-		ori		data3, (1<<7)
+		ori		b1, (1<<5)
 
 		std		Z+5, data3		; b1
 		std		Z+6, data4		; b2
@@ -235,15 +235,15 @@ readgc:
 		;			4 - Start
 
 		sbrc	data1, 0		; A 
-		ori		b1, (1<<0)
-		sbrc	data1, 1		; B 
 		ori		b1, (1<<1)
+		sbrc	data1, 1		; B 
+		ori		b1, (1<<0)
 		sbrc	data1, 2		; X 
 		ori		b1, (1<<3)
 		sbrc	data1, 3		; Y 
 		ori		b1, (1<<2)
 		sbrc	data1, 4		; Start 
-		ori		b2, (1<<3)
+		ori		b2, (1<<1)
 
 		; data2:	4 - Z
 		;			5 - R
@@ -252,9 +252,9 @@ readgc:
 		sbrc	data2, 4		; Z
 		ori		b2, (1<<2)
 		sbrc	data2, 5		; R
-		ori		b1, (1<<5)
+		ori		b1, (1<<7)
 		sbrc	data2, 6		; L
-		ori		b1, (1<<4)
+		ori		b1, (1<<6)
 
 		; data7:	L trigger
 		sbrs	data2, 6		; if L button is pressed leave analog value at zero, else adjust it

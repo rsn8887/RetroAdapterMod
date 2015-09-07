@@ -42,13 +42,13 @@ void ReadCD32(report_t *reportBuffer)
 	if (!(PINB & (1<<3))) reportBuffer->hat |= HAT_LEFT;	// left
 	if (!(PINB & (1<<2))) reportBuffer->hat |= HAT_RIGHT;	// right
 
-	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<3);			// Blue (right)
+	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<1);			// Blue (right)
 	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<0);			// Red (bottom)
-	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<2);			// Yellow (top)
-	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<1);			// Green (left)
-	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<5);			// Right Shoulder
-	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<4);			// Left Shoulder
-	if (!CD32ReadBit()) reportBuffer->b2 |= (1<<2);			// Pause
+	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<3);			// Yellow (top)
+	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<2);			// Green (left)
+	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<7);			// Right Shoulder
+	if (!CD32ReadBit()) reportBuffer->b1 |= (1<<6);			// Left Shoulder
+	if (!CD32ReadBit()) reportBuffer->b2 |= (1<<1);			// Pause
 
 	PORTB |= (1<<LAT);										// reset latch
 }

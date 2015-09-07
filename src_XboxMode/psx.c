@@ -85,8 +85,8 @@ void ReadPSX(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogBu
 		data = PSXCommand(0xff);	// expect 0x5a from controller
 	
 		data = PSXCommand(0xff);
-		if (!(data & (1<<0))) reportBuffer->b2 |= (1<<2);	// Select
-		if (!(data & (1<<3))) reportBuffer->b2 |= (1<<3);	// Start
+		if (!(data & (1<<0))) reportBuffer->b2 |= (1<<0);	// Select
+		if (!(data & (1<<3))) reportBuffer->b2 |= (1<<1);	// Start
 
 		if (id == PSX_ID_DIGITAL)
 		{
@@ -97,21 +97,21 @@ void ReadPSX(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogBu
 		}
 		else if((id == PSX_ID_A_RED))
 		{
-			if (!(data & (1<<1))) reportBuffer->b2 |= (1<<0);	// L3 Left joystick
-			if (!(data & (1<<2))) reportBuffer->b2 |= (1<<1);	// R3 Right joystick
+			if (!(data & (1<<1))) reportBuffer->b2 |= (1<<2);	// L3 Left joystick
+			if (!(data & (1<<2))) reportBuffer->b2 |= (1<<3);	// R3 Right joystick
 			reportBuffer->hat = ~(data>>4)&0x0f;
 		}
 
 		data = PSXCommand(0xff);
 
-		if (!(data & (1<<2))) reportBuffer->b1 |= (1<<4);	// L1
-		if (!(data & (1<<3))) reportBuffer->b1 |= (1<<5);	// R1
-		if (!(data & (1<<0))) reportBuffer->b1 |= (1<<6);	// L2
-		if (!(data & (1<<1))) reportBuffer->b1 |= (1<<7);	// R2
+		if (!(data & (1<<0))) reportBuffer->b1 |= (1<<4);	// L2
+		if (!(data & (1<<1))) reportBuffer->b1 |= (1<<5);	// R2
+		if (!(data & (1<<2))) reportBuffer->b1 |= (1<<6);	// L1
+		if (!(data & (1<<3))) reportBuffer->b1 |= (1<<7);	// R1
+		if (!(data & (1<<4))) reportBuffer->b1 |= (1<<3);	// /\ Triangle
+		if (!(data & (1<<5))) reportBuffer->b1 |= (1<<1);	// O  Circle
 		if (!(data & (1<<6))) reportBuffer->b1 |= (1<<0);	// X  Cross
-		if (!(data & (1<<7))) reportBuffer->b1 |= (1<<1);	// [] Square
-		if (!(data & (1<<4))) reportBuffer->b1 |= (1<<2);	// /\ Triangle
-		if (!(data & (1<<5))) reportBuffer->b1 |= (1<<3);	// O  Circle
+		if (!(data & (1<<7))) reportBuffer->b1 |= (1<<2);	// [] Square
 		
 		if ((id == PSX_ID_A_RED) | (id == PSX_ID_A_GREEN) | (id == PSX_ID_PS2_PRESSURE))
 		{
@@ -171,14 +171,14 @@ void ReadPSX(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogBu
 		
 		data = PSXCommand(0xff);
 		
-		if (!(data & (1<<3))) reportBuffer->b2 |= (1<<3);	// Start
+		if (!(data & (1<<3))) reportBuffer->b2 |= (1<<1);	// Start
 		reportBuffer->hat = ~(data>>4)&0x0f;
 
 		data = PSXCommand(0xff);
 		
-		if (!(data & (1<<3))) reportBuffer->b1 |= (1<<5);	// R1
-		if (!(data & (1<<4))) reportBuffer->b1 |= (1<<2);	// /\ Triangle (A on Negcon)
-		if (!(data & (1<<5))) reportBuffer->b1 |= (1<<3);	// O  Circle (B on Negcon)
+		if (!(data & (1<<3))) reportBuffer->b1 |= (1<<7);	// R1
+		if (!(data & (1<<4))) reportBuffer->b1 |= (1<<3);	// /\ Triangle (A on Negcon)
+		if (!(data & (1<<5))) reportBuffer->b1 |= (1<<1);	// O  Circle (B on Negcon)
 		
 		data = PSXCommand(0xff); //Steering axis 0x00 = left: 
 		//tested on a real psx: moving the right half away from you turns the Wipeout vehicle to the right!

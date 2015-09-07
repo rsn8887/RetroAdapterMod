@@ -55,10 +55,10 @@ void Read3DO(report_t *reportBuffer)
 	//			0	L	R	X	P	C	B	A
 
 	temp = TDOReadByte();
-	if (temp & (1<<1))	reportBuffer->b1 |= (1<<4);
-	if (temp & (1<<2))	reportBuffer->b1 |= (1<<5);
-	if (temp & (1<<3))	reportBuffer->b2 |= (1<<2);
-	if (temp & (1<<4))	reportBuffer->b2 |= (1<<3);
+	if (temp & (1<<1))	reportBuffer->b1 |= (1<<6);
+	if (temp & (1<<2))	reportBuffer->b1 |= (1<<7);
+	if (temp & (1<<3))	reportBuffer->b2 |= (1<<0);
+	if (temp & (1<<4))	reportBuffer->b2 |= (1<<1);
 	if (temp & (1<<5))	reportBuffer->b1 |= (1<<2);
 	if (temp & (1<<6))	reportBuffer->b1 |= (1<<1);
 	if (temp & (1<<7))	reportBuffer->b1 |= (1<<0);
