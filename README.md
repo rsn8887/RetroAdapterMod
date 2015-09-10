@@ -60,11 +60,6 @@ Button 12 (Start)     | Start     | Start          | Sta. | St. | -      | Sta.|
 Button 14 (L. Thumb)  | L. Thumb  | Misc 3         | -    | L3  | -      | -   | -      | -       | Z        | Z         | -   | 
 Button 15 (R. Thumb)  | R. Thumb  | Misc 4         | -    | R3  | -      | -   | -      | -       | -        | -         | -   | 
 
-test | test2 | test3
---- | --- | ---
-a | b | c
-
-
 Analog axes in Normal Mode:
 Left Joystick: x,y
 Right Joystick: z,Rz
