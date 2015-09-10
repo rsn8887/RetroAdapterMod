@@ -62,19 +62,12 @@ Button 15 (R. Thumb)  | R. Thumb  | Misc 4         | -    | R3  | -      | -   |
 
 
 - Analog axes in Normal Mode:
-
 Left Joystick: x,y
-
 Right Joystick: z,Rz
-
 For NegCon (identifies as "Mojo Retro Adapter NegCon" instead of "Mojo Retro Adapter" when NegCon is detected):
-
 Steering: x
-
 Button I: z (0..255 in NegCon mode instead of -128..127) (Android gas)
-
 Button II: "Accelerator" axis (Android analog right shoulde)
-
 Button L: "Brake axis" (Android analog left shoulder)
 
 - For more information, please see readme.txt
