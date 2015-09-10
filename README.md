@@ -44,6 +44,7 @@ This version is suited for use in an Arcade cabinet. It works on PCs just like t
 This is for regular use and functions identical to the original RetroAdapter. However, it is improved for operation under Android OS. Under Android, the original RetroAdapter was not reporting directions up and left for NES and some other controller types. Note: The Android fixes are also incorporated into the Arcade mode version.
 
 - Button config for Normal and XBox Modes:
+
 Normal Mode (Android) | XBox Mode | Description    | SNES | PSX | NegCon | NES | NeoGeo | Genesis | Gamecube | N64       | PCE | Saturn
 --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---  
 Button 1 (A)          | A         | Bottom button  | B    | X   | I      | B   | A      | A       | A        | B         | II  | A
