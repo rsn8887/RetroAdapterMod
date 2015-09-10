@@ -60,7 +60,7 @@ Button 14 (L. Thumb)  | L. Thumb  | Misc 3         | -    | L3  | -      | -   |
 Button 15 (R. Thumb)  | R. Thumb  | Misc 4         | -    | R3  | -      | -   | -      | -       | -        | -         | -   | 
 
 test | test2 | test3
--- | -- | --
+---- | -- | --
 a | b | c
 
 
