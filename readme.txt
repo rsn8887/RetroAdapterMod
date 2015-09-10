@@ -33,19 +33,34 @@ I modified and recompiled the Retroadapter firmware, replacing the original PC s
  - SNES mouse and dual player support was removed to comply with the limitations of the XBox classic
  - If you want to use a mouse, just hook up an original Qureshi RetroAdapter to your Xbox, because Xbox already supports standard usb mice
  - If you want 2-4 player support, just hook up multiple retroadapters to the xbox, one player per port
- - This is the button layout for XBox mode:
-    A:   bottom button (SNES B, PSX Cross, NegCon I, NES B, NeoGeo A, Genesis A, Gamecube A, N64 B, PCE II)
-    B:   right button (SNES A, PSX Circle, NegCon A, NES A, Neogeo B, Genesis B, Gamecube X, N64 A, PCE I)
-    X:   left button (SNES Y, PSX Square, NegCon II, NeoGeo C, Genesis C, Gamecube B, N64 Yellow Down, PCE III) 
-    Y:   upper button (SNES X, PSX Triangle, NegCon B, NeoGeo D, Genesis X, Gamecube Y, N64 Yellow Up, PCE IV)
-    L:   Left Shoulder (SNES L, PSX L1, NegCon L, Genesis Y, Gamecube L, N64 L, PCE V)
-    R:   Right Shoulder (SNES R, PSX R1, NegCon R, Genesis Z, Gamecube R, N64 R, PCE VI)
-    White:   Misc 1 (PSX L2, N64 Yellow Left, Saturn L)
-    Black:  Misc 2 (PSX R2, N64 Yellow Right, Saturn R)
-    Select:  Select
-    Start:  Start (PC Engine Play, Genesis Mode)
-    Left Thumb Click:  Misc 3 (PSX L3, N64 Z, Gamecube Z) 
-    Right Thumb Click:  Misc 4 (PSX R3)
+
+- Normal mode: 
+This is for regular use and functions identical to the original RetroAdapter. However, it is improved for operation with Android devices. Under Android, the original RetroAdapter was not reporting directions up and left for NES and some other controller types. Note: The Android fixes are also incorporated into the Arcade mode version.
+
+- Button config for Normal and XBox Modes:
+Normal Mode (Android) | XBox Mode | Description    | SNES | PSX | NegCon | NES | NeoGeo | Genesis | Gamecube | N64       | PCE | Saturn
+--------------------- | --------- | -------------- | ---- | ----| ------ | --- | ------ | ------- | -------- | --------- | --- | ------  
+Button 1 (A)          | A         | Bottom button  | B    | X   | I      | B   | A      | A       | A        | B         | II  | A
+Button 2 (B)          | B         | Right button   | A    | O   | A      | A   | B      | B       | X        | A         | I   | B
+Button 4 (X)          | X         | Left button    | Y    | Sq. | II     | -   | C      | C       | B        | Yell. Do. | III | C 
+Button 5 (Y)          | Y         | Upper button   | X    | Tr. | B      | -   | D      | X       | Y        | Yell. Up  | IV  | X
+Button 7 (L)          | L         | Left shoulder  | L    | L1  | L      | -   | -      | Y       | L        | L         | V   | Y
+Button 8 (R)          | R         | Right shoulder | R    | R   | R1     | -   | -      | Z       | R        | R         | VI  | Z
+Button 9 (L2)         | White     | Misc 1         | -    | L2  | -      | -   | -      | -       | -        | Yell. Le. | -   | L
+Button 10 (R2)        | Black     | Misc 2         | -    | R2  | -      | -   | -      | -       | -        | Yell. Ri. | -   | R
+Button 11 (Select)    | Select    | Select         | Sel. | Se. | -      | Sel.| Selec. |         | -        | -         | Se. | -
+Button 12 (Start)     | Start     | Start          | Sta. | St. | -      | Sta.| Start  | Start   | Start    | Start     | Pl. | Start
+Button 14 (L. Thumb)  | L. Thumb  | Misc 3         | -    | L3  | -      | -   | -      | -       | Z        | Z         | -   | 
+Button 15 (R. Thumb)  | R. Thumb  | Misc 4         | -    | R3  | -      | -   | -      | -       | -        | -         | -   | 
+
+Analog axes in Normal Mode:
+Left Joystick: x,y
+Right Joystick: z,Rz
+For NegCon (identifies as "Mojo Retro Adapter NegCon" instead of "Mojo Retro Adapter" when NegCon is detected):
+Steering: x
+Button I: z (0..255 in NegCon mode instead of -128..127) (Android gas)
+Button II: "Accelerator" axis (Android analog right shoulde)
+Button L: "Brake axis" (Android analog left shoulder)
 
 - Arcade mode: 
 This version is suited for use in an Arcade cabinet. It works on PCs just like the original RetroAdapter, but I replaced Neogeo stick support on the DB15 with an arcade mode that has just 8 firebuttons on the DB15, to give you a total of 10 buttons and 4 directions when you hook up your Arcade controls to pins on both DB9 and DB15.
@@ -69,33 +84,6 @@ DB9 (unchanged)
     pin 6 - button 1 (Android A)
     pin 9 - button 2 (Android B)
     pin 8 - GROUND
-
-- Normal mode: 
-This is for regular use and functions identical to the original RetroAdapter. However, it is improved for operation with Android devices. Under Android, the original RetroAdapter was not reporting directions up and left for NES and some other controller types. Note: The Android fixes are also incorporated into the Arcade mode version.
-
-This is the button config for Normal mode since v0.99, chosen to conform with Android:
-    button 1:   bottom button (SNES B, PSX Cross, NegCon B, NES B, NeoGeo A, Genesis A, Gamecube A, N64 B, PCE II)
-    button 2:   right button (SNES A, PSX Circle, NegCon A, NES A, Neogeo B, Genesis B, Gamecube X, N64 A, PCE I)
-    button 4:   left button (SNES Y, PSX Square, NeoGeo C, Genesis C, Gamecube B, N64 Yellow Down, PCE III), 
-    button 5:   upper button (SNES X, PSX Triangle, NeoGeo D, Genesis X, Gamecube Y, N64 Yellow Up, PCE IV)
-    button 7:   Left Shoulder (SNES L, PSX L1, Genesis Y, Gamecube L, N64 L, PCE V)
-    button 8:   Right Shoulder (SNES R, PSX R1 Genesis Z, Gamecube R, N64 R, PCE VI)
-    button 9:   Misc 1 (PSX L2, N64 Yellow Left, Saturn L), 
-    button 10:  Misc 2 (PSX R2, N64 Yellow Right, Saturn R),
-    button 11:  Select
-    button 12:  Start (PC Engine Play, Genesis Mode)
-    button 14:  Misc 3 (PSX L3, N64 Z, Gamecube Z) 
-    button 15:  Misc 4 (PSX R3)
-
-    Analog:
-    Left Joystick: x,y
-    Right Joystick: z,Rz
-    
-    NegCon mode (identifies as "Mojo Retro Adapter NegCon" instead of "Mojo Retro Adapter" when NegCon is detected):
-    Steering: x
-    Button I: z (0..255 in NegCon mode instead of -128..127)
-    Button II: "Accelerator" axis
-    Button L: "Brake axis"
 
 How to install
 --------------
