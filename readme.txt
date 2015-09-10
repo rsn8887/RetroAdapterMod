@@ -54,13 +54,20 @@ Button 14 (L. Thumb)  | L. Thumb  | Misc 3         | -      | L3      | -      |
 Button 15 (R. Thumb)  | R. Thumb  | Misc 4         | -      | R3      | -      | -      | -      | -       | -        | -         | -      | -
 
 Analog axes in Normal Mode:
-Left Joystick: x,y
-Right Joystick: z,Rz
+
+Controller     | Host
+-------------- | -------
+Left Joystick  | x,y
+Right Joystick | z,Rz
+
 For NegCon (identifies as "Mojo Retro Adapter NegCon" instead of "Mojo Retro Adapter" when NegCon is detected):
-Steering: x
-Button I: z (0..255 in NegCon mode instead of -128..127) (Android gas)
-Button II: "Accelerator" axis (Android analog right shoulde)
-Button L: "Brake axis" (Android analog left shoulder)
+
+NegCon        | Host
+------------- | -------
+Steering      | x
+Button I      | z (0..255 in NegCon mode instead of -128..127) (Android gas)
+Button II     | "Accelerator" axis (Android analog right shoulder)
+Button L      | "Brake axis" (Android analog left shoulder)
 
 - Arcade mode: 
 This version is suited for use in an Arcade cabinet. It works on PCs just like the original RetroAdapter, but I replaced Neogeo stick support on the DB15 with an arcade mode that has just 8 firebuttons on the DB15, to give you a total of 10 buttons and 4 directions when you hook up your Arcade controls to pins on both DB9 and DB15.
