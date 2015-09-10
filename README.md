@@ -46,7 +46,7 @@ This is for regular use and functions identical to the original RetroAdapter. Ho
 - Button config for Normal and XBox Modes:
 
 Normal Mode (Android) | XBox Mode | Description    | SNES | PSX | NegCon | NES | NeoGeo | Genesis | Gamecube | N64       | PCE | Saturn
---- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---  
+--------------------- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | ---  
 Button 1 (A)          | A         | Bottom button  | B    | X   | I      | B   | A      | A       | A        | B         | II  | A
 Button 2 (B)          | B         | Right button   | A    | O   | A      | A   | B      | B       | X        | A         | I   | B
 Button 4 (X)          | X         | Left button    | Y    | Sq. | II     | -   | C      | C       | B        | Yell. Do. | III | C 
