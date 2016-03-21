@@ -1,7 +1,7 @@
 # RetroAdapterMod
 Mod of Paul Qureshi's Mojo RetroAdapter Firmware
 
-Paul Qureshi RetroAdapter Firmware v2.1a Mod v1.1
+Paul Qureshi RetroAdapter Firmware v2.1a Mod v1.2
 --------------------------------------------------
 
 References
@@ -17,8 +17,7 @@ http://www.brunofreitas.com/node/41
 http://denki.world3.net/retro_v2.html
 (incuded for reference in folder original_Files)
 
-- This mod by rsn8887 
-[![PayPayl donate button](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=72LHAQPSSKDGE&lc=US&item_name=RetroAdapter%20Firmware%20MOD%20Donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted "Donate once-off to this project using Paypal")
+- This mod by rsn8887 [![Flattr this git repo](http://api.flattr.com/button/flattr-badge-small.png)](https://flattr.com/submit/auto?user_id=rsn8887&url=https://github.com/rsn8887/RetroAdapterMod&title=RetroAdapterMod&language=C&tags=github&category=software)
 
 What is it?
 -----------
@@ -69,12 +68,12 @@ Controller     | Host
 Left Joystick  | x,y
 Right Joystick | z,Rz
 
-For NegCon (identifies as "Mojo Retro Adapter NegCon" instead of "Mojo Retro Adapter" when NegCon is detected):
+For NegCon:
 
 NegCon        | Host
 ------------- | -------
 Steering      | x
-Button I      | z (0..255 in NegCon mode instead of -128..127) (Android gas)
+Button I      | z (Android gas)
 Button II     | "Accelerator" axis (Android analog right shoulder)
 Button L      | "Brake axis" (Android analog left shoulder)
 

@@ -1,4 +1,4 @@
-Paul Qureshi RetroAdapter Firmware v2.1a Mod v1.1
+Paul Qureshi RetroAdapter Firmware v2.1a Mod v1.2
 --------------------------------------------------
 
 References
@@ -61,7 +61,7 @@ Controller     | Host
 Left Joystick  | x,y
 Right Joystick | z,Rz
 
-For NegCon (identifies as "Mojo Retro Adapter NegCon" instead of "Mojo Retro Adapter" when NegCon is detected):
+For NegCon:
 
 NegCon        | Host
 ------------- | -------

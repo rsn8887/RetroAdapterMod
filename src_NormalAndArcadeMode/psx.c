@@ -44,7 +44,7 @@ PB2		CLK		Out
 PB1		ACK		In
 */
 
-void ReadPSX(report_t *reportBuffer, reportWheel_t *reportBufferWheel, reportAnalogButtons_t *reportBufferAnalogButtons)
+void ReadPSX(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogButtons)
 {
 	uchar	data, id;
 	
@@ -133,29 +133,27 @@ void ReadPSX(report_t *reportBuffer, reportWheel_t *reportBufferWheel, reportAna
 	}
 	if (id==PSX_ID_NEGCON) 
 	{
-		hidMode = HIDM_WHEEL;
-		
 		data = PSXCommand(0xff);	// expect 0x5a from controller
 		data = PSXCommand(0xff);
-		if (!(data & (1<<3))) reportBufferWheel->b2 |= (1<<1);	// Start
-		reportBufferWheel->hat = pgm_read_byte(&psx_hat_lut[(~(data>>4)&0x0f)]);
+		if (!(data & (1<<3))) reportBuffer->b2 |= (1<<1);	// Start
+		reportBuffer->hat = pgm_read_byte(&psx_hat_lut[(~(data>>4)&0x0f)]);
 		data = PSXCommand(0xff);
-		if (!(data & (1<<3))) reportBufferWheel->b1 |= (1<<7);	// R1
-		if (!(data & (1<<4))) reportBufferWheel->b1 |= (1<<1);	// /\ Triangle (A on Negcon)
-		if (!(data & (1<<5))) reportBufferWheel->b1 |= (1<<0);	// O  Circle (B on Negcon)
+		if (!(data & (1<<3))) reportBuffer->b1 |= (1<<7);	// R1
+		if (!(data & (1<<4))) reportBuffer->b1 |= (1<<1);	// /\ Triangle (A on Negcon)
+		if (!(data & (1<<5))) reportBuffer->b1 |= (1<<0);	// O  Circle (B on Negcon)
 
 		data = PSXCommand(0xff); //Steering axis 0x00 = left
 		//TESTED ON REAL PSX: moving the right half away from you turns the Wipeout vehicle to the RIGHT!
-		reportBufferWheel->x = -128+(char)data;
+		reportBuffer->x = -128+(char)data;
 			
 		data = PSXCommand(0xff); //I button (bottom button analog)
-		reportBufferWheel->z = (char)data;
+		reportBuffer->rx = -128+(char)data;
 		
 		data = PSXCommand(0xff); //II button (left button analog)
-		reportBufferWheel->accel = (char)data;
+		reportBuffer->accel = (char)data;
 
 		data = PSXCommand(0xff); //L1 Button analog
-		reportBufferWheel->brake = (char)data;
+		reportBuffer->brake = (char)data;
 	}
 #ifdef PS2PRESSURE
 	// pressure sensitive PS2 button support, preliminary

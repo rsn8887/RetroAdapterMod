@@ -1,0 +1,12 @@
+Die Bauteile habe ich von Reichelt (in den Klammern habe ich mal die Bestellnummern geschrieben):
+2 x Zener-Diode 3,6V (ZF 3,6)
+1 x Rückstellende Sicherung (PFRA 010)
+1 x Elko 10µF (RAD 10/35)
+2 x Widerstand 68 Ohm (1/4W 68)
+1 x Widerstand (1/4W 1,5k)
+
+Den Rest, wie Streifenrasterplatine, Sub-D Stecker 9 und 15 polig, sowie ein USB-Kabel müsst ihr mal selber nach den Bestell-Nummern schauen.
+
+Das ProMini-Board habe ich aus der Bucht, möchte davon aber keinen Link posten, da die später oft ins leere laufen. Einfach nach "Arduino Pro Mini Atmega 168" suchen.
+
+Ich habe nur im Makefile den Wert "-DF_CPU=15000000UL" auf "-DF_CPU=16000000UL" geändert, sollte so auch bei dem X-Box Part funktionieren.

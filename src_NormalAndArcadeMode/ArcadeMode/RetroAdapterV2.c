@@ -25,9 +25,9 @@
     Left Joystick: x,y
     Right Joystick: z,Rz
     
-    NegCon mode (identifies as "Mojo Retro Adapter NegCon" instead of "Mojo Retro Adapter" when NegCon is detected):
+    NegCon mode:
     Steering: x
-    Button I: z (0..255 in NegCon mode instead of -128..127)
+    Button I: z
     Button II: "Accelerator" axis
     Button L: "Brake axis"
 */
@@ -81,14 +81,46 @@ static	void*			usbDeviceDescriptorAddress;
 static	int				usbDeviceDescriptorLength;
 static	report_t		reportBuffer;
 static	reportMouse_t	reportBufferMouse;
-static 	reportWheel_t	reportBufferWheel;
 static  reportAnalogButtons_t	reportBufferAnalogButtons;
 
-static const report_t emptyReportBuffer;
-static const reportMouse_t emptyReportBufferMouse;
-static const reportWheel_t emptyReportBufferWheel;
-static const reportAnalogButtons_t emptyReportBufferAnalogButtons;
+static const report_t emptyReportBuffer = {
+	0,	// reportid
+	0,	// x
+	0,	// y
+	0,	// rx
+	0,	// ry
+	-1,	// hat
+	0,	// b1
+	0,	// b2
+	0,	// brake
+	0	// accel
+};
 
+static const reportMouse_t emptyReportBufferMouse;
+
+static const reportAnalogButtons_t emptyReportBufferAnalogButtons = {
+	0,		// reportid
+	0,	// x
+	0,	// y
+	0,	// rx
+	0,	// ry
+	-1,		// hat
+	0,		// b1
+	0,		// b2
+	0,		// slider1
+	0,		// slider2
+	0,		// slider3
+	0,		// slider4
+	0,		// slider5
+	0,		// slider6
+	0,		// slider7
+	0,		// slider8
+	0,		// slider9
+	0,		// slider10
+	0,		// slider11
+	0		// slider12
+};
+	
 void*	reportBufferAddress;
 uchar	reportBufferLength;
 uchar	hidMode;
@@ -127,16 +159,11 @@ void ReadController(uchar id)
 	uchar	pcinton	= 0;
 	
 	reportBuffer = emptyReportBuffer;
-	reportBuffer.hat = -1;
 	reportBuffer.reportid = id;
 	
 	reportBufferMouse = emptyReportBufferMouse;
 	reportBufferMouse.reportid = id;
-	
-	reportBufferWheel = emptyReportBufferWheel;
-	reportBufferWheel.hat = -1;
-	reportBufferWheel.reportid = id;
-	
+
 	reportBufferAnalogButtons = emptyReportBufferAnalogButtons;
 	reportBufferAnalogButtons.hat = -1;
 	reportBufferAnalogButtons.reportid = id;
@@ -157,7 +184,7 @@ void ReadController(uchar id)
 				break;
 				
 				case (1<<1):				// LLLH
-				ReadPSX(&reportBuffer, &reportBufferWheel, &reportBufferAnalogButtons);
+				ReadPSX(&reportBuffer, &reportBufferAnalogButtons);
 				skipdb9flag = 1;
 				break;
 				
@@ -306,7 +333,7 @@ void SetHIDMode()
 			usbDescriptorStringDeviceAddress = usbDescriptorStringDeviceDefault;
 			usbDescriptorStringDeviceLength = sizeof(usbDescriptorStringDeviceDefault);
 			break;
-		case HIDM_WHEEL:
+/* 		case HIDM_WHEEL:
 			usbDeviceDescriptorAddress = usbDescriptorDeviceJoystick;
 			usbDeviceDescriptorLength = sizeof(usbDescriptorDeviceJoystick);
 			hidReportDescriptorAddress = usbHidReportDescriptorWheel;
@@ -316,7 +343,8 @@ void SetHIDMode()
 			reportBufferLength = sizeof(reportBufferWheel);
 			usbDescriptorStringDeviceAddress = usbDescriptorStringDeviceNegCon;
 			usbDescriptorStringDeviceLength = sizeof(usbDescriptorStringDeviceNegCon);
-			break;	
+			break;	 
+*/
 		case HIDM_ANALOGBUTTONS:
 			usbDeviceDescriptorAddress = usbDescriptorDeviceJoystick;
 			usbDeviceDescriptorLength = sizeof(usbDescriptorDeviceJoystick);
@@ -404,7 +432,7 @@ uchar	usbFunctionDescriptor(struct usbRequest *rq)
 }
 
 /* ------------------------------------------------------------------------- */
-void RemapButtons(uchar *b1, uchar *b2)
+void RemapController()
 {
 /*
 Updated mapping used in all current subroutines:
@@ -440,7 +468,13 @@ Mapping required by Android:
 	bit 6	button 15: 	Android Right Thumb Stick Press
 	bit 7	button 16: 	??
 */
+	reportBuffer.x+=128;
+	reportBuffer.y+=128;
+	reportBuffer.rx+=128;
+	reportBuffer.ry+=128;
 
+	uchar *b1=&(reportBuffer.b1);
+	uchar *b2=&(reportBuffer.b2);
 	// So we have to map b1 bit 2 to 3 etc to conform with android
 	if ((*b1 | 0x00) | (*b2 | 0x00))
 	{	
@@ -491,8 +525,7 @@ int main(void)
         if(usbInterruptIsReady()){
             /* called after every poll of the interrupt endpoint */
 			ReadController(i);
-			RemapButtons(&(reportBuffer.b1), &(reportBuffer.b2));
-			RemapButtons(&(reportBufferWheel.b1), &(reportBufferWheel.b2));
+			RemapController();
 			remainingData=reportBufferLength;
 			offset=0;
 			// handle report with more than 8 byte length (for NegCon and future expansion)

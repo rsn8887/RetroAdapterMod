@@ -1,3 +1,10 @@
+v1.2
+- (Android/Windows) x/y,z/rz axes range to go from 0..255 to comply better with Windows 10 and XInput (fixes many Indie Games on Steam)
+
+- (Android/Windows) integrated NegCon mode into the regular mode, since the axes range is now 0..255 everywhere. Analog "Brake" and "Accel" axes are now always reported
+
+- (Android/Windows) changed USB poll interval to 4 ms to ensure lag-free performance with the additional brake and accel axes that are always reported
+
 v1.1
 - modified button layouts in Xbox mode to make them more sensible, new mappings:
     A:   bottom button (SNES B, PSX Cross, NegCon I, NES B, NeoGeo A, Genesis A, Gamecube A, N64 B, PCE II), 

@@ -5,11 +5,12 @@ PROGMEM int usbDescriptorStringDeviceDefault[] = {
     'R', 'e', 't', 'r', 'o', ' ', 'A', 'd', 'a', 'p', 't', 'e', 'r', ' ', 'M', 'o', 'd'
 };
 
-PROGMEM int usbDescriptorStringDeviceNegCon[] = {
+/* PROGMEM int usbDescriptorStringDeviceNegCon[] = {
     USB_STRING_DESCRIPTOR_HEADER(24),
     'R', 'e', 't', 'r', 'o', ' ', 'A', 'd', 'a', 'p', 't', 'e', 'r', ' ', 'M', 'o', 'd', ' ', 'N', 'e', 'g', 'C', 'o', 'n'
 };
-
+ */
+ 
 /* ----- USB Configuration Descriptor ---------------------------------------------------------- */
 
 char usbDescriptorConfiguration[] = {    /* USB configuration descriptor */
@@ -109,8 +110,10 @@ PROGMEM char usbHidReportDescriptor1P[] = {
 	0xA1,0x00,			//Collection (Physical)		
 	0x09,0x30,				//Usage (X)
 	0x09,0x31,				//Usage (Y)
-	0x15,0x80,				//Logical_Minimum (-128)
-	0x25,0x7F,				//Logical Maximum (127)
+//	0x15,0x80,				//Logical_Minimum (-128)
+//	0x25,0x7F,				//Logical Maximum (127)
+	0x15,0x00,				//Logical_Minimum (0)
+	0x26,0xFF,0x00,			//Logical Maximum (255)
 	0x75,0x08,				//Report_Size (8)
 	0x95,0x02,				//Report_Count (2)
 	0x81,0x02,				//Input (Data, Var, Abs)		
@@ -118,12 +121,11 @@ PROGMEM char usbHidReportDescriptor1P[] = {
 // Second joystick Z/Rz
 	0x09,0x32,				//Usage (Z)
 	0x09,0x35,				//Usage (Rz)
-	0x15,0x80,				//Logical_Minimum (-128)
-	0x25,0x7F,				//Logical Maximum (127)
+	0x15,0x00,				//Logical_Minimum (0)
+	0x26,0xFF,0x00,			//Logical Maximum (255)
 	0x75,0x08,				//Report_Size (8)
 	0x95,0x02,				//Report_Count (2)
 	0x81,0x02,				//Input (Data, Var, Abs)		
-
 
 // Hat switch
 	0x09,0x39,				//Usage (Hat switch)
@@ -137,7 +139,7 @@ PROGMEM char usbHidReportDescriptor1P[] = {
 	0x81,0x02,				//Input (Data, Var, Abs)
 	0x75,0x04,				//Report_Size (4) *Padding*
 	0x95,0x01,				//Report_Count (1) *Padding*
-	0x81,0x03,				//Input (Data, Var, Abs)		
+	0x81,0x03,				//Input (Cnst, Var, Abs)		
 
 // Digital fire buttons
 	0x05,0x09,				//Usage_Page (Button)
@@ -150,13 +152,26 @@ PROGMEM char usbHidReportDescriptor1P[] = {
 	0x55,0x00,				//Unit_Exponent (0)
 	0x65,0x00,				//Unit (None)
 	0x81,0x02,				//Input (Data, Var, Abs)
+	
+// Analog Triggers
+	0x05,0x02,				//Usage Page (Simulation Controls)
+	0x09,0xC5,				//Usage (Brake)
+	0x09,0xC4,				//Usage (Accelerator)
+	0x15,0x00,				//Logical_Minimum (0)
+	0x26,0xFF,0x00,			//Logical Maximum (255)
+	0x75,0x08,				//Report_Size (8)
+	0x95,0x02,				//Report_Count (2)
+	0x81,0x02,				//Input (Data, Var, Abs)
 	0xC0,				//End_Collection
-	0xC0,			//End_Collection
+	0xC0			//End_Collection
 };
 
-/* ----- HID Descriptor Wheel --------------------------------------------------------------------- */
+/* ----- HID Descriptor 2P --------------------------------------------------------------------- */
 
-PROGMEM char usbHidReportDescriptorWheel[] = {
+PROGMEM char usbHidReportDescriptor2P[] = {
+
+	/* ----- Player 1 ----- */
+
 	0x05,0x01,		//Usage_Page (Generic Desktop)
 	0x09,0x05,		//Usage (Game Pad)
 
@@ -166,8 +181,8 @@ PROGMEM char usbHidReportDescriptorWheel[] = {
 	0xA1,0x00,			//Collection (Physical)		
 	0x09,0x30,				//Usage (X)
 	0x09,0x31,				//Usage (Y)
-	0x15,0x80,				//Logical_Minimum (-128)
-	0x25,0x7F,				//Logical Maximum (127)
+	0x15,0x00,				//Logical_Minimum (0)
+	0x26,0xFF,0x00,			//Logical Maximum (255)
 	0x75,0x08,				//Report_Size (8)
 	0x95,0x02,				//Report_Count (2)
 	0x81,0x02,				//Input (Data, Var, Abs)		
@@ -194,7 +209,69 @@ PROGMEM char usbHidReportDescriptorWheel[] = {
 	0x81,0x02,				//Input (Data, Var, Abs)
 	0x75,0x04,				//Report_Size (4) *Padding*
 	0x95,0x01,				//Report_Count (1) *Padding*
-	0x81,0x03,				//Input (Data, Var, Abs)		
+	0x81,0x03,				//Input (Cnst, Var, Abs)		
+
+// Digital fire buttons
+	0x05,0x09,				//Usage_Page (Button)
+	0x19,0x01,				//Usage_Minimum (Button 1)
+	0x29,0x10,				//Usage_Maximum (Button 16)
+	0x15,0x00,				//Logical_Minimum (0)
+	0x25,0x01,				//Logical_Maximum (1)
+	0x75,0x01,				//Report_Size (1)
+	0x95,0x10,				//Report_Count (16)
+	0x55,0x00,				//Unit_Exponent (0)
+	0x65,0x00,				//Unit (None)
+	0x81,0x02,				//Input (Data, Var, Abs)
+	
+// Analog Triggers
+	0x05,0x02,				//Usage Page (Simulation Controls)
+	0x09,0xC5,				//Usage (Brake)
+	0x09,0xC4,				//Usage (Accelerator)
+	0x15,0x00,				//Logical_Minimum (0)
+	0x26,0xFF,0x00,			//Logical Maximum (255)
+	0x75,0x08,				//Report_Size (8)
+	0x95,0x02,				//Report_Count (2)
+	0x81,0x02,				//Input (Data, Var, Abs)
+	
+	/* ----- Player 2 ----- */
+
+	0x05,0x01,		//Usage_Page (Generic Desktop)
+	0x09,0x05,		//Usage (Game Pad)
+
+// Main joystick x/y
+	0xA1,0x01,		//Collection (Application)
+	0x85,0x02,			// Report ID (2)
+	0xA1,0x00,			//Collection (Physical)		
+	0x09,0x30,				//Usage (X)
+	0x09,0x31,				//Usage (Y)
+	0x15,0x00,				//Logical_Minimum (0)
+	0x26,0xFF,0x00,			//Logical Maximum (255)
+	0x75,0x08,				//Report_Size (8)
+	0x95,0x02,				//Report_Count (2)
+	0x81,0x02,				//Input (Data, Var, Abs)		
+
+// Second joystick Z/Rz
+	0x09,0x32,				//Usage (Z)
+	0x09,0x35,				//Usage (Rz)
+	0x15,0x00,				//Logical_Minimum (0)
+	0x26,0xFF,0x00,			//Logical Maximum (255)
+	0x75,0x08,				//Report_Size (8)
+	0x95,0x02,				//Report_Count (2)
+	0x81,0x02,				//Input (Data, Var, Abs)		
+
+// Hat switch
+	0x09,0x39,				//Usage (Hat switch)
+	0x15,0x00,				//Logical_Minimum (0)
+	0x25,0x07,				//Logical_Maximum (7)
+	0x35,0x00,				//Physical Minimum (0)
+	0x46,0x3B,0x01,			//Physical_Maximum (315)
+	0x65,0x14,				//Unit(eng:rot angular position)
+	0x75,0x04,				//Report_Size (4)
+	0x95,0x01,				//Report_Count (1)
+	0x81,0x02,				//Input (Data, Var, Abs)
+	0x75,0x04,				//Report_Size (4) *Padding*
+	0x95,0x01,				//Report_Count (1) *Padding*
+	0x81,0x03,				//Input (Cnst, Var, Abs)		
 
 // Digital fire buttons
 	0x05,0x09,				//Usage_Page (Button)
@@ -218,121 +295,8 @@ PROGMEM char usbHidReportDescriptorWheel[] = {
 	0x95,0x02,				//Report_Count (2)
 	0x81,0x02,				//Input (Data, Var, Abs)
 	0xC0,				//End_Collection
-	0xC0,			//End_Collection
-};
+	0xC0			//End_Collection	
 
-/* ----- HID Descriptor 2P --------------------------------------------------------------------- */
-
-PROGMEM char usbHidReportDescriptor2P[] = {
-
-	/* ----- Player 1 ----- */
-
-	0x05,0x01,		//Usage_Page (Generic Desktop)
-	0x09,0x05,		//Usage (Game Pad)
-
-// Main joystick x/y
-	0xA1,0x01,		//Collection (Application)
-	0x85,0x01,			// Report ID (1)
-	0xA1,0x00,			//Collection (Physical)		
-	0x09,0x30,				//Usage (X)
-	0x09,0x31,				//Usage (Y)
-	0x15,0x80,				//Logical_Minimum (-128)
-	0x25,0x7F,				//Logical Maximum (127)
-	0x75,0x08,				//Report_Size (8)
-	0x95,0x02,				//Report_Count (2)
-	0x81,0x02,				//Input (Data, Var, Abs)		
-
-// Second joystick Z/Rz
-	0x09,0x32,				//Usage (Z)
-	0x09,0x35,				//Usage (Rz)
-	0x15,0x80,				//Logical_Minimum (-128)
-	0x25,0x7F,				//Logical Maximum (127)
-	0x75,0x08,				//Report_Size (8)
-	0x95,0x02,				//Report_Count (2)
-	0x81,0x02,				//Input (Data, Var, Abs)		
-
-
-// Hat switch
-	0x09,0x39,				//Usage (Hat switch)
-	0x15,0x00,				//Logical_Minimum (0)
-	0x25,0x07,				//Logical_Maximum (7)
-	0x35,0x00,				//Physical Minimum (0)
-	0x46,0x3B,0x01,			//Physical_Maximum (315)
-	0x65,0x14,				//Unit(eng:rot angular position)
-	0x75,0x04,				//Report_Size (4)
-	0x95,0x01,				//Report_Count (1)
-	0x81,0x02,				//Input (Data, Var, Abs)
-	0x75,0x04,				//Report_Size (4) *Padding*
-	0x95,0x01,				//Report_Count (1) *Padding*
-	0x81,0x03,				//Input (Data, Var, Abs)		
-
-// Digital fire buttons
-	0x05,0x09,				//Usage_Page (Button)
-	0x19,0x01,				//Usage_Minimum (Button 1)
-	0x29,0x10,				//Usage_Maximum (Button 16)
-	0x15,0x00,				//Logical_Minimum (0)
-	0x25,0x01,				//Logical_Maximum (1)
-	0x75,0x01,				//Report_Size (1)
-	0x95,0x10,				//Report_Count (16)
-	0x55,0x00,				//Unit_Exponent (0)
-	0x65,0x00,				//Unit (None)
-	0x81,0x02,				//Input (Data, Var, Abs)
-	0xC0,				//End_Collection
-	0xC0,			//End_Collection
-
-	/* ----- Player 2 ----- */
-
-	0x05,0x01,		//Usage_Page (Generic Desktop)
-	0x09,0x05,		//Usage (Game Pad)
-
-// Main joystick x/y
-	0xA1,0x01,		//Collection (Application)
-	0x85,0x02,			// Report ID (2)
-	0xA1,0x00,			//Collection (Physical)		
-	0x09,0x30,				//Usage (X)
-	0x09,0x31,				//Usage (Y)
-	0x15,0x80,				//Logical_Minimum (-128)
-	0x25,0x7F,				//Logical Maximum (127)
-	0x75,0x08,				//Report_Size (8)
-	0x95,0x02,				//Report_Count (2)
-	0x81,0x02,				//Input (Data, Var, Abs)		
-
-// Second joystick Z/Rz
-	0x09,0x32,				//Usage (Z)
-	0x09,0x35,				//Usage (Rz)
-	0x15,0x80,				//Logical_Minimum (-128)
-	0x25,0x7F,				//Logical Maximum (127)
-	0x75,0x08,				//Report_Size (8)
-	0x95,0x02,				//Report_Count (2)
-	0x81,0x02,				//Input (Data, Var, Abs)		
-
-// Hat switch
-	0x09,0x39,				//Usage (Hat switch)
-	0x15,0x00,				//Logical_Minimum (0)
-	0x25,0x07,				//Logical_Maximum (7)
-	0x35,0x00,				//Physical Minimum (0)
-	0x46,0x3B,0x01,			//Physical_Maximum (315)
-	0x65,0x14,				//Unit(eng:rot angular position)
-	0x75,0x04,				//Report_Size (4)
-	0x95,0x01,				//Report_Count (1)
-	0x81,0x02,				//Input (Data, Var, Abs)
-	0x75,0x04,				//Report_Size (4) *Padding*
-	0x95,0x01,				//Report_Count (1) *Padding*
-	0x81,0x03,				//Input (Data, Var, Abs)		
-
-// Digital fire buttons
-	0x05,0x09,				//Usage_Page (Button)
-	0x19,0x01,				//Usage_Minimum (Button 1)
-	0x29,0x10,				//Usage_Maximum (Button 16)
-	0x15,0x00,				//Logical_Minimum (0)
-	0x25,0x01,				//Logical_Maximum (1)
-	0x75,0x01,				//Report_Size (1)
-	0x95,0x10,				//Report_Count (16)
-	0x55,0x00,				//Unit_Exponent (0)
-	0x65,0x00,				//Unit (None)
-	0x81,0x02,				//Input (Data, Var, Abs)
-	0xC0,				//End_Collection
-	0xC0,			//End_Collection
 };
 
 
@@ -397,7 +361,7 @@ PROGMEM char usbHidReportDescriptorMouse[] = {
 	0xC0,			// End_Collection
 };
 
-/* ----- HID Descriptor AnalogButtons (PS2 Pressure Sensitive) --------------------------------------------------------------------- */
+/* ----- HID Descriptor AnalogButtons (PS2 Pressure Sensitive, WIP not done!) --------------------------------------------------------------------- */
 
 PROGMEM char usbHidReportDescriptorAnalogButtons[] = {
 	0x05,0x01,		//Usage_Page (Generic Desktop)
@@ -409,8 +373,8 @@ PROGMEM char usbHidReportDescriptorAnalogButtons[] = {
 	0xA1,0x00,			//Collection (Physical)		
 	0x09,0x30,				//Usage (X)
 	0x09,0x31,				//Usage (Y)
-	0x15,0x80,				//Logical_Minimum (-128)
-	0x25,0x7F,				//Logical Maximum (127)
+	0x15,0x00,				//Logical_Minimum (0)
+	0x26,0xFF,0x00,			//Logical Maximum (255)
 	0x75,0x08,				//Report_Size (8)
 	0x95,0x02,				//Report_Count (2)
 	0x81,0x02,				//Input (Data, Var, Abs)		
@@ -418,8 +382,8 @@ PROGMEM char usbHidReportDescriptorAnalogButtons[] = {
 // Second joystick Z/Rz
 	0x09,0x32,				//Usage (Z)
 	0x09,0x35,				//Usage (Rz)
-	0x15,0x80,				//Logical_Minimum (-128)
-	0x25,0x7F,				//Logical Maximum (127)
+	0x15,0x00,				//Logical_Minimum (0)
+	0x26,0xFF,0x00,			//Logical Maximum (255)
 	0x75,0x08,				//Report_Size (8)
 	0x95,0x02,				//Report_Count (2)
 	0x81,0x02,				//Input (Data, Var, Abs)		
