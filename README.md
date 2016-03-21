@@ -73,7 +73,7 @@ For NegCon:
 NegCon        | Host
 ------------- | -------
 Steering      | x
-Button I      | z (Android gas)
+Button I      | z
 Button II     | "Accelerator" axis (Android analog right shoulder)
 Button L      | "Brake axis" (Android analog left shoulder)
 
