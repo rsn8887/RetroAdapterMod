@@ -61,12 +61,12 @@ Controller     | Host
 Left Joystick  | x,y
 Right Joystick | z,Rz
 
-For NegCon:
+For NegCon in Normal Mode, some analog buttons are mapped:
 
 NegCon        | Host
 ------------- | -------
 Steering      | x
-Button I      | z
+Button I      | "Throttle" axis
 Button II     | "Accelerator" axis (Android analog right shoulder)
 Button L      | "Brake axis" (Android analog left shoulder)
 

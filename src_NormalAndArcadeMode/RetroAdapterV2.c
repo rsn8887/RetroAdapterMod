@@ -93,7 +93,9 @@ static const report_t emptyReportBuffer = {
 	0,	// b1
 	0,	// b2
 	0,	// brake
-	0	// accel
+	0,	// accel
+	0,  // throttle
+	0   // rudder
 };
 
 static const reportMouse_t emptyReportBufferMouse;

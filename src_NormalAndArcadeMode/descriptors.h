@@ -110,8 +110,6 @@ PROGMEM char usbHidReportDescriptor1P[] = {
 	0xA1,0x00,			//Collection (Physical)		
 	0x09,0x30,				//Usage (X)
 	0x09,0x31,				//Usage (Y)
-//	0x15,0x80,				//Logical_Minimum (-128)
-//	0x25,0x7F,				//Logical Maximum (127)
 	0x15,0x00,				//Logical_Minimum (0)
 	0x26,0xFF,0x00,			//Logical Maximum (255)
 	0x75,0x08,				//Report_Size (8)
@@ -157,10 +155,12 @@ PROGMEM char usbHidReportDescriptor1P[] = {
 	0x05,0x02,				//Usage Page (Simulation Controls)
 	0x09,0xC5,				//Usage (Brake)
 	0x09,0xC4,				//Usage (Accelerator)
+	0x09,0xBB,				//Usage (Throttle)
+	0x09,0xBA,				//Usage (Rudder)
 	0x15,0x00,				//Logical_Minimum (0)
 	0x26,0xFF,0x00,			//Logical Maximum (255)
 	0x75,0x08,				//Report_Size (8)
-	0x95,0x02,				//Report_Count (2)
+	0x95,0x04,				//Report_Count (4)
 	0x81,0x02,				//Input (Data, Var, Abs)
 	0xC0,				//End_Collection
 	0xC0			//End_Collection
@@ -227,10 +227,12 @@ PROGMEM char usbHidReportDescriptor2P[] = {
 	0x05,0x02,				//Usage Page (Simulation Controls)
 	0x09,0xC5,				//Usage (Brake)
 	0x09,0xC4,				//Usage (Accelerator)
+	0x09,0xBB,				//Usage (Throttle)
+	0x09,0xBA,				//Usage (Rudder)
 	0x15,0x00,				//Logical_Minimum (0)
 	0x26,0xFF,0x00,			//Logical Maximum (255)
 	0x75,0x08,				//Report_Size (8)
-	0x95,0x02,				//Report_Count (2)
+	0x95,0x04,				//Report_Count (4)
 	0x81,0x02,				//Input (Data, Var, Abs)
 	
 	/* ----- Player 2 ----- */
@@ -289,10 +291,12 @@ PROGMEM char usbHidReportDescriptor2P[] = {
 	0x05,0x02,				//Usage Page (Simulation Controls)
 	0x09,0xC5,				//Usage (Brake)
 	0x09,0xC4,				//Usage (Accelerator)
+	0x09,0xBB,				//Usage (Throttle)
+	0x09,0xBA,				//Usage (Rudder)
 	0x15,0x00,				//Logical_Minimum (0)
 	0x26,0xFF,0x00,			//Logical Maximum (255)
 	0x75,0x08,				//Report_Size (8)
-	0x95,0x02,				//Report_Count (2)
+	0x95,0x04,				//Report_Count (4)
 	0x81,0x02,				//Input (Data, Var, Abs)
 	0xC0,				//End_Collection
 	0xC0			//End_Collection	

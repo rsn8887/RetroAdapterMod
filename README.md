@@ -60,20 +60,19 @@ Button 12 (Start)     | Start     | Start          | Start  | Start   | -      |
 Button 14 (L. Thumb)  | L. Thumb  | Misc 3         | -      | L3      | -      | -      | -      | -       | Z        | Z         | -      | -
 Button 15 (R. Thumb)  | R. Thumb  | Misc 4         | -      | R3      | -      | -      | -      | -       | -        | -         | -      | -
 
-
-- Analog axes in Normal Mode:
+Analog axes in Normal Mode:
 
 Controller     | Host
 -------------- | -------
 Left Joystick  | x,y
 Right Joystick | z,Rz
 
-For NegCon:
+For NegCon in Normal Mode, some analog buttons are mapped:
 
 NegCon        | Host
 ------------- | -------
 Steering      | x
-Button I      | z
+Button I      | "Throttle" axis
 Button II     | "Accelerator" axis (Android analog right shoulder)
 Button L      | "Brake axis" (Android analog left shoulder)
 

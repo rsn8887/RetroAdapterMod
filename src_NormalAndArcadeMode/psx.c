@@ -147,7 +147,7 @@ void ReadPSX(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogBu
 		reportBuffer->x = -128+(char)data;
 			
 		data = PSXCommand(0xff); //I button (bottom button analog)
-		reportBuffer->rx = -128+(char)data;
+		reportBuffer->throttle = (char)data;
 		
 		data = PSXCommand(0xff); //II button (left button analog)
 		reportBuffer->accel = (char)data;

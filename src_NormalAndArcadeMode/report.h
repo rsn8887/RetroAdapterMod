@@ -18,6 +18,8 @@ typedef struct {
 	uchar	b2;			// 7
 	uchar	brake;		// 8
 	uchar	accel;		// 9
+	uchar	throttle;	// 10
+	uchar	rudder;		// 11
 } report_t;
 
 typedef struct {
