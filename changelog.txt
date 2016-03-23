@@ -1,5 +1,5 @@
 v1.3
-- (Android/Windows) Speed optimization! Used joystick frequency tester to optimize update rate. All single player mode controller rates are now 100 Hz (NegCon 50 Hz). For comparison, a Mayflash Dualjoybox Pro gave 66 Hz (44 Hz for NegCon). I suspect two player mode is also 50 Hz, but I cannot test it because of the lag of an analog axis.
+- (Android/Windows) Speed optimization! Used joystick frequency tester to optimize update rate. All single player mode controller rates are now 100 Hz (NegCon 50 Hz). For comparison, a Mayflash Dualjoybox Pro gave 66 Hz (44 Hz for NegCon). I suspect two player mode is also 50 Hz, but I cannot test it because there is no analog axis.
 
 - (Android/Windows) reverted back to USB poll interval 10 ms, since this is a low speed device. Lower numbers do not cause any difference.
 
