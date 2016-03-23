@@ -16,11 +16,21 @@ typedef struct {
 	uchar	hat;		// 5
 	uchar	b1;			// 6
 	uchar	b2;			// 7
+} report_t;
+
+typedef struct {
+	char	reportid;	// 0
+	char	x;			// 1
+	char	y;			// 2
+	char	rx;			// 3
+	char	ry;			// 4
+	uchar	hat;		// 5
+	uchar	b1;			// 6
+	uchar	b2;			// 7
 	uchar	brake;		// 8
 	uchar	accel;		// 9
 	uchar	throttle;	// 10
-	uchar	rudder;		// 11
-} report_t;
+} reportNegCon_t;
 
 typedef struct {
 	char	reportid;	// 0

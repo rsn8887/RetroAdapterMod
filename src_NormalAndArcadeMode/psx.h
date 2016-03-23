@@ -1,4 +1,4 @@
-void ReadPSX(report_t *reportBuffer, reportAnalogButtons_t *reportBufferAnalogButtons);
+void ReadPSX(report_t *reportBuffer, reportNegCon_t *reportNegCon, reportAnalogButtons_t *reportBufferAnalogButtons);
 uchar PSXCommand(uchar cmd);
 void PSXSendCommandString(uchar *string, uchar len);
 

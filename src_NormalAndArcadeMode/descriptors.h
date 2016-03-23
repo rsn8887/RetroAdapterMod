@@ -151,17 +151,6 @@ PROGMEM char usbHidReportDescriptor1P[] = {
 	0x65,0x00,				//Unit (None)
 	0x81,0x02,				//Input (Data, Var, Abs)
 	
-// Analog Triggers
-	0x05,0x02,				//Usage Page (Simulation Controls)
-	0x09,0xC5,				//Usage (Brake)
-	0x09,0xC4,				//Usage (Accelerator)
-	0x09,0xBB,				//Usage (Throttle)
-	0x09,0xBA,				//Usage (Rudder)
-	0x15,0x00,				//Logical_Minimum (0)
-	0x26,0xFF,0x00,			//Logical Maximum (255)
-	0x75,0x08,				//Report_Size (8)
-	0x95,0x04,				//Report_Count (4)
-	0x81,0x02,				//Input (Data, Var, Abs)
 	0xC0,				//End_Collection
 	0xC0			//End_Collection
 };
@@ -223,18 +212,6 @@ PROGMEM char usbHidReportDescriptor2P[] = {
 	0x65,0x00,				//Unit (None)
 	0x81,0x02,				//Input (Data, Var, Abs)
 	
-// Analog Triggers
-	0x05,0x02,				//Usage Page (Simulation Controls)
-	0x09,0xC5,				//Usage (Brake)
-	0x09,0xC4,				//Usage (Accelerator)
-	0x09,0xBB,				//Usage (Throttle)
-	0x09,0xBA,				//Usage (Rudder)
-	0x15,0x00,				//Logical_Minimum (0)
-	0x26,0xFF,0x00,			//Logical Maximum (255)
-	0x75,0x08,				//Report_Size (8)
-	0x95,0x04,				//Report_Count (4)
-	0x81,0x02,				//Input (Data, Var, Abs)
-	
 	/* ----- Player 2 ----- */
 
 	0x05,0x01,		//Usage_Page (Generic Desktop)
@@ -287,22 +264,78 @@ PROGMEM char usbHidReportDescriptor2P[] = {
 	0x65,0x00,				//Unit (None)
 	0x81,0x02,				//Input (Data, Var, Abs)
 
-// Analog Triggers
-	0x05,0x02,				//Usage Page (Simulation Controls)
-	0x09,0xC5,				//Usage (Brake)
-	0x09,0xC4,				//Usage (Accelerator)
-	0x09,0xBB,				//Usage (Throttle)
-	0x09,0xBA,				//Usage (Rudder)
-	0x15,0x00,				//Logical_Minimum (0)
-	0x26,0xFF,0x00,			//Logical Maximum (255)
-	0x75,0x08,				//Report_Size (8)
-	0x95,0x04,				//Report_Count (4)
-	0x81,0x02,				//Input (Data, Var, Abs)
 	0xC0,				//End_Collection
 	0xC0			//End_Collection	
 
 };
 
+/* ----- HID Descriptor NegCon --------------------------------------------------------------------- */
+
+PROGMEM char usbHidReportDescriptorNegCon[] = {
+	0x05,0x01,		//Usage_Page (Generic Desktop)
+	0x09,0x05,		//Usage (Game Pad)
+
+// Main joystick x/y
+	0xA1,0x01,		//Collection (Application)
+	0x85,0x01,			// Report ID (1)
+	0xA1,0x00,			//Collection (Physical)		
+	0x09,0x30,				//Usage (X)
+	0x09,0x31,				//Usage (Y)
+	0x15,0x00,				//Logical_Minimum (0)
+	0x26,0xFF,0x00,			//Logical Maximum (255)
+	0x75,0x08,				//Report_Size (8)
+	0x95,0x02,				//Report_Count (2)
+	0x81,0x02,				//Input (Data, Var, Abs)		
+
+// Second joystick Z/Rz
+	0x09,0x32,				//Usage (Z)
+	0x09,0x35,				//Usage (Rz)
+	0x15,0x00,				//Logical_Minimum (0)
+	0x26,0xFF,0x00,			//Logical Maximum (255)
+	0x75,0x08,				//Report_Size (8)
+	0x95,0x02,				//Report_Count (2)
+	0x81,0x02,				//Input (Data, Var, Abs)		
+
+// Hat switch
+	0x09,0x39,				//Usage (Hat switch)
+	0x15,0x00,				//Logical_Minimum (0)
+	0x25,0x07,				//Logical_Maximum (7)
+	0x35,0x00,				//Physical Minimum (0)
+	0x46,0x3B,0x01,			//Physical_Maximum (315)
+	0x65,0x14,				//Unit(eng:rot angular position)
+	0x75,0x04,				//Report_Size (4)
+	0x95,0x01,				//Report_Count (1)
+	0x81,0x02,				//Input (Data, Var, Abs)
+	0x75,0x04,				//Report_Size (4) *Padding*
+	0x95,0x01,				//Report_Count (1) *Padding*
+	0x81,0x03,				//Input (Cnst, Var, Abs)		
+
+// Digital fire buttons
+	0x05,0x09,				//Usage_Page (Button)
+	0x19,0x01,				//Usage_Minimum (Button 1)
+	0x29,0x10,				//Usage_Maximum (Button 16)
+	0x15,0x00,				//Logical_Minimum (0)
+	0x25,0x01,				//Logical_Maximum (1)
+	0x75,0x01,				//Report_Size (1)
+	0x95,0x10,				//Report_Count (16)
+	0x55,0x00,				//Unit_Exponent (0)
+	0x65,0x00,				//Unit (None)
+	0x81,0x02,				//Input (Data, Var, Abs)
+	
+	// Analog Triggers
+	0x05,0x02,				//Usage Page (Simulation Controls)
+	0x09,0xC5,				//Usage (Brake)
+	0x09,0xC4,				//Usage (Accelerator)
+	0x09,0xBB,				//Usage (Throttle)
+	0x15,0x00,				//Logical_Minimum (0)
+	0x26,0xFF,0x00,			//Logical Maximum (255)
+	0x75,0x08,				//Report_Size (8)
+	0x95,0x03,				//Report_Count (3)
+	0x81,0x02,				//Input (Data, Var, Abs)
+	
+	0xC0,				//End_Collection
+	0xC0			//End_Collection
+};
 
 
 /* ----- HID Descriptor Mouse ------------------------------------------------------------------ */

@@ -80,6 +80,7 @@ b2	bit 0	Select
 static	void*			usbDeviceDescriptorAddress;
 static	int				usbDeviceDescriptorLength;
 static	report_t		reportBuffer;
+static	reportNegCon_t		reportBufferNegCon;
 static	reportMouse_t	reportBufferMouse;
 static  reportAnalogButtons_t	reportBufferAnalogButtons;
 
@@ -91,11 +92,21 @@ static const report_t emptyReportBuffer = {
 	0,	// ry
 	-1,	// hat
 	0,	// b1
+	0	// b2
+};
+
+static const reportNegCon_t emptyReportBufferNegCon = {
+	0,	// reportid
+	0,	// x
+	0,	// y
+	0,	// rx
+	0,	// ry
+	-1,	// hat
+	0,	// b1
 	0,	// b2
 	0,	// brake
 	0,	// accel
-	0,  // throttle
-	0   // rudder
+	0  // throttle
 };
 
 static const reportMouse_t emptyReportBufferMouse;
@@ -163,11 +174,13 @@ void ReadController(uchar id)
 	reportBuffer = emptyReportBuffer;
 	reportBuffer.reportid = id;
 	
+	reportBufferNegCon = emptyReportBufferNegCon;
+	reportBufferNegCon.reportid = id;
+		
 	reportBufferMouse = emptyReportBufferMouse;
 	reportBufferMouse.reportid = id;
 
 	reportBufferAnalogButtons = emptyReportBufferAnalogButtons;
-	reportBufferAnalogButtons.hat = -1;
 	reportBufferAnalogButtons.reportid = id;
 	
 	hidMode = HIDM_1P;
@@ -186,7 +199,7 @@ void ReadController(uchar id)
 				break;
 				
 				case (1<<1):				// LLLH
-				ReadPSX(&reportBuffer, &reportBufferAnalogButtons);
+				ReadPSX(&reportBuffer, &reportBufferNegCon, &reportBufferAnalogButtons);
 				skipdb9flag = 1;
 				break;
 				
@@ -335,18 +348,17 @@ void SetHIDMode()
 			usbDescriptorStringDeviceAddress = usbDescriptorStringDeviceDefault;
 			usbDescriptorStringDeviceLength = sizeof(usbDescriptorStringDeviceDefault);
 			break;
-/* 		case HIDM_WHEEL:
+ 		case HIDM_NEGCON:
 			usbDeviceDescriptorAddress = usbDescriptorDeviceJoystick;
 			usbDeviceDescriptorLength = sizeof(usbDescriptorDeviceJoystick);
-			hidReportDescriptorAddress = usbHidReportDescriptorWheel;
-			hidReportDescriptorLength = sizeof(usbHidReportDescriptorWheel);
+			hidReportDescriptorAddress = usbHidReportDescriptorNegCon;
+			hidReportDescriptorLength = sizeof(usbHidReportDescriptorNegCon);
 			hidNumReports = 1;
-			reportBufferAddress = &reportBufferWheel;
-			reportBufferLength = sizeof(reportBufferWheel);
-			usbDescriptorStringDeviceAddress = usbDescriptorStringDeviceNegCon;
-			usbDescriptorStringDeviceLength = sizeof(usbDescriptorStringDeviceNegCon);
+			reportBufferAddress = &reportBufferNegCon;
+			reportBufferLength = sizeof(reportBufferNegCon);
+			usbDescriptorStringDeviceAddress = usbDescriptorStringDeviceDefault;
+			usbDescriptorStringDeviceLength = sizeof(usbDescriptorStringDeviceDefault);
 			break;	 
-*/
 		case HIDM_ANALOGBUTTONS:
 			usbDeviceDescriptorAddress = usbDescriptorDeviceJoystick;
 			usbDeviceDescriptorLength = sizeof(usbDescriptorDeviceJoystick);
@@ -434,7 +446,7 @@ uchar	usbFunctionDescriptor(struct usbRequest *rq)
 }
 
 /* ------------------------------------------------------------------------- */
-void RemapController()
+void RemapController(char *x, char *y, char *rx, char *ry, uchar *b1, uchar *b2)
 {
 /*
 Updated mapping used in all current subroutines:
@@ -470,13 +482,11 @@ Mapping required by Android:
 	bit 6	button 15: 	Android Right Thumb Stick Press
 	bit 7	button 16: 	??
 */
-	reportBuffer.x+=128;
-	reportBuffer.y+=128;
-	reportBuffer.rx+=128;
-	reportBuffer.ry+=128;
+	*x+=128;
+	*y+=128;
+	*rx+=128;
+	*ry+=128;
 
-	uchar *b1=&(reportBuffer.b1);
-	uchar *b2=&(reportBuffer.b2);
 	// So we have to map b1 bit 2 to 3 etc to conform with android
 	if ((*b1 | 0x00) | (*b2 | 0x00))
 	{	
@@ -527,9 +537,24 @@ int main(void)
         if(usbInterruptIsReady()){
             /* called after every poll of the interrupt endpoint */
 			ReadController(i);
-			RemapController();
+			
+			switch (hidCurrentMode)
+			{
+				case HIDM_1P || HIDM_2P:
+					RemapController(&(reportBuffer.x), &(reportBuffer.y), 
+						&(reportBuffer.rx), &(reportBuffer.ry),
+						&(reportBuffer.b1), &(reportBuffer.b2));
+					break;
+				case HIDM_NEGCON:
+					RemapController(&(reportBufferNegCon.x), &(reportBufferNegCon.y), 
+						&(reportBufferNegCon.rx), &(reportBufferNegCon.ry),
+						&(reportBufferNegCon.b1), &(reportBufferNegCon.b2));
+					break;
+			}
+			
 			remainingData=reportBufferLength;
 			offset=0;
+			
 			// handle report with more than 8 byte length (for NegCon and future expansion)
 			do {
 				if (remainingData<=8) {
@@ -545,7 +570,7 @@ int main(void)
 					} while (!usbInterruptIsReady());	
 				}
 			} while (remainingData>0);				
-				
+
 			i++;
 			if (i > hidNumReports) i = 1;
 			if (hidCurrentMode != hidMode)

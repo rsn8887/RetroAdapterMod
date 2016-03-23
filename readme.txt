@@ -1,4 +1,9 @@
-Paul Qureshi RetroAdapter Firmware v2.1a Mod v1.2
+NOTE: THIS VERSION IS MODIFIED TO BE USED WITH A 16 MHZ CRYSTAL INSTEAD OF 15 MHZ.
+THIS VERSION WILL NOT WORK WITH THE ORIGINAL MOJO RETROADAPTER WHICH IS EQUIPPED WITH
+A 15 MHZ CRYSTAL. FOR THE ORIGINAL VERSION OF THIS MOD FOR 15 MHZ, GO TO
+https://github.com/rsn8887/RetroAdapterMod/releases
+
+Paul Qureshi RetroAdapter Firmware v2.1a Mod v1.3
 --------------------------------------------------
 
 References
@@ -37,43 +42,43 @@ I modified and recompiled the Retroadapter firmware, replacing the original PC s
 - Normal mode: 
 This is for regular use and functions identical to the original RetroAdapter. However, it is improved for operation with Android devices. Under Android, the original RetroAdapter was not reporting directions up and left for NES and some other controller types. Note: The Android fixes are also incorporated into the Arcade mode version.
 
-- Button config for Normal and XBox Modes:
+- Button config for normal mode (Windows/Android) and XBox mode:
 
-Normal Mode (Android) | XBox Mode | Description    | SNES   | PSX     | NegCon | NES    | NeoGeo | Genesis | Gamecube | N64       | PCE    | Saturn
---------------------- | --------- | -------------- | ------ | ------- | ------ | ------ | ------ | ------- | -------- | --------- | ------ | ------  
-Button 1 (A)          | A         | Bottom button  | B      | Cross   | I      | B      | A      | A       | A        | B         | II     | A
-Button 2 (B)          | B         | Right button   | A      | Circle  | A      | A      | B      | B       | X        | A         | I      | B
-Button 4 (X)          | X         | Left button    | Y      | Square  | II     | -      | C      | C       | B        | Y. Down   | III    | C 
-Button 5 (Y)          | Y         | Upper button   | X      | Triangle| B      | -      | D      | X       | Y        | Y. Up     | IV     | X
-Button 7 (L)          | L         | Left shoulder  | L      | L1      | L      | -      | -      | Y       | L        | L         | V      | Y
-Button 8 (R)          | R         | Right shoulder | R      | R1      | R      | -      | -      | Z       | R        | R         | VI     | Z
-Button 9 (L2)         | White     | Misc 1         | -      | L2      | -      | -      | -      | -       | -        | Y. Left   | -      | L
-Button 10 (R2)        | Black     | Misc 2         | -      | R2      | -      | -      | -      | -       | -        | Y. Right  | -      | R
-Button 11 (Select)    | Select    | Select         | Select | Select  | -      | Select | Select | -       | -        | -         | Select | -
-Button 12 (Start)     | Start     | Start          | Start  | Start   | -      | Start  | Start  | Start   | Start    | Start     | Play   | Start
-Button 14 (L. Thumb)  | L. Thumb  | Misc 3         | -      | L3      | -      | -      | -      | -       | Z        | Z         | -      | -
-Button 15 (R. Thumb)  | R. Thumb  | Misc 4         | -      | R3      | -      | -      | -      | -       | -        | -         | -      | -
+Windows Host (Andr.) | XBox Host | Description    | SNES   | PSX     | NegCon | NES    | NeoGeo | Genesis | Gamecube | N64       | PCE    | Saturn
+-------------------- | --------- | -------------- | ------ | ------- | ------ | ------ | ------ | ------- | -------- | --------- | ------ | ------  
+Button 1 (A)         | A         | Bottom button  | B      | Cross   | I      | B      | A      | A       | A        | B         | II     | A
+Button 2 (B)         | B         | Right button   | A      | Circle  | A      | A      | B      | B       | X        | A         | I      | B
+Button 4 (X)         | X         | Left button    | Y      | Square  | II     | -      | C      | C       | B        | Y. Down   | III    | C 
+Button 5 (Y)         | Y         | Upper button   | X      | Triangle| B      | -      | D      | X       | Y        | Y. Up     | IV     | X
+Button 7 (L)         | L         | Left shoulder  | L      | L1      | L      | -      | -      | Y       | L        | L         | V      | Y
+Button 8 (R)         | R         | Right shoulder | R      | R1      | R      | -      | -      | Z       | R        | R         | VI     | Z
+Button 9 (L2)        | White     | Misc 1         | -      | L2      | -      | -      | -      | -       | -        | Y. Left   | -      | L
+Button 10 (R2)       | Black     | Misc 2         | -      | R2      | -      | -      | -      | -       | -        | Y. Right  | -      | R
+Button 11 (Select)   | Select    | Select         | Select | Select  | -      | Select | Select | -       | -        | -         | Select | -
+Button 12 (Start)    | Start     | Start          | Start  | Start   | -      | Start  | Start  | Start   | Start    | Start     | Play   | Start
+Button 14 (L. Thumb) | L. Thumb  | Misc 3         | -      | L3      | -      | -      | -      | -       | Z        | Z         | -      | -
+Button 15 (R. Thumb) | R. Thumb  | Misc 4         | -      | R3      | -      | -      | -      | -       | -        | -         | -      | -
 
-Analog axes in Normal Mode:
+Analog axes in normal mode:
 
-Controller     | Host
--------------- | -------
-Left Joystick  | x,y
-Right Joystick | z,Rz
+Host | Controller 
+-----| ----------
+x,y  | Left Joystick  
+z,Rz | Right Joystick
 
-For NegCon in Normal Mode, some analog buttons are mapped:
+For NegCon in normal mode (Windows/Android), the analog buttons are mapped as follows:
 
-NegCon        | Host
-------------- | -------
-Steering      | x
-Button I      | "Throttle" axis
-Button II     | "Accelerator" axis (Android analog right shoulder)
-Button L      | "Brake axis" (Android analog left shoulder)
+Host (Win/And) | NegCon
+-------------- | ------ 
+Steering       | x
+Button I       | "Throttle" axis
+Button II      | "Accelerator" axis (Android analog right shoulder)
+Button L       | "Brake axis" (Android analog left shoulder)
 
 - Arcade mode: 
-This version is suited for use in an Arcade cabinet. It works on PCs just like the original RetroAdapter, but I replaced Neogeo stick support on the DB15 with an arcade mode that has just 8 firebuttons on the DB15, to give you a total of 10 buttons and 4 directions when you hook up your Arcade controls to pins on both DB9 and DB15.
+This version is suited for use in an arcade cabinet. It works on PCs just like the original RetroAdapter, but I replaced Neogeo stick support on the DB15 with an arcade mode that has just 8 firebuttons on the DB15, to give you a total of 10 buttons and 4 directions when you hook up your Arcade controls to pins on both DB9 and DB15.
 
-The pinout for the Arcade mode (no button 3 and no button 6 to maintain Android compatibility):
+The pinout for the arcade mode (no button 3 and no button 6 to maintain Android compatibility):
 DB15
     pin 3 - button 7 (Android L1)
     pin 4 - button 5 (Android Y)
@@ -177,4 +182,4 @@ Note
 ----
 The connector cables between RetroAdapter and old-school controllers should be kept short when using unshielded wires to reduce noise.
 
-rsn8887, 07/27/2015
+rsn8887, 03/23/2016
