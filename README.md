@@ -135,7 +135,7 @@ To Compile from Source
 - Type make and return
 
 - For example, the output for the Xbox mode will end with something like this (sizes will change from version to version, this was recorded for v0.1)
-"
+```
 AVR Memory Usage
 ----------------
 Device: atmega168
@@ -145,7 +145,7 @@ Program:    9740 bytes (59.4% Full)
 
 Data:        185 bytes (18.1% Full)
 (.data + .bss + .noinit)
-"
+```
 
 - to start a new compilation and erase all temp. files, use the command "make clean"
 
