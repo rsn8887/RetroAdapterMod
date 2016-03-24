@@ -174,11 +174,10 @@ Arduino VCC to DB15 pin 8
 Arduino GND to DB15 pin 1
 
 - Command to use (make sure avrdude.conf and combined.hex are in the same directory, avrdude.conf is in arduino sofware etc directory and avrdude is in bin directory):
-
+```
 avrdude -c arduino -p atmega168 -P com3 -b 19200 -U flash:w:combined.hex
-
 avrdude -c arduino -p atmega168 -P com3 -b 19200 -U lfuse:w:0xef:m -U hfuse:w:0xdf:m -U efuse:w:0xf8:m
-
+```
 - Now this should give you a working original RetroAdapter that can then be modded.
 
 Note
