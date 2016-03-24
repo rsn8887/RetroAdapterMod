@@ -106,16 +106,17 @@ How to install
 - You can upload the modded firmware to an existing working RetroAdapter by holding button 1 pressed while plugging it in. It will then be recognized as "RA Update Mode."
 
 - Then use the following command to update firmware (see the folder "src_orig/PQureshi/Firmware", run windows shell as administrator):
+```
 updatefw.exe -r RetroAdapterV2_XBoxMode.hex 
-
+```
 or
-
+```
 updatefw.exe -r RetroAdapterV2_ArcadeMode.hex
-
+```
 or
-
+```
 updatefw.exe -r RetroAdapterV2_NormalMode.hex 
- 
+```
 - As a test of the Xbox mode, you will have to hook the adapter up to an Xbox with a female usb to Xbox adapter cable and verify that it works.
 
 - As a test of the arcade mode, connect DB15 pin 7 to GND. In the arcade mode, this is Firebutton #12, with the original firmware, this would be "Down"
