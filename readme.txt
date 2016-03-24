@@ -63,12 +63,12 @@ z,Rz | Right Joystick
 
 For NegCon in normal mode (Windows/Android), the analog buttons are mapped as follows:
 
-Host (Win/And) | NegCon
--------------- | ------ 
-Steering       | x
-Button I       | "Throttle" axis
-Button II      | "Accelerator" axis (Android analog right shoulder)
-Button L       | "Brake axis" (Android analog left shoulder)
+Windows Host (Android)         | NegCon
+------------------------------ | ------ 
+x                              | Twist
+"Throttle" axis                | I
+"Accelerator" axis (R2 Analog) | II      
+"Brake axis" (L2 Analog)       | L
 
 - Arcade mode: 
 This version is suited for use in an arcade cabinet. It works on PCs just like the original RetroAdapter, but I replaced Neogeo stick support on the DB15 with an arcade mode that has just 8 firebuttons on the DB15, to give you a total of 10 buttons and 4 directions when you hook up your Arcade controls to pins on both DB9 and DB15.
