@@ -77,6 +77,7 @@ x                              | Twist
 This version is suited for use in an arcade cabinet. It works on PCs just like the original RetroAdapter, but I replaced Neogeo stick support on the DB15 with an arcade mode that has just 8 firebuttons on the DB15, to give you a total of 10 buttons and 4 directions when you hook up your Arcade controls to pins on both DB9 and DB15.
 
 The pinout for the arcade mode (no button 3 and no button 6 to maintain Android compatibility):
+
 DB15
 
  pin 3 - button 7 (Android L1)
