@@ -78,7 +78,9 @@ This version is suited for use in an arcade cabinet. It works on PCs just like t
 
 The pinout for the arcade mode (no button 3 and no button 6 to maintain Android compatibility):
 
+
 DB15
+
 
  pin 3 - button 7 (Android L1)
  
@@ -98,7 +100,9 @@ DB15
  
  pin 1 - GROUND
  
+
 DB9 (unchanged)
+
  
  pin 1 - up
  
