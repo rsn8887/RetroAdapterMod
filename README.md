@@ -78,45 +78,26 @@ This version is suited for use in an arcade cabinet. It works on PCs just like t
 
 The pinout for the arcade mode (no button 3 and no button 6 to maintain Android compatibility):
 
-
 DB15
 
-
- pin 3 - button 7 (Android L1)
- 
- pin 4 - button 5 (Android Y)
- 
- pin 5 - button 10 (Android R2) 
- 
- pin 6 - button 11 (Android Select)
- 
- pin 7 - button 12 (Android Start)
- 
- pin 11 - button 8 (Android R1)
- 
- pin 12 - button 4 (Android X)
- 
- pin 13 - button 9 (Android L2)
- 
- pin 1 - GROUND
- 
+	pin 3 - button 7 (Android L1)
+	pin 4 - button 5 (Android Y)
+	pin 5 - button 10 (Android R2) 
+	pin 6 - button 11 (Android Select)
+	pin 7 - button 12 (Android Start)
+	pin 11 - button 8 (Android R1)
+	pin 12 - button 4 (Android X)
+	pin 13 - button 9 (Android L2)
+	pin 1 - GROUND
 
 DB9 (unchanged)
-
- 
- pin 1 - up
- 
- pin 2 - down
- 
- pin 3 - left
- 
- pin 4 - right
- 
- pin 6 - button 1 (Android A)
- 
- pin 9 - button 2 (Android B)
- 
- pin 8 - GROUND
+	pin 1 - up
+	pin 2 - down
+	pin 3 - left
+	pin 4 - right
+	pin 6 - button 1 (Android A)
+	pin 9 - button 2 (Android B)
+	pin 8 - GROUND
 
 How to install
 --------------
