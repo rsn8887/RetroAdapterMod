@@ -91,6 +91,7 @@ DB15
 	pin 1 - GROUND
 
 DB9 (unchanged)
+
 	pin 1 - up
 	pin 2 - down
 	pin 3 - left
