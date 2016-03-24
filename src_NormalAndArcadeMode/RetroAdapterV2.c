@@ -532,6 +532,8 @@ int main(void)
 	ReadController(1);
 	SetHIDMode();
 
+//	uchar j = 1; //for speed test only
+	
     for(;;){                /* main event loop */
         usbPoll();
         if(usbInterruptIsReady()){
@@ -540,7 +542,12 @@ int main(void)
 			
 			switch (hidCurrentMode)
 			{
-				case HIDM_1P || HIDM_2P:
+				case HIDM_1P:
+					RemapController(&(reportBuffer.x), &(reportBuffer.y), 
+						&(reportBuffer.rx), &(reportBuffer.ry),
+						&(reportBuffer.b1), &(reportBuffer.b2));
+					break;
+				case HIDM_2P:
 					RemapController(&(reportBuffer.x), &(reportBuffer.y), 
 						&(reportBuffer.rx), &(reportBuffer.ry),
 						&(reportBuffer.b1), &(reportBuffer.b2));
@@ -551,10 +558,15 @@ int main(void)
 						&(reportBufferNegCon.b1), &(reportBufferNegCon.b2));
 					break;
 			}
-			
+
 			remainingData=reportBufferLength;
 			offset=0;
-			
+
+// For speed test, uncommnent the next three lines and the line "uchar j=0" above
+//			reportBuffer.x=(j%4)*10; //for speed test only
+//			reportBufferNegCon.x=(j%4)*10; //for speed test only
+//			j++; //for speed test only
+		
 			// handle report with more than 8 byte length (for NegCon and future expansion)
 			do {
 				if (remainingData<=8) {

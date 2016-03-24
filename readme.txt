@@ -1,10 +1,5 @@
-NOTE: THIS VERSION IS MODIFIED TO BE USED WITH A 16 MHZ CRYSTAL INSTEAD OF 15 MHZ.
-THIS VERSION WILL NOT WORK WITH THE ORIGINAL MOJO RETROADAPTER WHICH IS EQUIPPED WITH
-A 15 MHZ CRYSTAL. FOR THE ORIGINAL VERSION OF THIS MOD FOR 15 MHZ, GO TO
-https://github.com/rsn8887/RetroAdapterMod/releases
-
-Paul Qureshi RetroAdapter Firmware v2.1a Mod v1.3
---------------------------------------------------
+Paul Qureshi RetroAdapter Firmware v2.1a Mod v1.4
+---------------------------------------------------
 
 References
 ----------

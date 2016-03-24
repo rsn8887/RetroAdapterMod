@@ -1,0 +1,57 @@
+Device Descriptor Fields:                                  
+
+bLength				0x12
+bDescriptorType			0x01
+bcdUSB				0x0110 (USB spec. 01.10)
+bDeviceClass			0x00 (ifc's specify own)
+bDeviceSubClass			0x00
+bDeviceProtocol			0x00
+bMaxPacketSize0			0x40
+idVendor			0x045E (unknown)
+idProduct			0x0202
+bcdDevice			0x0100 (release 01.00)
+iManufacturer			0x00
+iProduct			0x00
+iSerialNumber			0x00
+bNumConfigurations		0x01 (1)
+							
+Configuration Descriptor, Index 0x00		
+
+bLength				0x09
+bDescriptorType			0x02
+wTotalLength			0x0020 (32)
+bNumInterfaces			0x01 (1)
+bConfigurationValue		0x01
+iConfiguration			0x00
+bmAttributes			0x80 (bus powered)
+MaxPower			0x32 (100 mA)
+							
+Interface Descriptor (Number 0x00, Alternate Setting 0x00) 
+
+bLength				0x09
+bDescriptorType			0x04
+bInterfaceNumber		0x00
+bAlternateSetting		0x00
+bNumEndpoints			0x02
+bInterfaceClass			0x58 (USB specified device class)
+bInterfaceSubClass		0x42
+bInterfaceProtocol		0x00 (not vendor or class specific)
+iInterface			0x00
+							
+Endpoint Descriptor 0x82				
+
+bLength				0x07
+bDescriptorType			0x05
+bEndpointAddress		0x82 (ep #2, IN)
+bmAttributes			0x03 (Transfer Type : Interrupt)
+wMaxPacketSize			0x0020- Must be full speed device
+bInterval			0x04 (4 milliseconds)
+							
+Endpoint Descriptor 0x02				
+
+bLength				0x07
+bDescriptorType			0x05
+bEndpointAddress		0x02 (ep #2, OUT)
+bmAttributes			0x03 (Transfer Type : Interrupt)
+wMaxPacketSize			0x0020- Must be full speed device
+bInterval			0x04 (4 milliseconds)

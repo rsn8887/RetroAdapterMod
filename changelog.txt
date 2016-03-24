@@ -1,3 +1,10 @@
+v1.4
+- (Android/Windows) Last update was completely broken, it broke analog directions and 2 player mode, all fixed again now.
+
+- (Android/Windows) Changed the USB polling interval back to 4ms. It makes no difference under Windows, because Windows locks the polling interval for low speed USB devices at 8ms (125 Hz max). However, Linux does not. So a 4ms polling rate should increase the refresh speed under Linux and maybe even Android, while still keeping low cpu usage. 
+
+- (Android/Windows) Came up with exact speed test using freqmeter.exe. On Windows the refresh rate is now 124 Hz (62 Hz for NegCon and 2P mode). Under linux it could be even faster.
+
 v1.3
 - (Android/Windows) Speed optimization! Used joystick frequency tester to optimize update rate. All single player mode controller rates are now 100 Hz (NegCon 50 Hz). For comparison, a Mayflash Dualjoybox Pro gave 66 Hz (44 Hz for NegCon). I suspect two player mode is also 50 Hz, but I cannot test it because there is no analog axis.
 

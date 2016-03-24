@@ -1,0 +1,48 @@
+Device Descriptor Fields:				
+
+bLength				0x12
+bDescriptorType			0x01
+bcdUSB				0x0110 (USB spec. 01.10)
+bDeviceClass			0x09 (Hub)
+bDeviceSubClass			0x00
+bDeviceProtocol			0x00
+bMaxPacketSize0			0x08
+idVendor			0x045E (unknown)
+idProduct			0x001C
+bcdDevice			0x0500 (release 05.00)
+iManufacturer			0x00
+iProduct			0x00
+iSerialNumber			0x00
+bNumConfigurations		0x01 (1)
+							
+Configuration Descriptor, Index 0x00		
+
+bLength				0x09
+bDescriptorType			0x02
+wTotalLength			0x0019 (25)
+bNumInterfaces			0x01 (1)
+bConfigurationValue		0x01
+iConfiguration			0x00
+bmAttributes			0xA0 (bus powered - remote wakeup)
+MaxPower			0x20 (64 mA)
+							
+Interface Descriptor (Number 0x00, Alternate Setting 0x00) 
+
+bLength				0x09
+bDescriptorType			0x04
+bInterfaceNumber		0x00
+bAlternateSetting		0x00
+bNumEndpoints			0x01
+bInterfaceClass			0x09 (USB specified device class)
+bInterfaceSubClass		0x00
+bInterfaceProtocol		0x00 (not vendor or class specific)
+iInterface			0x00
+							
+Endpoint Descriptor 0x81				
+
+bLength				0x07
+bDescriptorType			0x05
+bEndpointAddress		0x81 (ep #1, IN)
+bmAttributes			0x03 (Transfer Type : Interrupt)
+wMaxPacketSize			0x0001
+bInterval			0xFF (255 milliseconds)

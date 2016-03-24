@@ -211,6 +211,8 @@ PROGMEM char usbHidReportDescriptor2P[] = {
 	0x55,0x00,				//Unit_Exponent (0)
 	0x65,0x00,				//Unit (None)
 	0x81,0x02,				//Input (Data, Var, Abs)
+	0xC0,				//End_Collection
+	0xC0,			//End_Collection
 	
 	/* ----- Player 2 ----- */
 

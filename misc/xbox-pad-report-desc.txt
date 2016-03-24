@@ -1,0 +1,159 @@
+0501	Usage Page (Generic Desktop)
+0905	Usage (Game Pad)
+A101	Collection (Application)
+	
+0501		Usage Page (Generic Desktop)
+093A		Usage (Counted Buffer)		;XXX
+A102		Collection (Logical)
+		
+			; padding
+7508			Report Size (8)
+9501			Report Count (1)
+8101			Input (Constant)
+	
+			; byte count
+7508			Report Size (8)
+9501			Report Count (1)
+0501			Usage Page (Generic Desktop)
+093B			Usage (Byte Count)		;XXX
+8101			Input (Constant)
+		
+			; D-pad
+0501			Usage Page (Generic Desktop)
+0901			Usage (Pointer)
+A100			Collection (Physical)
+7501				Report Size (1)
+1500				Logical Minimum (0)
+2501				Logical Maximum (1)
+3500				Physical Minimum (0)
+4501				Physical Maximum (1)
+9504				Report Count (4)
+0501				Usage Page (Generic Desktop)
+0990				Usage (D-pad Up)
+0991				Usage (D-pad Down)
+0993				Usage (D-pad Left)
+0992				Usage (D-pad Right)
+8102				Input (Data,Variable,Absolute)
+C0			End Collection
+		
+			; start, back, stick press
+7501			Report Size (1)
+1500			Logical Minimum (0)
+2501			Logical Maximum (1)
+3500			Physical Minimum (0)
+4501			Physical Maximum (1)
+9504			Report Count (4)
+0509			Usage Page (Button)
+1907			Usage Minimum (Button 7)
+290A			Usage Maximum (Button 10)
+8102			Input (Data,Variable,Absolute)
+		
+			; reserved
+7501			Report Size (1)
+9508			Report Count (8)
+8101			Input (Constant)
+		
+			; analog buttons
+7508			Report Size (8)
+1500			Logical Minimum (0)
+26FF00			Logical Maximum (255)
+3500			Physical Minimum (0)
+46FF00			Physical Maximum (255)
+9506			Report Count (6)
+0509			Usage Page (Button)
+1901			Usage Minimum (Button 1)
+2906			Usage Minimum (Button 6)
+8102			Input (Data,Variable,Absolute)
+		
+			; triggers
+7508			Report Size (8)
+1500			Logical Minimum (0)
+26FF00			Logical Maximum (255)
+3500			Physical Minimum (0)
+46FF00			Physical Maximum (255)
+9502			Report Count (2)
+0501			Usage Page (Generic Desktop)
+0932			Usage (Z)
+0935			Usage (Rz)
+8102			Input (Data,Variable,Absolute)
+		
+			; sticks
+7510			Report Size (16)
+160080			Logical Minimum (-32768)
+26FF7F			Logical Maximum (32767)
+360080			Physical Minimum (-32768)
+46FF7F			Physical Maximum (32767)
+	
+0501			Usage Page (Generic Desktop)
+0901			Usage (Pointer)
+A100			Collection (Physical)
+9502				Report Count (2)
+0501				Usage Page (Generic Desktop)
+0930				Usage (X)
+0931				Usage (Y)			;north positive
+8102				Input (Data,Variable,Absolute)
+C0			End Collection
+	
+0501			Usage Page (Generic Desktop)
+0901			Usage (Pointer)
+A100			Collection (Physical)
+9502				Report Count (2)
+0501				Usage Page (Generic Desktop)
+0933				Usage (Rx)
+0934				Usage (Ry)			;north positive
+8102				Input (Data,Variable,Absolute)
+C0			End Collection
+	
+C0		End Collection
+		
+0501		Usage Page (Generic Desktop)
+093A		Usage (Counted Buffer)		;XXX
+A102		Collection (Logical)
+		
+			; padding
+7508			Report Size (8)
+9501			Report Count (1)
+9101			Output (Constant)
+	
+			; byte count
+7508			Report Size (8)
+9501			Report Count (1)
+0501			Usage Page (Generic Desktop)
+093B			Usage (Byte Count)		;XXX
+9101			Output (Constant)
+	
+			; padding
+7508			Report Size (8)
+9501			Report Count (1)
+9101			Output (Constant)
+		
+			; left actuator
+7508			Report Size (8)
+1500			Logical Minimum (0)
+26FF00			Logical Maximum (255)
+3500			Physical Minimum (0)
+46FF00			Physical Maximum (255)
+9501			Report Count (1)
+0600FF			Usage Page (vendor-defined)
+0901			Usage (1)
+9102			Output (Data,Variable,Absolute)
+		
+			; padding
+7508			Report Size (8)
+9501			Report Count (1)
+9101			Output (Constant)
+			
+			; right actuator
+7508			Report Size (8)
+1500			Logical Minimum (0)
+26FF00			Logical Maximum (255)
+3500			Physical Minimum (0)
+46FF00			Physical Maximum (255)
+9501			Report Count (1)
+0600FF			Usage Page (vendor-defined)
+0902			Usage (2)
+9102			Output (Data,Variable,Absolute)
+			
+C0		End Collection
+	
+C0	End Collection

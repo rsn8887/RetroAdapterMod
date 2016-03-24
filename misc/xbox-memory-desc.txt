@@ -1,0 +1,57 @@
+Device Descriptor Fields:				
+
+bLength				0x12
+bDescriptorType			0x01
+bcdUSB				0x0110 (USB spec. 01.10)
+bDeviceClass			0x00 (ifc's specify own)
+bDeviceSubClass			0x00
+bDeviceProtocol			0x00
+bMaxPacketSize0			0x08
+idVendor			0x045E (unknown)
+idProduct			0x0280
+bcdDevice			0x000E (release 00.0E)
+iManufacturer			0x00
+iProduct			0x00
+iSerialNumber			0x00
+bNumConfigurations		0x01 (1)
+							
+Configuration Descriptor, Index 0x00		
+
+bLength				0x09
+bDescriptorType			0x02
+wTotalLength			0x0020 (32)
+bNumInterfaces			0x01 (1)
+bConfigurationValue		0x01
+iConfiguration			0x00
+bmAttributes			0x80 (bus powered)
+MaxPower			0x1E (60 mA)
+							
+Interface Descriptor (Number 0x00, Alternate Setting 0x00) 
+
+bLength				0x09
+bDescriptorType			0x04
+bInterfaceNumber		0x00
+bAlternateSetting		0x00
+bNumEndpoints			0x02
+bInterfaceClass			0x08 (USB specified device class)
+bInterfaceSubClass		0x42
+bInterfaceProtocol		0x50 (class specific)
+iInterface			0x00
+							
+Endpoint Descriptor 0x81				
+
+bLength				0x07
+bDescriptorType			0x05
+bEndpointAddress		0x81 (ep #1, IN)
+bmAttributes			0x02 (Transfer Type : Bulk)
+wMaxPacketSize			0x0040
+bInterval			0x00 (0 milliseconds)
+							
+Endpoint Descriptor 0x02				
+
+bLength				0x07
+bDescriptorType			0x05
+bEndpointAddress		0x02 (ep #2, OUT)
+bmAttributes			0x02 (Transfer Type : Bulk)
+wMaxPacketSize			0x0040
+bInterval			0x00 (0 milliseconds)
