@@ -24,6 +24,8 @@ http://denki.world3.net/retro_v2.html
 What is it?
 -----------
 
+This is firmware for an adapter that makes it possible to connect old game controllers (NES, SNES, PSX etc) to modern platforms via USB (PC, Android, Xbox Classic).
+
 - Included are three modified versions of the original Mojo Retroadapter firmware, as hex and source files: "Xbox mode, arcade mode, and normal mode"
 
 - All three versions include the addition of NegCon controller support.
