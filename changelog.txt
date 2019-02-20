@@ -1,3 +1,6 @@
+v1.5
+- added Nintendo Switch support
+
 v1.4
 - (Android/Windows) Last update was completely broken, it broke analog directions and 2 player mode, all fixed again now.
 
