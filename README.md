@@ -1,7 +1,7 @@
 # RetroAdapterMod
 Mod of Paul Qureshi's Mojo RetroAdapter Firmware by rsn8887
 
-Firmware v2.1a Mod v1.4
+Firmware v2.1a Mod v1.5
 
 ----------
 ![Photo of Retroadapter](screenshots/photo_of_adapter.jpg)
