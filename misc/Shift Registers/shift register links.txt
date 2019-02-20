@@ -1,0 +1,10 @@
+
+https://www.arduino.cc/en/tutorial/ShiftOut​​
+
+da wir gcc Code brauchen, der ist hier
+
+http://extremeelectronics.co.in/avr-tutorials/using-shift-registers-with-avr-micro-avr-tutorial/​
+
+Man kann beide Clocks zusammen verbinden, nach diesem Thread Post:
+
+http://www.edaboard.com/thread68751.html​

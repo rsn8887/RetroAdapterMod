@@ -1,0 +1,46 @@
+In the manuscript “Collective Modes of trapped spinor Bose condensates” the authors present new analytical results on eigenmodes and eigenfrequencies of phonon-like modes in elongated spinor BECs, taking into account the spin-dependent and spin-independent interactions for the first time. 
+
+The results presented in this manuscript are, as far as I am aware of, original, new, analytical results and might warrant publication if the authors could make the significance of their results and the validity regime of their results more clear. 
+
+However, in the current form I cannot recommend publication of this manuscript, since it is quite unclear to me what the presented results mean, how the presented results would apply to experiments, what is interesting about them in light of previous measurements and calculations, and if the parameter regime considered by the authors is even accessible to experiments. In addition, I am not completely convinced that the approximations made by the authors are valid, and would prefer a numerical check/convergence study to assess this question. 
+
+The manuscript in its current form is hard to read, mostly due to inconsistent notation, and lack of explanatory sentences. The notation switches between using “plus/minus” and/or “P/Fe” as symbol to denote different phases. In my opinion, the authors should probably stick to “P/Fe” to denote the phases so the reader does not get confused by the signs in front of the magnetic quantum number, m. Concerning explanatory sentences, in my opinion, the manuscript should be re-written with several additional sentences to better describe why the results are interesting and to better describe what is shown in the figures and how it pertains to experiments. 
+
+The spin-mixing term in Equation 6 that is proportional to c_2 mixes the different m=0 and m=+/-1, and leads to spin dynamics in the time domain where the BEC or parts of it change between m=0 and m=+/-1, leading to spin waves and/or spin domain formation etc. These dynamics have have been observed in optical lattices as well as in bulk BEC. The authors' results should be discussed in this context especially considering Fig. 4 (how do these relate to previously observed spin waves in bulk BEC, and spin dynamics observed in optical lattices in recent years?), maybe with examples of the different timescales considered. The relevant articles about spinor BEC in lattices should be cited and discussed. For example, the paper A. Widera et al., “Coherent collisional spin dynamics in optical lattices” Phys. Rev. Lett. 95, 190405 (2005) should be cited, as well as more recent experimental work on spinor BEC in optical lattices, such as Zhao et al. “Antiferromagnetic Spinor Condensates in a Two-Dimensional Optical Lattice,” Phys. Rev. Lett. 114, 225302 (2015) and J. Jiang et al., “First-order superfluid-to-Mott-insulator phase transitions in spinor condensates,” Phys. Rev. A 93, 063607 (2016). It would help if the authors could briefly argue how the treatment in this paper can be reconciled with those existing experimental results, and/or why it does or does not apply. 
+
+The authors do not cite other recent papers in the field but focus on older works. Several recent experimental and theoretical papers on coherent spinor evolution such as Pechkis et al, “Spinor Dynamics in an Antiferromagnetic Spin-1 Thermal Bose Gas,” Phys. Rev. Lett. 111, 025301 (2013), M. Gabrielli et al., “Spin-Mixing Interferometry with Bose-Einstein Condensates,” Phys. Rev. Lett. 115, 163002 (2015), etc. should be cited and might be relevant, especially when comparing results to experiments or during the introduction to summarize the current state of the field. 
+
+At least some explanation is needed as to how these results relate to possible experiments. How can these analytical results be verified? Which measurements could be done and are they feasible? How should experimenters prepare their system, and what technique could be used to measure these effects? What is the measurable quantity to verify the existence of the predicted effects? How observable are the predicted modes when taking typical atom numbers and densities accessible in experiments into account? I think the authors should give at least one example using parameters for density, atom numbers, and interaction energies from typical experiments to show and compare the scale of their predicted effects to previous experiments and observations. What interaction energies (in Hertz) and densities (in m^(-3)) do the scales of Lamba in Fig. 1 and 2 correspond to? How can these modes be observed? I suppose one would have to measure the spin dynamics as a function of lattice depth and external confining potential, but it is not clear from the current text. 
+
+The conclusion needs to be re-written to contain a more thorough discussion of the relevance and experimental accessibility of the presented predictions, see above. 
+
+The justification behind the range of validity of V_0 should be better explained instead of simply quoting Ref. 31. In Ref. 31, several qualifying remarks are made regarding validity, which are not discussed in the context of this paper. For example, it is not quite clear why the approximations from Ref. 31 are applicable in this work since the Hamiltonian is different. The Hamiltonian in Ref. 31 does not contain any spin-mixing terms. One immediate question is therefore what is the upper limit for the parameter $Lamba_{G_2}$ for the presented perturbative treatment to be valid?   
+One solution could be to explain in a few more sentences why the additional terms introduced in the Hamiltonian here do not conflict with the ranges of validity found in Ref. 31. 
+Another solution could be to evaluate the equations numerically, if possible, and compare the numerical solutions to the analytical approximations. This could verify explicitly that the approximations and parameter ranges that the authors consider here are valid.  
+
+On page 7, line 24 and 25, the authors mention "second order" and "first order." Which parameter is this referring to, e.g. which parameter is the expansion parameter that is kept to first and/or second order here? I suppose it is the fluctuation of the order parameter around its stationary value, but it is not clear from the text. 
+
+Parts of the appendix seem to be required to understand the main text. The appendix should therefore be incorporated completely into the main text, or it should re-written to contain only truly supplemental information, and the important information from the appendix moved to the main narrative. 
+
+Why does Fig. 3 show an asymmetric “valley” in frequency for small Lambda and V_0? A simple reference to eq. B3 does not explain this enough. Which physical process is responsible for this and why should this be expected? 
+
+Similarly, the structures seen in Fig. 4 warrant some further discussion and maybe a comparison to observed spin waves in bulk spinor BECs. 
+
+In principle, the results are original and seem worthy of publication to me, but their significance is muddled by the above major shortcomings of the manuscript in its current form. Therefore, to make the manuscript easier to understand for the reader and to make it relate better to experimental work, I recommend a major re-write. 
+
+Minor other corrections/suggestions (I found more typos but will only list the major ones I found): 
+
+- The colors of the contour plots in Figs 1 and 3 are unnecessarily dark and make it hard to read the labels (black text on dark purple). A different color scheme could be used, or no color at all. 
+- Title: Bose should be changed to Bose-Einstein 
+- page 1: m should be clearly defined as the magnetic quantum number (if that is what it is) 
+- Fig. 1: “Trap frequency potential” should become “trap frequency” 
+- “spatial symmetry invariance” should be replaced with either “translational invariance,” “rotational invariance,” “translational and rotational invariance,” or “spatial symmetry,” whichever described the symmetry best. 
+- The notation $\phi_[\pm m}$ is confusing because it is unclear whether the sign refers to m or whether it is a label to denote the nature of the state. I assume it is used to denote the nature of the state, so a comma should be used to separate the labels “+” or “-“ from the integer m, e.g. $\phi_{\pm m}$ should be changed to $\phi_{\pm, m}$ 
+- page 8 line 43: “We recall that…” -> Please explain how does it emerge and why? 
+- Fig. 1 caption: Please explain what the contour maps are showing, what quantity do the numbers next to contours refer to. 
+- Fig. 1 explained in text: What is the physical significance of these plots? 
+- page 9, line 12: 
+- Fig. 3: The vertical axis is missing a $\tau$ in the label. 
+- Page 12 line 48: a closing parenthesis is missing. 
+- Page 9 line 51: "shows contour plot" should be "shows a contour plot" 
+- Page 13 line 14: "interaction self-interaction" should be "interaction and self-interaction" 
