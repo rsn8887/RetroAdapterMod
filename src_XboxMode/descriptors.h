@@ -45,7 +45,7 @@ char usbDescriptorConfiguration[] = {    /* USB configuration descriptor */
 
 /* ----- USB Device Descriptor ----------------------------------------------------------------- */
 
-PROGMEM char usbDescriptorDeviceJoystick[] = {    /* USB device descriptor */
+PROGMEM const char usbDescriptorDeviceJoystick[] = {    /* USB device descriptor */
     18,         /* sizeof(usbDescriptorDevice): length of descriptor in bytes */
     USBDESCR_DEVICE,        /* descriptor type */
     0x10, 0x01,             /* USB version supported */
@@ -65,7 +65,7 @@ PROGMEM char usbDescriptorDeviceJoystick[] = {    /* USB device descriptor */
     1,          /* number of configurations */
 };
 
-PROGMEM char usbDescriptorDeviceMouse[] = {    /* USB device descriptor */
+PROGMEM const char usbDescriptorDeviceMouse[] = {    /* USB device descriptor */
     18,         /* sizeof(usbDescriptorDevice): length of descriptor in bytes */
     USBDESCR_DEVICE,        /* descriptor type */
     0x10, 0x01,             /* USB version supported */

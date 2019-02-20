@@ -87,7 +87,7 @@ extern "C" {
 #include "pc-fx.h"
 #include "dreamcast.h"
 
-extern const uchar hat_lut[] PROGMEM  = { -1, 0, 4, -1, 6, 7, 5, -1, 2, 1, 3, -1, -1, -1, -1, -1 };
+const uchar hat_lut[] PROGMEM  = { -1, 0, 4, -1, 6, 7, 5, -1, 2, 1, 3, -1, -1, -1, -1, -1 };
 extern gamepad_state_t gamepad_state;
 
 static	report_t		reportBuffer;

@@ -1,6 +1,6 @@
 /* ----- String Descriptors ------ */
 
-PROGMEM int usbDescriptorStringDeviceDefault[] = {
+PROGMEM const int usbDescriptorStringDeviceDefault[] = {
     USB_STRING_DESCRIPTOR_HEADER(17),
     'R', 'e', 't', 'r', 'o', ' ', 'A', 'd', 'a', 'p', 't', 'e', 'r', ' ', 'M', 'o', 'd'
 };
@@ -58,7 +58,7 @@ char usbDescriptorConfiguration[] = {    /* USB configuration descriptor */
 
 /* ----- USB Device Descriptor ----------------------------------------------------------------- */
 
-PROGMEM char usbDescriptorDeviceJoystick[] = {    /* USB device descriptor */
+PROGMEM const char usbDescriptorDeviceJoystick[] = {    /* USB device descriptor */
     18,         /* sizeof(usbDescriptorDevice): length of descriptor in bytes */
     USBDESCR_DEVICE,        /* descriptor type */
     0x10, 0x01,             /* USB version supported */
@@ -78,7 +78,7 @@ PROGMEM char usbDescriptorDeviceJoystick[] = {    /* USB device descriptor */
     1,          /* number of configurations */
 };
 
-PROGMEM char usbDescriptorDeviceMouse[] = {    /* USB device descriptor */
+PROGMEM const char usbDescriptorDeviceMouse[] = {    /* USB device descriptor */
     18,         /* sizeof(usbDescriptorDevice): length of descriptor in bytes */
     USBDESCR_DEVICE,        /* descriptor type */
     0x10, 0x01,             /* USB version supported */
@@ -100,7 +100,7 @@ PROGMEM char usbDescriptorDeviceMouse[] = {    /* USB device descriptor */
 
 /* ----- HID Descriptor 1P --------------------------------------------------------------------- */
 
-PROGMEM char usbHidReportDescriptor1P[] = {
+PROGMEM const char usbHidReportDescriptor1P[] = {
 	0x05,0x01,		//Usage_Page (Generic Desktop)
 	0x09,0x05,		//Usage (Game Pad)
 
@@ -157,7 +157,7 @@ PROGMEM char usbHidReportDescriptor1P[] = {
 
 /* ----- HID Descriptor 2P --------------------------------------------------------------------- */
 
-PROGMEM char usbHidReportDescriptor2P[] = {
+PROGMEM const char usbHidReportDescriptor2P[] = {
 
 	/* ----- Player 1 ----- */
 
@@ -273,7 +273,7 @@ PROGMEM char usbHidReportDescriptor2P[] = {
 
 /* ----- HID Descriptor NegCon --------------------------------------------------------------------- */
 
-PROGMEM char usbHidReportDescriptorNegCon[] = {
+PROGMEM const char usbHidReportDescriptorNegCon[] = {
 	0x05,0x01,		//Usage_Page (Generic Desktop)
 	0x09,0x05,		//Usage (Game Pad)
 
@@ -342,7 +342,7 @@ PROGMEM char usbHidReportDescriptorNegCon[] = {
 
 /* ----- HID Descriptor Mouse ------------------------------------------------------------------ */
 
-PROGMEM char usbHidReportDescriptorMouse[] = {
+PROGMEM const char usbHidReportDescriptorMouse[] = {
     0x05, 0x01,			// USAGE_PAGE (Generic Desktop)
     0x09, 0x02,			// USAGE (Mouse)
     0xa1, 0x01,			// COLLECTION (Application)
@@ -402,7 +402,7 @@ PROGMEM char usbHidReportDescriptorMouse[] = {
 
 /* ----- HID Descriptor AnalogButtons (PS2 Pressure Sensitive, WIP not done!) --------------------------------------------------------------------- */
 
-PROGMEM char usbHidReportDescriptorAnalogButtons[] = {
+PROGMEM const char usbHidReportDescriptorAnalogButtons[] = {
 	0x05,0x01,		//Usage_Page (Generic Desktop)
 	0x09,0x05,		//Usage (Game Pad)
 

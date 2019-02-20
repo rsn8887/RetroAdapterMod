@@ -181,9 +181,9 @@ The connector cables between RetroAdapter and old-school controllers should be k
 
 Changelog
 =========
-
 1.6
-- add firmware versions compiles for 16 MHz crystals, for commercial boards that use 16 MHz instead of 15 MHz
+- add firmware versions for 16 MHz crystals, for commercial boards that use 16 MHz instead of 15 MHz (untested)
+- make code compatible with latest avr-gcc compiler
 
 v1.5
 - added Nintendo Switch support

@@ -1,6 +1,6 @@
 /* ----- String Descriptors ------ */
 
-PROGMEM int usbDescriptorStringDevice[] = {
+PROGMEM const int usbDescriptorStringDevice[] = {
     USB_STRING_DESCRIPTOR_HEADER(17),
     'R', 'e', 't', 'r', 'o', ' ', 'A', 'd', 'a', 'p', 't', 'e', 'r', ' ', 'M', 'o', 'd'
 };
@@ -13,7 +13,7 @@ PROGMEM int usbDescriptorStringDevice[] = {
  
 /* ----- USB Configuration Descriptor ---------------------------------------------------------- */
 
-char usbDescriptorConfiguration[] = {    /* USB configuration descriptor */
+PROGMEM const char usbDescriptorConfiguration[] = {    /* USB configuration descriptor */
     9,          /* sizeof(usbDescriptorConfiguration): length of descriptor in bytes */
     USBDESCR_CONFIG,    /* descriptor type */
     18 + 7 * USB_CFG_HAVE_INTRIN_ENDPOINT + 9, 0,
@@ -58,7 +58,7 @@ char usbDescriptorConfiguration[] = {    /* USB configuration descriptor */
 
 /* ----- USB Device Descriptor ----------------------------------------------------------------- */
 
-PROGMEM char usbDescriptorDevice[] = {    /* USB device descriptor */
+PROGMEM const char usbDescriptorDevice[] = {    /* USB device descriptor */
     18,         /* sizeof(usbDescriptorDevice): length of descriptor in bytes */
     USBDESCR_DEVICE,        /* descriptor type */
     0x10, 0x01,             /* USB version supported */
@@ -78,7 +78,7 @@ PROGMEM char usbDescriptorDevice[] = {    /* USB device descriptor */
     1,          /* number of configurations */
 };
 
-PROGMEM char usbHidReportDescriptor[] = {
+PROGMEM const char usbHidReportDescriptor[] = {
   0x05,0x01,		  //Usage_Page (Generic Desktop)
   0x09,0x05,		  //Usage (Game Pad)
   0xA1, 0x01,         //Collection (Application)
