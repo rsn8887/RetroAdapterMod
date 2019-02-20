@@ -3,18 +3,18 @@
 ###############################################################################
 
 ## General Flags
-PROJECT = RetroAdapterV2_Switch
+PROJECT = RetroAdapterV2_XBox_16MHz
 MCU = atmega168
 TARGET = $(PROJECT).elf
 CC = avr-gcc.exe
 
 ## Options common to compile, link and assembly rules
 COMMON = -mmcu=$(MCU)
-INCLUDES = -I./ -I./usbdrv/
+INCLUDES = -I./ -I./usbdrv/ -I./arduinocore
 
 ## Compile options common for all C compilation units.
 CFLAGS = $(COMMON)
-CFLAGS += -Wall -gdwarf-2 -std=gnu99  -DF_CPU=15000000UL -O1 -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
+CFLAGS += -Wall -gdwarf-2 -std=gnu99  -DF_CPU=16000000UL -O1 -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
 ## CFLAGS += -MD -MP -MT $(*F).o -MF dep/$(@F).d
 
 ## Assembly specific flags
@@ -38,12 +38,13 @@ HEX_EEPROM_FLAGS += --change-section-lma .eeprom=0 --no-change-warnings
 ## Some objects that must be built in order to link
 OBJECTSASM = dreamcast_asm.o n64gc_asm.o
 
-OBJECTSC = RetroAdapterV2.o n64gc.o dreamcast.o analogue.o 3do.o atari_driving.o cd32.o pc-engine.o pc-fx.o sega_paddle.o direct.o dualdb9.o famicom.o psx.o saturn.o timers.o
+OBJECTSC = XBOXPad.o RetroAdapterV2.o dreamcast.o n64gc.o analogue.o 3do.o atari_driving.o cd32.o pc-engine.o pc-fx.o sega_paddle.o direct.o famicom.o psx.o saturn.o timers.o 
 
 ALLOBJECTS = $(OBJECTSASM) $(OBJECTSC) usbdrv.o usbdrvasm.o
 
+
 ## Objects explicitly added by the user
-LINKONLYOBJECTS =
+LINKONLYOBJECTS = 
 
 ## Build
 all: $(TARGET) $(PROJECT).hex $(PROJECT).eep $(PROJECT).lss size
@@ -59,11 +60,11 @@ usbdrv.o: usbdrv/usbdrv.c
 	$(CC) $(INCLUDES) $(CFLAGS) -c $<
 
 usbdrvasm.o: usbdrv/usbdrvasm.S
-	$(CC) $(INCLUDES) $(ASMFLAGS) -c $<
+	$(CC) $(INCLUDES) $(ASMFLAGS) -c $< 
 
 
 ##Link
-$(TARGET): $(ALLOBJECTS)
+$(TARGET): $(ALLOBJECTS) 
 	 $(CC) $(LDFLAGS) $(ALLOBJECTS) $(LINKONLYOBJECTS) $(LIBDIRS) $(LIBS) -o $(TARGET)
 
 %.hex: $(TARGET)
@@ -87,3 +88,4 @@ clean:
 
 ## Other dependencies
 ##-include $(shell mkdir dep 2>/dev/null) $(wildcard dep/*)
+

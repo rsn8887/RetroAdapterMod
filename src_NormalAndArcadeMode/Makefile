@@ -3,9 +3,9 @@
 ###############################################################################
 
 ## General Flags
-PROJECT = RetroAdapterV2
+PROJECT = RetroAdapterV2_Normal
 MCU = atmega168
-TARGET = RetroAdapterV2.elf
+TARGET = $(PROJECT).elf
 CC = avr-gcc.exe
 
 ## Options common to compile, link and assembly rules
@@ -24,7 +24,7 @@ ASMFLAGS += -x assembler-with-cpp -Wa,-gdwarf2
 
 ## Linker flags
 LDFLAGS = $(COMMON)
-LDFLAGS +=  -Wl,-Map=RetroAdapterV2.map
+LDFLAGS +=  -Wl,-Map=$(PROJECT).map
 
 
 ## Intel Hex file production flags
@@ -46,7 +46,7 @@ ALLOBJECTS = $(OBJECTSASM) $(OBJECTSC) usbdrv.o usbdrvasm.o
 LINKONLYOBJECTS = 
 
 ## Build
-all: $(TARGET) RetroAdapterV2.hex RetroAdapterV2.eep RetroAdapterV2.lss size
+all: $(TARGET) $(PROJECT).hex $(PROJECT).eep $(PROJECT).lss size
 
 ## Compile
 $(OBJECTSC): %.o: %.c
@@ -82,7 +82,7 @@ size: ${TARGET}
 ## Clean target
 .PHONY: clean
 clean:
-	-rm -rf $(ALLOBJECTS) RetroAdapterV2.elf dep/* RetroAdapterV2.hex RetroAdapterV2.eep RetroAdapterV2.lss RetroAdapterV2.map
+	-rm -rf $(ALLOBJECTS) $(PROJECT).elf dep/* $(PROJECT).hex $(PROJECT).eep $(PROJECT).lss $(PROJECT).map
 
 
 ## Other dependencies

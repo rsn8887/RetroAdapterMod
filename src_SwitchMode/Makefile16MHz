@@ -3,7 +3,7 @@
 ###############################################################################
 
 ## General Flags
-PROJECT = RetroAdapterV2_Switch
+PROJECT = RetroAdapterV2_Switch_16MHz
 MCU = atmega168
 TARGET = $(PROJECT).elf
 CC = avr-gcc.exe
@@ -14,7 +14,7 @@ INCLUDES = -I./ -I./usbdrv/
 
 ## Compile options common for all C compilation units.
 CFLAGS = $(COMMON)
-CFLAGS += -Wall -gdwarf-2 -std=gnu99  -DF_CPU=15000000UL -O1 -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
+CFLAGS += -Wall -gdwarf-2 -std=gnu99  -DF_CPU=16000000UL -O1 -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
 ## CFLAGS += -MD -MP -MT $(*F).o -MF dep/$(@F).d
 
 ## Assembly specific flags
