@@ -7,7 +7,7 @@ Firmware v2.1a Mod v1.5
 
 Retro Adapter Mod is a firmware mod for Paul Qureshi's Mojo Retro Adapter based on original Atmega168 code by Paul Qureshi and Bruno Freitas.
 
-With the adapter one can connect old controllers to PC. This firmware mod adds support for using your old controllers on the Xbox classic and Android host systems, as well as support for the NegCon controller.
+With the adapter one can connect old controllers to PC. This firmware mod adds support for using your old controllers on Nintendo Switch, Xbox classic and Android host systems, as well as support for the NegCon controller.
 
 The bin archive just includes the .hex files needed to update the firmware.
 The src archive includes all sources, binaries, and the original code this mod is based on.
