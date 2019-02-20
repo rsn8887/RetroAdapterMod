@@ -2,7 +2,6 @@
 Mod of Paul Qureshi's Mojo RetroAdapter Firmware by rsn8887
 
 Firmware v2.1a Mod v1.5
-
 ----------
 ![Photo of Retroadapter](screenshots/photo_of_adapter.jpg)
 
@@ -13,47 +12,31 @@ With the adapter one can connect old controllers to PC. This firmware mod adds s
 The bin archive just includes the .hex files needed to update the firmware.
 The src archive includes all sources, binaries, and the original code this mod is based on.
 
-See included readme.txt for more info.
-
-References
-----------
-
-License GPL (see License.txt)
-
-- Original source for "USB Retropad Adapter" from Bruno Freitas acquired via
-http://www.brunofreitas.com/node/41
-(included for reference in folder original_Files)
-
-- Original source for "Retro Adapter v2.1a" from Paul Qureshi acquired via
-http://denki.world3.net/retro_v2.html
-(incuded for reference in folder original_Files)
-
-- This mod by rsn8887 [![PayPayl donate button](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=72LHAQPSSKDGE&lc=US&item_name=RetroAdapter%20Firmware%20MOD%20Donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted "Donate once-off to this project using Paypal")
-
-What is it?
------------
+Overview
+========
 
 - Included are four modified versions of the original Mojo Retroadapter firmware, as hex and source files. There's a version for Xbox, one for arcade cabinets, one for PC and Android, and one for Switch
 
 - All four versions include the NegCon controller support.
 
 - Xbox mode:
- - A RetroAdapter updated with this version of the modded Firmware only works on Xbox Classic (note: you can always go back after modding using the adapter's USB update feature)
- - I used the Xbox communication and initialization code from Bruno Freitas' Retropad Adapter and merged it into the codebase from Paul Qureshi
- - See http://www.brunofreitas.com/node/41 for more information on Bruno Freitas' adapter
- - SNES mouse and dual player support was removed to comply with the limitations of the XBox classic
- - For 2-4 player support, just hook up multiple retroadapters to the Xbox, one player per port
+  - A RetroAdapter updated with this version of the modded Firmware only works on Xbox Classic (note: you can always go back after modding using the adapter's USB update feature)
+  - I used the Xbox communication and initialization code from Bruno Freitas' Retropad Adapter and merged it into the codebase from Paul Qureshi
+  - See http://www.brunofreitas.com/node/41 for more information on Bruno Freitas' adapter
+  - SNES mouse and dual player support was removed to comply with the limitations of the XBox classic
+  - For 2-4 player support, just hook up multiple retroadapters to the Xbox, one player per port
 
 - Switch mode:
- - This is for use on Nintendo Switch. Note the Switch can support up to three simultaneous wired adapters running this version of the firmware (using a USB hub).
+  - This is for use on Nintendo Switch. Note the Switch can support up to three simultaneous wired adapters running this version of the firmware (using a USB hub).
 
 - Normal mode:
- - This is for use on PC and Android. In Android, the original RetroAdapter was not reporting directions up and left for NES and some other controller types.
+  - This is for use on PC and Android. In Android, the original RetroAdapter was not reporting directions up and left for NES and some other controller types.
 
 - Arcade mode:
- - This version is suited for use in an arcade cabinet. It works on PCs just like the original RetroAdapter, but I replaced Neogeo stick support on the DB15 with an arcade mode that has just 8 firebuttons on the DB15, to give you a total of 10 buttons and 4 directions when you hook up your Arcade controls to pins on both DB9 and DB15.
+  - This version is suited for use in an arcade cabinet. It works on PCs just like the original RetroAdapter, but I replaced Neogeo stick support on the DB15 with an arcade mode that has just 8 firebuttons on the DB15, to give you a total of 10 buttons and 4 directions when you hook up your Arcade controls to pins on both DB9 and DB15.
 
-- Button config:
+Button Mappings
+===============
 
 Windows Host (Andr.) | XBox Host | Switch Host | Description    | SNES   | PSX     | NegCon | NES    | NeoGeo | Genesis | Gamecube | N64       | PCE    | Saturn
 -------------------- | --------- | ----------- | -------------- | ------ | ------- | ------ | ------ | ------ | ------- | -------- | --------- | ------ | ------  
@@ -111,7 +94,7 @@ DB9 (unchanged)
 	pin 8 - GROUND
 
 How to install
---------------
+========
 
 - You can upload the modded firmware to an existing working RetroAdapter by holding button 1 pressed while plugging it in. It will then be recognized as "RA Update Mode."
 
@@ -138,7 +121,7 @@ updatefw.exe -r RetroAdapterV2_Switch.hex
 `updatefw.exe -r RetroAdapter_2.1a.hex`
 
 To Compile from Source
-----------------------
+========
 
 - Install WINAVR compiler suite for Windows (or AVR Libc)
 
@@ -161,8 +144,8 @@ Data:        185 bytes (18.1% Full)
 
 - to start a new compilation and erase all temp. files, use the command "make clean"
 
-Details
--------
+Programming an adapter from scratch
+========
 
 What I did in the beginning to program my Qureshi RetroAdapter using the original firmware and an Arduino board as ISP (my board was a Seeduino from HTink):
 
@@ -192,11 +175,13 @@ avrdude -c arduino -p atmega168 -P com3 -b 19200 -U lfuse:w:0xef:m -U hfuse:w:0x
 - Now this should give you a working original RetroAdapter that can then be modded.
 
 Note
-----
+=========
+
 The connector cables between RetroAdapter and old-school controllers should be kept short when using unshielded wires to reduce noise.
 
 Changelog
----------
+=========
+
 v1.5
 - added Nintendo Switch support
 
@@ -414,3 +399,17 @@ fixed directions being constantly pressed in Xbox mode with Atari/NeoGeo control
 V0.1
 first release
 
+References
+----------
+
+License GPL (see License.txt)
+
+- Original source for "USB Retropad Adapter" from Bruno Freitas acquired via
+http://www.brunofreitas.com/node/41
+(included for reference in folder original_Files)
+
+- Original source for "Retro Adapter v2.1a" from Paul Qureshi acquired via
+http://denki.world3.net/retro_v2.html
+(incuded for reference in folder original_Files)
+
+- This mod by rsn8887 [![PayPayl donate button](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=72LHAQPSSKDGE&lc=US&item_name=RetroAdapter%20Firmware%20MOD%20Donation&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted "Donate once-off to this project using Paypal")
