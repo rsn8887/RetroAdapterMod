@@ -4,7 +4,7 @@ Mod of Paul Qureshi's Mojo RetroAdapter Firmware by rsn8887
 Firmware v2.1a Mod v1.4
 
 ----------
-![Photo of Retroadapter](https://s24.postimg.org/al02825gl/Retro_Adapter_Mod.jpg)
+![Photo of Retroadapter](screenshots/photo_of_adapter.jpg)
 
 Retro Adapter Mod is a firmware mod for Paul Qureshi's Mojo Retro Adapter based on original Atmega168 code by Paul Qureshi and Bruno Freitas.
 
