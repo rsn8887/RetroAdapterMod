@@ -258,6 +258,8 @@ HID	SWITCH button
 
 	if (*hat != 0)
 		*hat = pgm_read_byte(&hat_lut[(*hat & 0x0f)]);
+	else
+		*hat = -1;
 
 	// So we have to re-map to conform with Switch
 	if ((*b1 | 0x00) | (*b2 | 0x00))

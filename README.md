@@ -1,7 +1,7 @@
 # RetroAdapterMod
 Mod of Paul Qureshi's Mojo RetroAdapter Firmware by rsn8887
 
-Firmware v2.1a Mod v1.5
+Firmware v2.1a Mod v1.6
 ----------
 ![Photo of Retroadapter](screenshots/photo_of_adapter.jpg)
 
@@ -184,6 +184,7 @@ Changelog
 v1.6
 - add firmware versions for 16 MHz crystals, for commercial boards that use 16 MHz instead of 15 MHz (untested)
 - make code compatible with latest avr-gcc compiler
+- fixed bug in Switch version where DPad always pointed up
 
 v1.5
 - added Nintendo Switch support
@@ -191,7 +192,7 @@ v1.5
 v1.4
 - (Android/Windows) Last update was completely broken, it broke analog directions and 2 player mode, all fixed again now.
 
-- (Android/Windows) Changed the USB polling interval back to 4ms. It makes no difference under Windows, because Windows locks the polling interval for low speed USB devices at 8ms (125 Hz max). However, Linux does not. So a 4ms polling rate should increase the refresh speed under Linux and maybe even Android, while still keeping low cpu usage. 
+- (Android/Windows) Changed the USB polling interval back to 4ms. It makes no difference under Windows, because Windows locks the polling interval for low speed USB devices at 8ms (125 Hz max). However, Linux does not. So a 4ms polling rate should increase the refresh speed under Linux and maybe even Android, while still keeping low cpu usage.
 
 - (Android/Windows) Came up with exact speed test using freqmeter.exe. On Windows the refresh rate is now 124 Hz (62 Hz for NegCon and 2P mode). Under linux it could be even faster.
 
@@ -211,23 +212,23 @@ v1.2
 
 v1.1
 - modified button layouts in Xbox mode to make them more sensible, new mappings:
-    A:   bottom button (SNES B, PSX Cross, NegCon I, NES B, NeoGeo A, Genesis A, Gamecube A, N64 B, PCE II), 
+    A:   bottom button (SNES B, PSX Cross, NegCon I, NES B, NeoGeo A, Genesis A, Gamecube A, N64 B, PCE II),
     B:   right button (SNES A, PSX Circle, NegCon A, NES A, Neogeo B, Genesis B, Gamecube X, N64 A, PCE I)
-    X:   left button (SNES Y, PSX Square, NegCon II, NeoGeo C, Genesis C, Gamecube B, N64 Yellow Down, PCE III), 
+    X:   left button (SNES Y, PSX Square, NegCon II, NeoGeo C, Genesis C, Gamecube B, N64 Yellow Down, PCE III),
     Y:   upper button (SNES X, PSX Triangle, NegCon B, NeoGeo D, Genesis X, Gamecube Y, N64 Yellow Up, PCE IV)
     L:   Left Shoulder (SNES L, PSX L1, NegCon L, Genesis Y, Gamecube L, N64 L, PCE V)
     R:   Right Shoulder (SNES R, PSX R1, NegCon R, Genesis Z, Gamecube R, N64 R, PCE VI)
-    White:   Misc 1 (PSX L2, N64 Yellow Left, Saturn L), 
+    White:   Misc 1 (PSX L2, N64 Yellow Left, Saturn L),
     Black:  Misc 2 (PSX R2, N64 Yellow Right, Saturn R),
     Select:  Select
     Start:  Start (PC Engine Play, Genesis Mode)
-    Left Thumb Click:  Misc 3 (PSX L3, N64 Z, Gamecube Z) 
+    Left Thumb Click:  Misc 3 (PSX L3, N64 Z, Gamecube Z)
     Right Thumb Click:  Misc 4 (PSX R3)
 
 - fixed some wrong button mappings in normal mode, new mappings:
     button 1:   bottom button (SNES B, PSX Cross, NegCon B, NES B, NeoGeo A, Genesis A, Gamecube A, N64 B, PCE II)
     button 2:   right button (SNES A, PSX Circle, NegCon A, NES A, Neogeo B, Genesis B, Gamecube X, N64 A, PCE I)
-    button 4:   left button (SNES Y, PSX Square, NeoGeo C, Genesis C, Gamecube B, N64 Yellow Down, PCE III), 
+    button 4:   left button (SNES Y, PSX Square, NeoGeo C, Genesis C, Gamecube B, N64 Yellow Down, PCE III),
     button 5:   upper button (SNES X, PSX Triangle, NeoGeo D, Genesis X, Gamecube Y, N64 Yellow Up, PCE IV)
     button 7:   Left Shoulder (SNES L, PSX L1, Genesis Y, Gamecube L, N64 L, PCE V)
     button 8:   Right Shoulder (SNES R, PSX R1 Genesis Z, Gamecube R, N64 R, PCE VI)
@@ -235,13 +236,13 @@ v1.1
     button 10:  Misc 2 (PSX R2, N64 Yellow Right, Saturn R)
     button 11:  Select
     button 12:  Start (PC Engine Play, Genesis Mode)
-    button 14:  Misc 3 (PSX L3, N64 Z, Gamecube Z) 
+    button 14:  Misc 3 (PSX L3, N64 Z, Gamecube Z)
     button 15:  Misc 4 (PSX R3)
 
     Analog:
     Left Joystick: x,y
     Right Joystick: z,Rz
-    
+
     NegCon mode (identifies as "Mojo Retro Adapter NegCon" instead of "Mojo Retro Adapter" when NegCon is detected):
     Steering: x
     Button I: z (0..255 in NegCon mode instead of -128..127)
@@ -253,16 +254,16 @@ v1.0
 - new and hopefully final button layout:
 Button 1:	bottom button (SNES B, PSX Cross, NegCon B, NES B, NeoGeo A, Genesis A, Gamecube B, N64 B, PCE II)
 Button 2:	right button (SNES A, PSX Circle, NegCon A, NES A, Neogeo B, Genesis B, Gamecube A, N64 A, PCE I)
-Button 4:	left button (SNES Y, PSX Square, NeoGeo C, Genesis C, Gamecube Y, N64 Yellow Down), 
+Button 4:	left button (SNES Y, PSX Square, NeoGeo C, Genesis C, Gamecube Y, N64 Yellow Down),
 Button 5:	upper button (SNES X, PSX Triangle, NeoGeo D, Genesis X, Gamecube X, N64 Yellow Up)
-Button 7:	Left Shoulder (SNES L, PSX L1, Genesis Y, Gamecube L, N64 L) 
+Button 7:	Left Shoulder (SNES L, PSX L1, Genesis Y, Gamecube L, N64 L)
 Button 8:	Right Shoulder (SNES R, PSX R1, Genesis Z, Gamecube R, N64 R)
 Button 9:	Misc 1 (PSX L2, N64 Yellow Left, Saturn L)
 Button 10:	Misc 2 (PSX R2, N64 Yellow Right, Saturn R)
 Button 11:	Select
 Button 12:	Start (PC Engine Play, Genesis Mode)
-Button 14:	Misc 3 (PSX L3, N64 Z, Gamecube Z) 
-Button 15:	Misc 4 (PSX R3)	
+Button 14:	Misc 3 (PSX L3, N64 Z, Gamecube Z)
+Button 15:	Misc 4 (PSX R3)
 Analog:
 Left Joystick: x,y
 Right Joystick: z,Rz
@@ -276,28 +277,28 @@ v0.99
 - changed USB Usage ID to game pad to comply with Android and Windows simultaneously
 - new button layout to fully conform with Android while maintaining Windows compatibility
  Button mapping to conform with Android:
-    button 1:   bottom button (SNES B, PSX Cross, NegCon B, NES B, NeoGeo A, Genesis A, Gamecube A, N64 A. PCE II), 
+    button 1:   bottom button (SNES B, PSX Cross, NegCon B, NES B, NeoGeo A, Genesis A, Gamecube A, N64 A. PCE II),
     button 2:   right button (SNES A, PSX Circle, NegCon A, NES A, Neogeo B, Genesis B, Gamecube X, N64 Yellow Down, PCE I)
-    
-    button 4:   left button (SNES Y, PSX Square, NeoGeo C, Genesis C, Gamecube B, N64 B), 
+
+    button 4:   left button (SNES Y, PSX Square, NeoGeo C, Genesis C, Gamecube B, N64 B),
     button 5:   upper button (SNES X, PSX Triangle, NeoGeo D, Genesis X, Gamecube Y, N64 Yellow Up)
-    
+
     button 7:   Left Shoulder (PSX L1, Genesis Y, Gamecube L, N64 L, Saturn L)
     button 8:   Right Shoulder (PSX R1 Genesis Z, Gamecube R, N64 R, Saturn R)
-    
-    button 9:   Misc 1 (PSX L2, N64 Yellow Left), 
+
+    button 9:   Misc 1 (PSX L2, N64 Yellow Left),
     button 10:  Misc 2 (PSX R2, N64 Yellow Right),
-    
+
     button 11:  Select
     button 12:  Start (PC Engine Play, Genesis Mode)
-    
-    button 14:  Misc 3 (PSX L3, N64 Z, Gamecube Z) 
+
+    button 14:  Misc 3 (PSX L3, N64 Z, Gamecube Z)
     button 15:  Misc 4 (PSX R3)
 
     Analog axes:
     Left Joystick: x,y
     Right Joystick: z,Rz
-    
+
     NegCon mode axes (device name changes to "Mojo Retro Adapter Mod NegCon" instead of "Mojo Retro Adapter Mod" when a NegCon is detected):
     Steering (twist): x
     Button I: z (0..255 in NegCon mode instead of -128..127)
@@ -312,17 +313,17 @@ v0.98
 v0.97
 - Right analog stick and DPAD now work correctly in Android. (Android expects second analog stick to be reported as Z/Rz axes instead of Rx/Ry. Also DPAD was reported as 4 bits instead of 8, breaking compatibility with android. This is now all fixed.)
 - Just for reference, the new button config since v0.96:
-    button 1: bottom button (SNES B, PSX Cross, NES A, NeoGeo A, Genesis A), 
-    button 2: left button (SNES Y, PSX Square, NES B, NeoGeo B, Genesis B), 
+    button 1: bottom button (SNES B, PSX Cross, NES A, NeoGeo A, Genesis A),
+    button 2: left button (SNES Y, PSX Square, NES B, NeoGeo B, Genesis B),
     button 3: upper button (SNES X, PSX Triangle, NeoGeo C, Genesis C, Gamecube Y, N64 Yellow Up)
     button 4: right button (SNES A, PSX Circle, Neogeo D, Genesis X, Gamecube X, N64 Yellow Down)
-    button 5: Misc 1 (PSX L2, Genesis Y, N64 Yellow Left), 
+    button 5: Misc 1 (PSX L2, Genesis Y, N64 Yellow Left),
     button 6: Misc 2 (PSX R2, Genesis Z, N64 Yellow Right),
     button 7: Left Shoulder (PSX L1, Gamecube L, N64 L)
     button 8: Right Shoulder (PSX R1 Gamecube R, N64 R)
     button 9: (Select, Gamecube Z, N64 Z)
     button 10: (Start, Play)
-    button 11: Misc 3 (PSX L3) 
+    button 11: Misc 3 (PSX L3)
     button 12: Misc 4 (PSX R3)
 
 v0.96
@@ -340,7 +341,7 @@ v0.94
 - Analog L/R deadzone range adjusted in Xbox mode to prevent accidental L/R triggering.
 - N64/GC axis inversion now handled in C instead of assembler.
 - Clock speed increased for PSX controllers. With the new interrupt handling it works fine with 24 us per bit on Windows and Xbox. Before I had to set it to ~44 us per bit because of the bitflips I saw on Xbox at smaller delays.
- 
+
 
 v0.93
 - incorporated N64 y-axis inversion assembler fix from AlmightyFrog
@@ -354,17 +355,17 @@ v0.91
 - adjusted all PSX timings to hopefully be more robust against slight changes in clock timings and delays etc.
 - changed button mappings in Normal Mode and Arcade Mode for all supported controllers to be more consistent, new mappings:
 
-    button 1: bottom button (SNES B, PSX Cross, NES A, NeoGeo A, Genesis A), 
-    button 2: left button (SNES Y, PSX Square, NES B, NeoGeo B, Genesis B), 
+    button 1: bottom button (SNES B, PSX Cross, NES A, NeoGeo A, Genesis A),
+    button 2: left button (SNES Y, PSX Square, NES B, NeoGeo B, Genesis B),
     button 3: upper button (SNES X, PSX Triangle, NeoGeo C, Genesis C)
     button 4: right button (SNES A, PSX Circle, Neogeo D, Genesis X)
-    button 5: Misc 1 (PSX L1, Genesis Y, N64 Yellow Left), 
+    button 5: Misc 1 (PSX L1, Genesis Y, N64 Yellow Left),
     button 6: Misc 2 (PSX R1, Genesis Z, N64 Yellow Right),
     button 7: Left Shoulder (PSX L2)
     button 8: Right Shoulder (PSX R2)
     button 9: Select
     button 10: Start
-    button 11: Misc 3 (PSX L3) 
+    button 11: Misc 3 (PSX L3)
     button 12: Misc 4 (PSX R3)
 
 v0.9
@@ -374,7 +375,7 @@ v0.9
 - adjusted PSX timing again to eliminate one last bitflip that occured every few seconds on the NegCon L button.
 
 v0.8
-- slight tweak to psx clock delay to make it work with PS2 controllers. 
+- slight tweak to psx clock delay to make it work with PS2 controllers.
 
 v0.7
 -finally made my own PSX adapter cable so I can debug PSX controllers. I found and fixed jitter problems with the original RetroAdapter communication code between adapter and PSX controller. The bytes were read almost half a PSX clock cycle after the supposed readout time on clk rising edge. This lead to jitter effects, where some buttons occasionally flickered off and on even if pressed down continously. Due to this, the vertical axis of the left analog stick also wasn't as accurate as it could have been. The Xbox controller tester for Xbox classic was an invaluable tool and shows such problems very clearly. All those problems should be completely fixed now.
