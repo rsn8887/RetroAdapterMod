@@ -27,7 +27,7 @@ Overview
   - For 2-4 player support, just hook up multiple retroadapters to the Xbox, one player per port
 
 - Switch mode:
-  - This is for use on Nintendo Switch. Note the Switch can support up to three simultaneous wired adapters running this version of the firmware (using a USB hub).
+  - This is for use on Nintendo Switch. Note the Switch can support multiple simultaneous wired adapters running this version of the firmware (using a USB hub). Tested with four, but it might support even more.
 
 - Normal mode:
   - This is for use on PC and Android. In Android, the original RetroAdapter was not reporting directions up and left for NES and some other controller types.
