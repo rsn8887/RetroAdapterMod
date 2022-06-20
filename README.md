@@ -1,7 +1,7 @@
 # RetroAdapterMod
 Mod of Paul Qureshi's Mojo RetroAdapter Firmware by rsn8887
 
-Firmware v2.1a Mod v1.6
+Firmware v2.1a Mod v1.7
 ----------
 ![Photo of Retroadapter](screenshots/photo_of_adapter.jpg)
 
@@ -68,6 +68,15 @@ x                              | Twist
 "Throttle" axis                | I
 "Accelerator" axis (R2 Analog) | II      
 "Brake axis" (L2 Analog)       | L
+
+For NegCon on MiSTer PSX core using the core's "wheel-negcon" mode, the analog buttons are mapped as follows.
+
+MiSTer Host                    | NegCon
+------------------------------ | ------
+x                              | Twist
+y                              | I
+Rz (right stick y)             | II      
+z (right stick x)              | L
 
 The pinout for the arcade mode (no button 3 and no button 6 to maintain Android compatibility):
 
@@ -181,6 +190,9 @@ The connector cables between RetroAdapter and old-school controllers should be k
 
 Changelog
 =========
+v1.7
+- add special firmware version for MiSTer that allows full NeGcon support on MiSTer when the PS1 core is set to "wheel-negcon" mode. No other differences.
+
 v1.6
 - add firmware versions for 16 MHz crystals, for commercial boards that use 16 MHz instead of 15 MHz (untested)
 - make code compatible with latest avr-gcc compiler
