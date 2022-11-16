@@ -3,7 +3,7 @@
 ###############################################################################
 
 ## General Flags
-PROJECT = RetroAdapterV2_Normal_16MHz
+PROJECT = RetroAdapterV2_Undamned_16MHz
 MCU = atmega168
 TARGET = $(PROJECT).elf
 CC = avr-gcc.exe
