@@ -62,10 +62,10 @@ void ReadSaturn(report_t *reportBuffer)
 
 		_delay_us(2);
 
-		if (!(PINB & SAT_UP)) reportBuffer->b1 |= (1<<5);		// Z
-		if (!(PINB & SAT_DN)) reportBuffer->b1 |= (1<<4);		// Y
+		if (!(PINB & SAT_UP)) reportBuffer->b1 |= (1<<7);		// Z
+		if (!(PINB & SAT_DN)) reportBuffer->b1 |= (1<<6);		// Y
 		if (!(PIND & SAT_LF)) reportBuffer->b1 |= (1<<3);		// X
-		if (!(PIND & SAT_RT)) reportBuffer->b1 |= (1<<7);		// R
+		if (!(PIND & SAT_RT)) reportBuffer->b1 |= (1<<5);		// R
 	}
 
 	else if (PINB & SAT_UP)		// Analogue pad
@@ -192,7 +192,7 @@ void ReadSaturn(report_t *reportBuffer)
 		if (!(PIND & SAT_LF)) temp |= (1<<2);		// Left
 		if (!(PIND & SAT_RT)) temp |= (1<<3);		// Right
 
-		if (satmode == 1) reportBuffer->ry = temp - 128;
+		if (satmode == 1) reportBuffer->ry = (temp >> 1);
 
 		/* --- Left shoulder ----------------------------------------------------------------*/
 
@@ -215,7 +215,7 @@ void ReadSaturn(report_t *reportBuffer)
 		if (!(PIND & SAT_LF)) temp |= (1<<2);		// Left
 		if (!(PIND & SAT_RT)) temp |= (1<<3);		// Right
 
-		if (satmode == 1) reportBuffer->rx = temp - 128;
+		if (satmode == 1) reportBuffer->rx = (temp >> 1);
 
 		/* --- End of data transfer ---------------------------------------------------------*/
 

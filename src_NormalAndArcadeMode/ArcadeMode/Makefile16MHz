@@ -6,7 +6,7 @@
 PROJECT = RetroAdapterV2_Arcade_16MHz
 MCU = atmega168
 TARGET = $(PROJECT).elf
-CC = avr-gcc.exe
+CC = avr-gcc
 
 ## Options common to compile, link and assembly rules
 COMMON = -mmcu=$(MCU)
