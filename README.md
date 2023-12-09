@@ -1,7 +1,7 @@
 # RetroAdapterMod
 Mod of Paul Qureshi's Mojo RetroAdapter Firmware by rsn8887
 
-Firmware v2.1a Mod v1.7
+Firmware v2.1a Mod v1.8
 ----------
 ![Photo of Retroadapter](screenshots/photo_of_adapter.jpg)
 
@@ -15,9 +15,9 @@ The src archive includes all sources, binaries, and the original code this mod i
 Overview
 ========
 
-- Included are four modified versions of the original Mojo Retroadapter firmware, as hex and source files. There's a version for Xbox, one for arcade cabinets, one for PC and Android, and one for Switch
+- Included are six modified versions of the original Mojo Retroadapter firmware, as hex and source files. There's a version for Xbox, one for arcade cabinets, one for PC and Android, and one for Switch
 
-- All four versions include the NegCon controller support.
+- All six versions include the NegCon controller support.
 
 - Xbox mode:
   - A RetroAdapter updated with this version of the modded Firmware only works on Xbox Classic (note: you can always go back after modding using the adapter's USB update feature)
@@ -27,13 +27,19 @@ Overview
   - For 2-4 player support, just hook up multiple retroadapters to the Xbox, one player per port
 
 - Switch mode:
-  - This is for use on Nintendo Switch. Note the Switch can support multiple simultaneous wired adapters running this version of the firmware (using a USB hub). Tested with four, but it might support even more.
+  - For use on Nintendo Switch. Note the Switch can support multiple simultaneous wired adapters running this version of the firmware (using a USB hub). Tested with four, but it might support even more.
 
 - Normal mode:
-  - This is for use on PC and Android. In Android, the original RetroAdapter was not reporting directions up and left for NES and some other controller types.
+  - For use on PC and Android. On Android, the original RetroAdapter was not reporting directions up and left for NES and some other controller types.
 
 - Arcade mode:
-  - This version is suited for use in an arcade cabinet. It works on PCs just like the original RetroAdapter, but I replaced Neogeo stick support on the DB15 with an arcade mode that has just 8 firebuttons on the DB15, to give you a total of 10 buttons and 4 directions when you hook up your Arcade controls to pins on both DB9 and DB15.
+  - Suited for use in an arcade cabinet. It works on PCs just like the original RetroAdapter, but I replaced Neogeo stick support on the DB15 with an arcade mode that has just 8 firebuttons on the DB15, to give you a total of 10 buttons and 4 directions when you hook up your Arcade controls to pins on both DB9 and DB15.
+
+- Undamned mode:
+  - Suited for use with arcade sticks following the "undamned" standard, which is an updated version of the NeoGeo pinout that allows for two additional buttons.
+
+- MiSTer mode:
+  - Special firmware version for MiSTer that allows full NeGcon support on MiSTer when the PS1 core is set to "wheel-negcon" mode. No other differences compared to Normal mode.
 
 Button Mappings
 ===============
@@ -190,6 +196,10 @@ The connector cables between RetroAdapter and old-school controllers should be k
 
 Changelog
 =========
+v1.8
+- fix Sega Saturn controllers
+- add special firmware version for arcade sticks with the "undamned" extended NeoGeo pinout.
+
 v1.7
 - add special firmware version for MiSTer that allows full NeGcon support on MiSTer when the PS1 core is set to "wheel-negcon" mode. No other differences.
 
