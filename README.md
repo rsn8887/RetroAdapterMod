@@ -1,7 +1,7 @@
 # RetroAdapterMod
 Mod of Paul Qureshi's Mojo RetroAdapter Firmware by rsn8887
 
-Firmware v2.1a Mod v1.8
+Firmware v2.1a Mod v1.9
 ----------
 ![Photo of Retroadapter](screenshots/photo_of_adapter.jpg)
 
@@ -196,6 +196,9 @@ The connector cables between RetroAdapter and old-school controllers should be k
 
 Changelog
 =========
+v1.9
+- fix broken .hex files, Playstation controller support was broken in v1.8
+
 v1.8
 - fix Sega Saturn controllers
 - add special firmware version for arcade sticks with the "undamned" extended NeoGeo pinout.
